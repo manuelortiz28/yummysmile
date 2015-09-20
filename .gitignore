@@ -1,0 +1,16 @@
+build/
+gradle/
+.gradle/
+.idea/
+.settings/
+*.orig
+local.properties
+gradlew
+gradlew.bat
+*.iml
+crashlytics.properties
+fabric/releaseNotes.txt
+META-INF\MANIFEST.MF
+*.project
+*.classpath
+gradle.properties

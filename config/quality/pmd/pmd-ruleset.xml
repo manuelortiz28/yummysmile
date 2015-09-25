@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<ruleset name="Custom ruleset"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <rule ref="rulesets/java/android.xml"/>
+
+    <rule ref="rulesets/java/basic.xml">
+        <exclude name="CollapsibleIfStatements"/>
+    </rule>
+
+    <rule ref="rulesets/java/clone.xml">
+        <exclude name="CloneMethodMustImplementCloneable"/>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml">
+        <exclude name="ExcessiveClassLength"/>
+        <exclude name="ExcessiveMethodLength"/>
+        <exclude name="ExcessiveParameterList"/>
+        <exclude name="CyclomaticComplexity"/>
+        <exclude name="NPathComplexity"/>
+        <exclude name="ExcessivePublicCount"/>
+        <exclude name="TooManyMethods"/>
+        <exclude name="TooManyFields"/>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="1060"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="90"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/ExcessiveParameterList">
+        <properties>
+            <property name="minimum" value="12"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="10"/>
+            <property name="showClassesComplexity" value="false"/>
+        </properties>
+    </rule>
+
+    <!--rule ref="rulesets/java/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="20"/>
+        </properties>
+    </rule-->
+
+    <rule ref="rulesets/java/controversial.xml/AssignmentInOperand"/>
+    <rule ref="rulesets/java/controversial.xml/NullAssignment"/>
+
+    <rule ref="rulesets/java/coupling.xml">
+        <exclude name="CouplingBetweenObjects"/>
+        <exclude name="ExcessiveImports"/>
+    </rule>
+
+    <rule ref="rulesets/java/coupling.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="threshold" value="33"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="AvoidDeeplyNestedIfStmts"/>
+        <exclude name="AvoidSynchronizedAtMethodLevel"/>
+        <exclude name="CloseResource"/>
+        <!-- this issue will be controlled with findbugs -->
+        <exclude name="ConfusingTernary"/>
+        <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
+        <!-- doesn't work properly -->
+        <exclude name="UncommentedEmptyConstructor"/>
+        <exclude name="UseSingleton"/>
+        <exclude name="AbstractClassWithoutAbstractMethod"/>
+    </rule>
+
+    <rule ref="rulesets/java/design.xml/AvoidDeeplyNestedIfStmts">
+        <properties>
+            <property name="problemDepth" value="4"/>
+        </properties>
+    </rule>
+
+    <rule ref="rulesets/java/imports.xml"/>
+
+    <rule ref="rulesets/java/optimizations.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+    </rule>
+
+    <rule ref="rulesets/java/strictexception.xml">
+        <exclude name="AvoidThrowingNullPointerException"/>
+    </rule>
+
+    <rule ref="rulesets/java/strings.xml"/>
+
+    <rule ref="rulesets/java/typeresolution.xml">
+        <exclude name="CloneMethodMustImplementCloneable"/>
+    </rule>
+
+    <rule ref="rulesets/java/unusedcode.xml">
+        <!--TODO remove this exclusion -->
+        <exclude name="UnusedPrivateMethod"/>
+    </rule>
+
+</ruleset>
+

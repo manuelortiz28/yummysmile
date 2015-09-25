@@ -1,0 +1,62 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.0'
+        classpath 'io.fabric.tools:gradle:1.+'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+/**
+ * Tasks for the checkstyle to be executed in the sub-projects.
+ */
+subprojects {
+    task checkstyle(type: Checkstyle) {
+        configFile file("${project.rootDir}/config/quality/checkstyle/checkstyle.xml") // Where my checkstyle config is...
+        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
+        // Where is my suppressions file for checkstyle is...
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+        classpath = files()
+    }
+
+    task findbugs(type: FindBugs, dependsOn: ':app:assembleDebug') {
+        description 'Run findbugs'
+        group 'verification'
+
+        excludeFilter file('../config/quality/findbugs/findbugs-filter.xml')
+        classes = fileTree('build/classes/debug/')
+        source = fileTree('src/main/java/')
+        classpath = files()
+        effort = 'max'
+    }
+
+    task pmd(type: Pmd) {
+        description 'Run pmd'
+        group 'verification'
+
+        ruleSetFiles = files('../config/quality/pmd/pmd-ruleset.xml')
+        source = fileTree('src/main/java')
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+}
+
+

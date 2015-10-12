@@ -1,0 +1,15 @@
+package com.visiontech.yummysmile.repository.api;
+
+import com.visiontech.yummysmile.repository.api.dto.UserDTO;
+
+import retrofit.http.FormUrlEncoded;
+import retrofit.http.POST;
+
+/**
+ * @author hector.torres
+ */
+public interface UserAPIService {
+        @FormUrlEncoded
+        @POST("/yummysmile/api/login")
+        public UserDTO login();
+}

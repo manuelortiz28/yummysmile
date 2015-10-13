@@ -14,8 +14,7 @@ import com.visiontech.yummysmile.util.Constants;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.android.schedulers.HandlerScheduler;
-import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * @author hector.torres
@@ -23,23 +22,20 @@ import rx.functions.Action1;
 public class MealsControllerImpl implements MealsController {
 
     private static final Handler MAIN_THREAD = new Handler(Looper.getMainLooper());
-
     Bus eventBus;
 
-    public MealsControllerImpl(Bus eventBus){
+    public MealsControllerImpl(Bus eventBus) {
         this.eventBus = eventBus;
     }
 
     /**
      * ==================================================================================================
-     *                                         Implementations
+     * Implementations
      * ==================================================================================================
      */
 
     @Override
     public void getMeals() {
-        final RetrieveMealsEvent mealsEvent = new RetrieveMealsEvent();
-
         // Create an instance of our API interface.
         MealAPIService mealAPIService = FactoryRestAdapter.createRetrofitService(MealAPIService.class);
 
@@ -48,32 +44,9 @@ public class MealsControllerImpl implements MealsController {
         // Create a call instance for meals.
         Observable<MealsDTO> observable = mealAPIService.getMeals(Constants.TOKEN_VALUE, Constants.USER_VALUE);
         observable.observeOn(AndroidSchedulers.mainThread());
-        observable.subscribeOn(HandlerScheduler.from(MAIN_THREAD));
-        observable.subscribe(new Subscriber<MealsDTO>() {
-            @Override
-            public void onCompleted() {
-                Log.i("CONTROLLER", "onCompleted");
-            }
+        observable.subscribeOn(Schedulers.newThread());
 
-            @Override
-            public void onError(Throwable e) {
-                Log.i("CONTROLLER", "onError");
-            }
-
-            @Override
-            public void onNext(MealsDTO mealsDTO) {
-                Log.i("CONTROLLER", "onNext");
-                mealsEvent.setResult(mealsDTO);
-
-                MAIN_THREAD.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        eventBus.post(mealsEvent);
-                    }
-                });
-            }
-        });
-
+        observable.subscribe(new MealsSubscriber());
     }
 
     /**
@@ -84,12 +57,57 @@ public class MealsControllerImpl implements MealsController {
 
     /**
      * ==================================================================================================
-     *                                         Events
+     * Events
      * ==================================================================================================
      */
 
     public class RetrieveMealsEvent extends BaseResponseEvent<MealsDTO> {
 
+    }
+
+    class MealsSubscriber extends Subscriber<MealsDTO> {
+        RetrieveMealsEvent mealsEvent = new RetrieveMealsEvent();
+
+        @Override
+        public void onCompleted() {
+            Log.i("CONTROLLER", "onCompleted");
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.i("CONTROLLER", "onError");
+            mealsEvent.setResult(e);
+        }
+
+        @Override
+        public void onNext(MealsDTO response) {
+            Log.i("CONTROLLER", "onNext");
+            mealsEvent.setResult(response);
+            try {
+                Log.i("CONTROLLER", "before Sleep");
+                Thread.sleep(10000);
+                Log.i("CONTROLLER", "after Sleep");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.i("CONTROLLER", "Despierto");
+            if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+                Log.i("CONTROLLER", "MISMO HILO 1");
+            } else {
+                Log.i("CONTROLLER", "OTRO HILO 1");
+            }
+            MAIN_THREAD.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+                        Log.i("CONTROLLER", "MISMO HILO 2");
+                    } else {
+                        Log.i("CONTROLLER", "OTRO HILO 2");
+                    }
+                    eventBus.post(mealsEvent);
+                }
+            });
+        }
     }
 
 }

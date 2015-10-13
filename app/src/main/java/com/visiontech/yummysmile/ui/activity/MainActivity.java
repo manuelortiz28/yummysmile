@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnRequest;
     MealsControllerImpl mealsController;
+    ProgressBar loader;
     private static final String TAG = "YummySmile :)";
 
     @Override
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         btnRequest = (Button) findViewById(R.id.btn_request);
+        loader = (ProgressBar) findViewById(R.id.progressBar);
         mealsController = new MealsControllerImpl(YummySmileApplication.getEventBus());
     }
 
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loader.setVisibility(View.VISIBLE);
                 mealsController.getMeals();
             }
         });
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onFetchMeals(MealsControllerImpl.RetrieveMealsEvent event) {
+        loader.setVisibility(View.GONE);
         if (event.isSuccess() && event.getResponse() != null) {
             MealsDTO meals = event.getResponse();
             if (meals != null && !meals.getMeals().isEmpty()) {

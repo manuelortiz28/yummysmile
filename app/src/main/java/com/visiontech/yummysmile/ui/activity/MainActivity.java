@@ -13,24 +13,25 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.squareup.otto.Subscribe;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.YummySmileApplication;
-import com.visiontech.yummysmile.repository.api.dto.MealDTO;
-import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
+import com.visiontech.yummysmile.ui.presenter.MainPresenter;
+import com.visiontech.yummysmile.ui.presenter.MainView;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
-    Button btnRequest;
-    MealsControllerImpl mealsController;
-    ProgressBar loader;
+    private Button btnRequest;
+    private MealsControllerImpl mealsController;
+    private ProgressBar loader;
+    private boolean loaderFlag;
     private static final String TAG = "YummySmile :)";
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("", "onCreate()");
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
@@ -40,28 +41,33 @@ public class MainActivity extends AppCompatActivity {
 
         btnRequest = (Button) findViewById(R.id.btn_request);
         loader = (ProgressBar) findViewById(R.id.progressBar);
-        mealsController = new MealsControllerImpl(YummySmileApplication.getEventBus());
-    }
+        mainPresenter = new MainPresenter(this);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        YummySmileApplication.getEventBus().register(this);
+        if (savedInstanceState != null) {
+            Log.d("", "onCreate() - savedInstanceState");
+            boolean flag = savedInstanceState.getBoolean("loader");
+            loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
+        }
 
         btnRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loader.setVisibility(View.VISIBLE);
-                mealsController.getMeals();
+                showProgress(true);
+                mainPresenter.fetchMeals();
             }
         });
     }
 
     @Override
+    protected void onResume() {
+        Log.d("", "onResume()");
+        super.onResume();
+    }
+
+    @Override
     protected void onStop() {
+        Log.d("", "onStop()");
         super.onStop();
-        YummySmileApplication.getEventBus().unregister(this);
     }
 
     @Override
@@ -86,20 +92,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Subscribe
-    public void onFetchMeals(MealsControllerImpl.RetrieveMealsEvent event) {
-        loader.setVisibility(View.GONE);
-        if (event.isSuccess() && event.getResponse() != null) {
-            MealsDTO meals = event.getResponse();
-            if (meals != null && !meals.getMeals().isEmpty()) {
-                for (MealDTO meal : meals.getMeals()) {
-                    Log.i("", meal.getName());
-                    Log.i("", "" + meal.getPrice());
-                    Toast.makeText(this, "Showing meals", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(this, "All Cool, but no meals", Toast.LENGTH_SHORT).show();
-            }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.d("", "onSaveInstanceState()");
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("loader", loaderFlag);
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+        if (show) {
+            loader.setVisibility(View.VISIBLE);
+            loaderFlag = true;
+        } else {
+            loader.setVisibility(View.INVISIBLE);
+            loaderFlag = false;
         }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

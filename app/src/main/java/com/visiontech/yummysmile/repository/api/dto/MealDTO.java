@@ -8,9 +8,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MealDTO {
     @SerializedName("objectId")
-    String id;
-    String name;
-    double price;
+    private String id;
+    private String name;
 
     public String getId() {
         return id;
@@ -26,13 +25,5 @@ public class MealDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.R;
+import com.visiontech.yummysmile.repository.api.dto.MealDTO;
+import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 import com.visiontech.yummysmile.ui.presenter.MainPresenter;
 import com.visiontech.yummysmile.ui.presenter.MainView;
@@ -23,10 +25,8 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private Button btnRequest;
-    private MealsControllerImpl mealsController;
     private ProgressBar loader;
     private boolean loaderFlag;
-    private static final String TAG = "YummySmile :)";
     private MainPresenter mainPresenter;
 
     @Override
@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         outState.putBoolean("loader", loaderFlag);
     }
 
+
+    // ==============  Presenter methods ============
+
     @Override
     public void showProgress(boolean show) {
         if (show) {
@@ -113,5 +116,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void mealsItems(MealsDTO mealsDTO) {
+        for (MealDTO meal : mealsDTO.getMeals()) {
+            Log.d("", meal.getName());
+        }
+        showMessage("Showing Elements");
     }
 }

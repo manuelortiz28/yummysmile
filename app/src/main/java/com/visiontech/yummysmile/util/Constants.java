@@ -3,7 +3,11 @@ package com.visiontech.yummysmile.util;
 /**
  * @author hector.torres
  */
-public class Constants {
+public final class Constants {
+
+    private Constants() {
+    }
+
     public static final String TOKEN_FIELD = "TOKEN";
     public static final String TOKEN_VALUE = "r:WsP1csnsfiOTRsskceR99N3Gn";
     public static final String USER_FIELD = "userID";

@@ -23,7 +23,7 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
 
     private List<MealDTO> meals = Collections.emptyList();
     private Context context;
-    private static MealCardOnClickListener listener;
+    private MealCardOnClickListener listener;
 
     public MainCardsAdapter(Context context, List<MealDTO> meals, MealCardOnClickListener listener) {
         this.context = context;

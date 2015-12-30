@@ -13,5 +13,5 @@ import retrofit.http.POST;
 public interface UserAPIService {
     @FormUrlEncoded
     @POST("/yummysmile/api/login")
-    public UserDTO login();
+    UserDTO login();
 }

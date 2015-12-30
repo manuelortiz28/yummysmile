@@ -11,7 +11,11 @@ import retrofit.RxJavaCallAdapterFactory;
  *
  * @author hector.torres
  */
-public class FactoryRestAdapter {
+public final class FactoryRestAdapter {
+
+    private FactoryRestAdapter() {
+    }
+
     public static <T> T createRetrofitService(final Class<T> clazz) {
         final Retrofit restAdapter = new Retrofit.Builder()
                 .baseUrl(Constants.HOST) // we can parameterize this if it is need it.

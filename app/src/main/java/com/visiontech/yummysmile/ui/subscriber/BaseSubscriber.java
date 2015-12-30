@@ -9,7 +9,7 @@ import rx.Subscriber;
 /**
  * Class that is going to hanlde the response of Meals Request.
  *
- * @author hetorres
+ * @author hector.torres
  */
 public class BaseSubscriber<T> extends Subscriber<T> {
     private BasePresenter presenter;
@@ -20,12 +20,12 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-        Log.i("CONTROLLER", "onCompleted");
+        Log.d("CONTROLLER", "onCompleted");
     }
 
     @Override
     public void onError(Throwable e) {
-        Log.i("CONTROLLER", "onError");
+        Log.d("CONTROLLER", "onError");
         presenter.onError(e);
     }
 

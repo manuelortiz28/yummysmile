@@ -5,5 +5,6 @@ package com.visiontech.yummysmile.ui.presenter;
  */
 public abstract class BasePresenter {
     public abstract <T> void onNext(T data);
+
     public abstract void onError(Throwable e);
 }

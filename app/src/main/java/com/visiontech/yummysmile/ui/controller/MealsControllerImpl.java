@@ -40,12 +40,12 @@ public class MealsControllerImpl implements MealsController {
                   .subscribe(new Subscriber<MealsDTO>() {
                       @Override
                       public void onCompleted() {
-                          Log.i("CONTROLLER", "onCompleted");
+                          Log.d("CONTROLLER", "onCompleted");
                       }
 
                       @Override
                       public void onError(Throwable e) {
-                          Log.i("CONTROLLER", "onError");
+                          Log.d("CONTROLLER", "onError");
                           presenter.onError(e);
                       }
 

@@ -6,10 +6,12 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.POST;
 
 /**
+ * Interface that contains the methods to use on Meal API service
+ *
  * @author hector.torres
  */
 public interface UserAPIService {
-        @FormUrlEncoded
-        @POST("/yummysmile/api/login")
-        public UserDTO login();
+    @FormUrlEncoded
+    @POST("/yummysmile/api/login")
+    public UserDTO login();
 }

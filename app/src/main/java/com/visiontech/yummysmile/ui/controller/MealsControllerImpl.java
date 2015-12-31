@@ -19,6 +19,7 @@ import rx.schedulers.Schedulers;
  * @author hector.torres
  */
 public class MealsControllerImpl implements MealsController {
+    private static final String LOG_TAG = MealsControllerImpl.class.getName();
     private BasePresenter presenter;
 
     public MealsControllerImpl(BasePresenter presenter) {
@@ -30,7 +31,7 @@ public class MealsControllerImpl implements MealsController {
         // Create an instance of our API interface.
         MealAPIService mealAPIService = FactoryRestAdapter.createRetrofitService(MealAPIService.class);
 
-        Log.d("CONTROLLER", "getMeals()");
+        Log.d(LOG_TAG, "getMeals()");
 
         // Create a call instance for meals.
         Observable<MealsDTO> observable = mealAPIService.getMeals(Constants.TOKEN_VALUE, Constants.USER_VALUE);
@@ -40,18 +41,18 @@ public class MealsControllerImpl implements MealsController {
                   .subscribe(new Subscriber<MealsDTO>() {
                       @Override
                       public void onCompleted() {
-                          Log.d("CONTROLLER", "onCompleted");
+                          Log.d(LOG_TAG, "onCompleted()");
                       }
 
                       @Override
                       public void onError(Throwable e) {
-                          Log.d("CONTROLLER", "onError");
+                          Log.d(LOG_TAG, "onError()");
                           presenter.onError(e);
                       }
 
                       @Override
                       public void onNext(MealsDTO mealsDTO) {
-                          Log.d("CONTROLLER", "onNext");
+                          Log.d(LOG_TAG, "onNext()");
                           presenter.onNext(mealsDTO);
                       }
                   });

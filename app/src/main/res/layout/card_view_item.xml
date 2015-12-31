@@ -20,12 +20,12 @@
 
     <TextView
         android:id="@+id/tv_description"
-        style="@style/Font.Roboto.Regular.14.White"
+        style="@style/Font.Roboto.Regular.Body1.White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/transparent_black_55"
-        android:padding="@dimen/padding_10"
+        android:padding="@dimen/default_padding_text"
         />
 
 </android.support.v7.widget.CardView>

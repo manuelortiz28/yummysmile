@@ -18,9 +18,10 @@
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="card_radius">6dp</dimen>
     <dimen name="card_elevation">7dp</dimen>
-    <dimen name="padding_10">10dp</dimen>
-    <dimen name="padding_15">15dp</dimen>
-    <dimen name="padding_30">30dp</dimen>
-    <dimen name="padding_80">80dp</dimen>
+    <dimen name="default_padding_text">10dp</dimen>
+    <dimen name="padding_drawer_top">15dp</dimen>
+    <dimen name="margin_avatar">30dp</dimen>
+    <dimen name="padding_width_avatar">80dp</dimen>
+    <dimen name="padding_height_avatar">80dp</dimen>
 
 </resources>

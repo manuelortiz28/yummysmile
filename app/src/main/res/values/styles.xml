@@ -98,32 +98,67 @@
     </style>
 
 
-
-    <!-- Styles with Size-->
-    <style name="Font.Roboto.Regular.14">
+    <!-- Styles with Size -->
+    <!-- Based on https://www.google.com/design/spec/style/typography.html#typography-styles -->
+    <style name="Font.Roboto.Regular.Body1">
         <item name="android:textSize">@dimen/font_size_14</item>
     </style>
 
-    <style name="Font.Roboto.Medium.14">
+    <style name="Font.Roboto.Regular.Caption">
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Body2">
         <item name="android:textSize">@dimen/font_size_14</item>
     </style>
 
+    <style name="Font.Roboto.Medium.Button">
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+
+    <style name="Font.Roboto.Regular.SubHeading">
+        <item name="android:textSize">@dimen/font_size_16</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Title">
+        <item name="android:textSize">@dimen/font_size_20</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.HeadLine">
+        <item name="android:textSize">@dimen/font_size_24</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display1">
+        <item name="android:textSize">@dimen/font_size_34</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display2">
+        <item name="android:textSize">@dimen/font_size_45</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display3">
+        <item name="android:textSize">@dimen/font_size_56</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display4">
+        <item name="android:textSize">@dimen/font_size_112</item>
+    </style>
 
 
     <!-- Styles with Color-->
-    <style name="Font.Roboto.Regular.14.White">
+    <style name="Font.Roboto.Regular.Body1.White">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Font.Roboto.Regular.14.Black">
+    <style name="Font.Roboto.Regular.Body1.Black">
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Font.Roboto.Medium.14.White">
+    <style name="Font.Roboto.Medium.Body2.White">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Font.Roboto.Medium.14.Black">
+    <style name="Font.Roboto.Medium.Body2.Black">
         <item name="android:textColor">@color/black</item>
     </style>
 

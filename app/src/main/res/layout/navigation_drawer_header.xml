@@ -3,33 +3,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingTop="@dimen/padding_15">
+                android:paddingTop="@dimen/padding_drawer_top">
 
     <ImageView
         android:id="@+id/profile_photo"
-        android:layout_width="@dimen/padding_80"
-        android:layout_height="@dimen/padding_80"
-        android:layout_marginLeft="@dimen/padding_30"
-        android:layout_marginStart="@dimen/padding_30"
+        android:layout_width="@dimen/padding_width_avatar"
+        android:layout_height="@dimen/padding_height_avatar"
+        android:layout_marginLeft="@dimen/margin_avatar"
+        android:layout_marginStart="@dimen/margin_avatar"
         android:background="@drawable/ic_account_circle_black_48dp"
         android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_name"
-        style="@style/Font.Roboto.Medium.14.Black"
+        style="@style/Font.Roboto.Medium.Body2.Black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/profile_photo"
         android:layout_gravity="bottom"
-        android:paddingLeft="@dimen/padding_10"/>
+        android:paddingLeft="@dimen/default_padding_text"/>
 
     <TextView
         android:id="@+id/tv_email"
-        style="@style/Font.Roboto.Regular.14.Black"
+        style="@style/Font.Roboto.Regular.Body1.Black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_name"
         android:layout_gravity="bottom"
-        android:paddingLeft="@dimen/padding_10"/>
+        android:paddingLeft="@dimen/default_padding_text"/>
 
 </RelativeLayout>

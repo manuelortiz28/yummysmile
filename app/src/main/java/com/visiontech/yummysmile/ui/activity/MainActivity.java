@@ -31,6 +31,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
+    private static final String LOG_TAG = MainActivity.class.getName();
     private ProgressBar loader;
     private boolean loaderFlag;
     private MainPresenter mainPresenter;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("", "onCreate()");
+        Log.d(LOG_TAG, "onCreate()");
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         loader = (ProgressBar) findViewById(R.id.progressBar);
 
         if (savedInstanceState != null) {
-            Log.d("", "onCreate() - savedInstanceState");
+            Log.d(LOG_TAG, "onCreate() - savedInstanceState");
             boolean flag = savedInstanceState.getBoolean("loader");
             loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
         }
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onResume() {
-        Log.d("", "onResume()");
+        Log.d(LOG_TAG, "onResume()");
         super.onResume();
 
         showProgress(true);
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onStop() {
-        Log.d("", "onStop()");
+        Log.d(LOG_TAG, "onStop()");
         super.onStop();
     }
 
@@ -96,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 showMessage("Home");
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.d("", "onSaveInstanceState()");
+        Log.d(LOG_TAG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
         outState.putBoolean("loader", loaderFlag);
     }
@@ -123,13 +122,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showProgress(boolean show) {
-        if (show) {
-            loader.setVisibility(View.VISIBLE);
-            loaderFlag = true;
-        } else {
-            loader.setVisibility(View.INVISIBLE);
-            loaderFlag = false;
-        }
+        loader.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+        loaderFlag = show;
     }
 
     @Override

@@ -6,25 +6,45 @@
     android:layout_height="match_parent"
     android:clipToPadding="true">
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Toolbar -->
-        <include
-            android:id="@+id/app_bar"
-            layout="@layout/app_bar"/>
 
-        <!-- content layout -->
-        <include
-            android:id="@+id/content"
-            layout="@layout/content_layout"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/app_bar"
-            />
+            >
 
-    </RelativeLayout>
+            <!-- Toolbar -->
+            <include
+                android:id="@+id/tool_bar"
+                layout="@layout/tool_bar"/>
+
+            <!-- content layout -->
+            <include
+                android:id="@+id/content"
+                layout="@layout/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tool_bar"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/margin_fab_button"
+            android:clickable="true"
+            android:src="@drawable/ic_add_white_24dp"
+            app:fabSize="normal"
+            app:layout_behavior="com.visiontech.yummysmile.util.ScrollFABBehavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <!-- left menu layout -->
     <android.support.design.widget.NavigationView

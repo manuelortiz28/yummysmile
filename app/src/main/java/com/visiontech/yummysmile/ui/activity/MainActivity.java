@@ -2,7 +2,9 @@ package com.visiontech.yummysmile.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecyclerView recyclerView;
     private MainCardsAdapter mainCardsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private FloatingActionButton fabButton;
     private MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
         @Override
         public void onMealCardClicked(MealDTO mealDTO) {
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setUpNavDrawer();
         setUpSwipeRefresh();
         setUpCardView();
+        setUpFabButton();
 
         loader = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     // ==============  Private methods ============
 
     private void setUpToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle(getString(R.string.header_time_line));
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
@@ -199,5 +203,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mainCardsAdapter);
         recyclerView.setHasFixedSize(true);
+    }
+
+    private void setUpFabButton() {
+        fabButton = (FloatingActionButton) findViewById(R.id.fab_button);
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(findViewById(R.id.coordinator_layout), "SnackBar, FAB clicked", Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

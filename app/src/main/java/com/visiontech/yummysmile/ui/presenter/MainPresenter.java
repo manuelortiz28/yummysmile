@@ -18,8 +18,8 @@ public class MainPresenter extends BasePresenter {
 
     public MainPresenter(MainView mainView, Context context) {
         this.mainView = mainView;
-        mealsController = new MealsControllerImpl(this);
         this.context = context;
+        mealsController = new MealsControllerImpl(this);
     }
 
     public void fetchMeals() {
@@ -42,5 +42,6 @@ public class MainPresenter extends BasePresenter {
         //FIXME find the final copy.
         mainView.showMessage(String.format(context.getString(R.string.general_error), e.getMessage()));
         //TODO Do we have to show other view? like some text on the layout?
+        mainView.showProgress(false);
     }
 }

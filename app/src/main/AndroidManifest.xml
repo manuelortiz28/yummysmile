@@ -5,6 +5,8 @@
     android:versionName="0.1.0">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.CreateMealActivity"/>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="393b9846c0e0178f8f0768740bdc6fbe3227ef4e" />

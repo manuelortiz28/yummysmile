@@ -1,10 +1,10 @@
 package com.visiontech.yummysmile.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -31,6 +31,11 @@ import com.visiontech.yummysmile.ui.presenter.MainView;
 
 import io.fabric.sdk.android.Fabric;
 
+/**
+ * Class to load the landing screen (lists of meals).
+ *
+ * @author hector.torres
+ */
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -210,7 +215,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(findViewById(R.id.coordinator_layout), "SnackBar, FAB clicked", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, CreateMealActivity.class);
+                startActivity(intent);
             }
         });
     }

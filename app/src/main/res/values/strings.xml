@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">YummySmile</string>
+
+    <!-- Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_bookmarks">BookMarks</string>
+    <string name="menu_action_settings">Settings</string>
+    <string name="menu_save_meal">Done</string>
+
+    <!-- Headers / Toolbar -->
+    <string name="header_time_line">Time Line</string>
+    <string name="header_create_meal">New Meal</string>
+
+    <!-- Errors -->
+    <string name="general_error">There is something wrong: %s</string>
+    <string name="required_field">* Indicates required field</string>
+    <string name="name_required_field">Name is a required</string>
+    <string name="default_tag">default</string>
+
+    <!-- Create Meal -->
+    <string name="meal_title">Meal information</string>
+    <string name="meal_name_hint">Name *</string>
+    <string name="meal_description_hint">Description (optional)</string>
+    <string name="meal_source_picture">* Picture: </string>
+
+</resources>

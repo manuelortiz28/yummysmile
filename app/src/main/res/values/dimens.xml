@@ -1,0 +1,30 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- font sizes -->
+    <dimen name="font_size_112">112sp</dimen>
+    <dimen name="font_size_56">56sp</dimen>
+    <dimen name="font_size_45">45sp</dimen>
+    <dimen name="font_size_34">34sp</dimen>
+    <dimen name="font_size_24">24sp</dimen>
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="card_radius">6dp</dimen>
+    <dimen name="card_elevation">7dp</dimen>
+    <dimen name="default_padding_text">10dp</dimen>
+    <dimen name="padding_drawer_top">15dp</dimen>
+    <dimen name="margin_avatar">30dp</dimen>
+    <dimen name="padding_width_avatar">80dp</dimen>
+    <dimen name="padding_height_avatar">80dp</dimen>
+    <dimen name="margin_fab_button">15dp</dimen>
+    <dimen name="layout_width_avatar">200dp</dimen>
+    <dimen name="layout_height_avatar">200dp</dimen>
+
+</resources>

@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">YummySmile</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!-- Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_bookmarks">BookMarks</string>
+    <string name="menu_action_settings">Settings</string>
+
+    <!-- Headers / Toolbar -->
+    <string name="header_time_line">Time Line</string>
+
+    <!-- Errors -->
+    <string name="general_error">There is something wrong: %s</string>
+
 </resources>

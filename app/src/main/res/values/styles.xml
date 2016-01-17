@@ -10,4 +10,157 @@
         <item name="colorAccent">@color/primaryColorDark</item>
     </style>
 
+    <!-- Supported values for fontFamily are:
+        "sans-serif" for regular Roboto
+        "sans-serif-light" for Roboto Light
+        "sans-serif-condensed" for Roboto Condensed
+     based on: http://developer.android.com/intl/es/about/versions/android-4.1.html -->
+
+    <style name="Font"/>
+
+    <!-- Roboto Regular -->
+    <style name="Font.Roboto">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Font.Roboto.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Roboto.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Font.Roboto.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Font.Roboto.Bold.Italic">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <!-- Roboto Light -->
+    <style name="Font.Roboto.Light">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Roboto.Light.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <!-- Roboto Thin -->
+    <style name="Font.Roboto.Thin">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Roboto.Thin.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <!-- Roboto Condensed -->
+    <style name="Font.Roboto.Condensed">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="Font.Roboto.Condensed.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Roboto.Condensed.Italic">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Font.Roboto.Condensed.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Font.Roboto.Condensed.Bold.Italic">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <!-- Roboto Medium -->
+    <style name="Font.Roboto.Medium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Italic">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Black">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+
+    <!-- Styles with Size -->
+    <!-- Based on https://www.google.com/design/spec/style/typography.html#typography-styles -->
+    <style name="Font.Roboto.Regular.Body1">
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+
+    <style name="Font.Roboto.Regular.Caption">
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Body2">
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Button">
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+
+    <style name="Font.Roboto.Regular.SubHeading">
+        <item name="android:textSize">@dimen/font_size_16</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Title">
+        <item name="android:textSize">@dimen/font_size_20</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.HeadLine">
+        <item name="android:textSize">@dimen/font_size_24</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display1">
+        <item name="android:textSize">@dimen/font_size_34</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display2">
+        <item name="android:textSize">@dimen/font_size_45</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display3">
+        <item name="android:textSize">@dimen/font_size_56</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Display4">
+        <item name="android:textSize">@dimen/font_size_112</item>
+    </style>
+
+
+    <!-- Styles with Color-->
+    <style name="Font.Roboto.Regular.Body1.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Font.Roboto.Regular.Body1.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Body2.White">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Font.Roboto.Medium.Body2.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>

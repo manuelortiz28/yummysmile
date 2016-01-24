@@ -15,6 +15,6 @@ public final class Constants {
     public static final String HOST = "http://207.210.104.159/";
     public static final String URI = "yummysmile/";
     public static final String API = "api/";
-    public static final String VERSION_1 = "v1/";
+    public static final String VERSION = "v1/";
     public static final String MEALS = "meals";
 }

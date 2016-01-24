@@ -29,6 +29,11 @@ import com.visiontech.yummysmile.ui.presenter.MainView;
 
 import io.fabric.sdk.android.Fabric;
 
+/**
+ * Class to load the landing screen (lists of meals).
+ *
+ * @author hector.torres
+ */
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -118,7 +123,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
 
-    // ==============  Presenter actions ============
+    //===========================================================================================================
+    //===============================================   Presenter actions    ====================================
+    //===========================================================================================================
 
     @Override
     public void showProgress(boolean show) {
@@ -136,12 +143,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void mealsItems(MealsDTO mealsDTO) {
         mainCardsAdapter.clear();
         mainCardsAdapter.addAll(mealsDTO.getMeals());
-        showProgress(false);
         swipeRefreshLayout.setRefreshing(false);
     }
 
-
-    // ==============  Private methods ============
+    //===========================================================================================================
+    //===============================================   Private methods    ======================================
+    //===========================================================================================================
 
     private void setUpToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);

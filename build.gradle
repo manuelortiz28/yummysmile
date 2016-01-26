@@ -39,7 +39,7 @@ subprojects {
         group 'verification'
 
         excludeFilter file('../config/quality/findbugs/findbugs-filter.xml')
-        classes = fileTree('build/classes/debug/')
+        classes = fileTree('build/intermediates/classes/debug/')
         source = fileTree('src/main/java/')
         classpath = files()
         effort = 'max'
@@ -53,7 +53,7 @@ subprojects {
         source = fileTree('src/main/java')
 
         reports {
-            xml.enabled = false
+            xml.enabled = true
             html.enabled = true
         }
     }

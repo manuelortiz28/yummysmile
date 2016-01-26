@@ -80,7 +80,9 @@
         <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
         <!-- doesn't work properly -->
         <exclude name="UncommentedEmptyConstructor"/>
+        <!--
         <exclude name="UseSingleton"/>
+        -->
         <exclude name="AbstractClassWithoutAbstractMethod"/>
     </rule>
 

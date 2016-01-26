@@ -26,6 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        preDexLibraries false
+    }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -60,5 +66,5 @@ dependencies {
 check.doLast {
     project.tasks.getByName("checkstyle").execute()
     project.tasks.getByName("findbugs").execute()
-    project.tasks.getByName("pmd").execute()
+    //project.tasks.getByName("pmd").execute()
 }

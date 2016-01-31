@@ -12,10 +12,10 @@ import com.visiontech.yummysmile.ui.subscriber.ResultListener;
  *
  * @author hetorres
  */
-public class MainPresenter extends BasePresenter {
-    private MainView mainView;
-    private MealsControllerImpl mealsController;
-    private Context context;
+public class MainPresenter {
+    private final MainView mainView;
+    private final MealsControllerImpl mealsController;
+    private final Context context;
 
     public MainPresenter(MainView mainView, Context context) {
         this.mainView = mainView;

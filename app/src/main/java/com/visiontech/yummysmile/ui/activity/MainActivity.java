@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private MainPresenter mainPresenter;
 
     private DrawerLayout drawerLayout;
-    private RecyclerView recyclerView;
     private MainCardsAdapter mainCardsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
+    private final MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
         @Override
         public void onMealCardClicked(MealDTO mealDTO) {
             //TODO go to next screen
@@ -201,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void setUpCardView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mainCardsAdapter = new MainCardsAdapter(MainActivity.this, new ArrayList<MealDTO>(), mealCardOnClickListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);

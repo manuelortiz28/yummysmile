@@ -11,7 +11,7 @@ import rx.Subscriber;
  */
 public abstract class BaseSubscriber<T> extends Subscriber<T> {
     private static final String LOG_TAG = BaseSubscriber.class.getName();
-    private ResultListener result;
+    private final ResultListener result;
 
     public BaseSubscriber(ResultListener result) {
         this.result = result;

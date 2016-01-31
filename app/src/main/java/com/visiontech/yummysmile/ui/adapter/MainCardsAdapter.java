@@ -13,7 +13,6 @@ import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.util.Constants;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,9 +20,9 @@ import java.util.List;
  */
 public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.MainCardsViewHolder> {
 
-    private List<MealDTO> meals = Collections.emptyList();
-    private Context context;
-    private MealCardOnClickListener listener;
+    private final List<MealDTO> meals;
+    private final Context context;
+    private final MealCardOnClickListener listener;
 
     public MainCardsAdapter(Context context, List<MealDTO> meals, MealCardOnClickListener listener) {
         this.context = context;
@@ -77,8 +76,8 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
 
     public class MainCardsViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView description;
-        private ImageView picture;
+        private final TextView description;
+        private final ImageView picture;
 
         public MainCardsViewHolder(ViewGroup parent) {
             super(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_item, parent, false));

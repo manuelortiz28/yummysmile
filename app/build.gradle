@@ -73,5 +73,5 @@ dependencies {
 check.doLast {
     project.tasks.getByName("checkstyle").execute()
     project.tasks.getByName("findbugs").execute()
-    //project.tasks.getByName("pmd").execute()
+    project.tasks.getByName("pmd").execute()
 }

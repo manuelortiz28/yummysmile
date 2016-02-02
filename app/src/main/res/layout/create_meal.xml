@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             app:counterEnabled="true"
-            app:counterMaxLength="30"
+            app:counterMaxLength="@dimen/max_length_meal_name"
             app:errorEnabled="true">
 
             <EditText
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/meal_name_hint"
                 android:inputType="text"
-                android:maxLength="30"
+                android:maxLength="@dimen/max_length_meal_name"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ti_name_wrapper"
             app:counterEnabled="true"
-            app:counterMaxLength="100">
+            app:counterMaxLength="@dimen/max_length_meal_description">
 
             <EditText
                 android:id="@+id/et_description"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/meal_description_hint"
                 android:inputType="textMultiLine"
-                android:maxLength="100"
+                android:maxLength="@dimen/max_length_meal_description"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -81,15 +81,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ti_description_wrapper"
                 android:gravity="left"
-                android:paddingRight="5dp"
+                android:paddingRight="@dimen/padding_right_picture"
                 android:text="@string/meal_source_picture"
                 android:visibility="gone"
                 />
 
             <ImageView
                 android:id="@+id/iv_meal_picture"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/margin_width_picture"
+                android:layout_height="@dimen/margin_height_picture"
                 android:cropToPadding="false"
                 android:foregroundGravity="center"
                 android:tag="@string/default_tag"

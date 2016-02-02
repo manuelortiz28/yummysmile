@@ -26,7 +26,7 @@ public interface MealAPIService {
     );
 
     @Multipart
-    @POST("yummysmile/api/v1/meals")
+    @POST(Constants.MEALS)
         //Fixme probably create a proper model instead a json
     Observable<JsonObject> createMeal(
             @Header(Constants.TOKEN_FIELD) String token,

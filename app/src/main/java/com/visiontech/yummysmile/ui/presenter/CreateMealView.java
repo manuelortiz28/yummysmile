@@ -7,12 +7,6 @@ import com.google.gson.JsonObject;
  *
  * @author hetorres
  */
-public interface CreateMealView {
-
-    //TODO create an interface for a common usages like this method.
-    void showProgress(boolean show);
-
-    void showMessage(String message);
-
+public interface CreateMealView extends BaseView {
     void createMealResponse(JsonObject jsonObject);
 }

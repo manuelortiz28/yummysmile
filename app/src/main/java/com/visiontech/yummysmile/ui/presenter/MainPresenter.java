@@ -28,7 +28,6 @@ public class MainPresenter {
         mealsController.getMeals(new ResultListener<MealsControllerImpl.MealsResponse>() {
             @Override
             public void onResult(MealsControllerImpl.MealsResponse result) {
-                mainView.showProgress(false);
                 if (result.isSuccess()) {
                     MealsDTO mealsDTO = result.getPayload();
                     if (mealsDTO != null && !mealsDTO.getMeals().isEmpty()) {
@@ -42,6 +41,7 @@ public class MainPresenter {
                     //TODO Do we have to show other view? like some text on the layout?
                     mainView.showMessage(context.getString(R.string.general_error));
                 }
+                mainView.showProgress(false);
             }
         });
     }

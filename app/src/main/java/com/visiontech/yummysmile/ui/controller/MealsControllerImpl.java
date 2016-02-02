@@ -46,6 +46,29 @@ public class MealsControllerImpl implements MealsController {
                   });
     }
 
+    @Override
+    public void createMeal(JsonObject meal, File photo, ResultListener result) {
+        Log.d(LOG_TAG, "createMeal()");
+
+        // Create an instance of our API interface.
+        MealAPIService mealAPIService = FactoryRestAdapter.createRetrofitService(MealAPIService.class);
+
+        // Creating the request body base on the file
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constants.API_MULTIPART_DATA), photo);
+
+        //Making the request
+        Observable<JsonObject> observable = mealAPIService.createMeal(Constants.TOKEN_VALUE, Constants.USER_VALUE, requestBody, meal);
+
+        observable.subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .subscribe(new BaseSubscriber<JsonObject>(result) {
+                      @Override
+                      public BaseResponse getBaseResponse() {
+                          return new CreateMealResponse();
+                      }
+                  });
+    }
+
     //===========================================================================================================
     //===============================================   Events    ===============================================
     //===========================================================================================================
@@ -53,38 +76,6 @@ public class MealsControllerImpl implements MealsController {
     public static class MealsResponse extends BaseResponse<MealsDTO> {
     }
 
-    @Override
-    public void createMeal(JsonObject meal, File photo) {
-        Log.d(LOG_TAG, "createMeal()");
-
-        // Create an instance of our API interface.
-        MealAPIService mealAPIService = FactoryRestAdapter.createRetrofitService(MealAPIService.class);
-
-        // Creating the request body base on the file
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
-
-        //Making the request
-        Observable<JsonObject> observable = mealAPIService.createMeal(Constants.TOKEN_VALUE, Constants.USER_VALUE, requestBody, meal);
-
-        observable.subscribeOn(Schedulers.io())
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .subscribe(new Subscriber<JsonObject>() {
-                      @Override
-                      public void onCompleted() {
-                          Log.d(LOG_TAG, "onCompleted()");
-                      }
-
-                      @Override
-                      public void onError(Throwable e) {
-                          Log.d(LOG_TAG, "onError()");
-                          presenter.onError(e);
-                      }
-
-                      @Override
-                      public void onNext(JsonObject response) {
-                          Log.d(LOG_TAG, "onNext()");
-                          presenter.onNext(response);
-                      }
-                  });
+    public static class CreateMealResponse extends BaseResponse<JsonObject> {
     }
 }

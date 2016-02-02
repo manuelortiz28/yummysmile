@@ -37,11 +37,9 @@ import io.fabric.sdk.android.Fabric;
  *
  * @author hector.torres
  */
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView {
 
     private static final String LOG_TAG = MainActivity.class.getName();
-    private ProgressBar loader;
-    private boolean loaderFlag;
     private MainPresenter mainPresenter;
 
     private DrawerLayout drawerLayout;
@@ -63,28 +61,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
-        setUpToolbar();
+        setUpToolbar(R.string.header_time_line, R.id.tool_bar, R.drawable.ic_menu_white_24dp);
         setUpNavDrawer();
         setUpSwipeRefresh();
         setUpCardView();
         setUpFabButton();
 
-        loader = (ProgressBar) findViewById(R.id.progressBar);
-
-        if (savedInstanceState != null) {
-            Log.d(LOG_TAG, "onCreate() - savedInstanceState");
-            boolean flag = savedInstanceState.getBoolean("loader");
-            loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
-        }
+        mainPresenter = new MainPresenter(this, MainActivity.this);
     }
 
     @Override
     protected void onResume() {
         Log.d(LOG_TAG, "onResume()");
         super.onResume();
-
-        showProgress(true);
-        mainPresenter = new MainPresenter(this, MainActivity.this);
         mainPresenter.fetchMeals();
     }
 
@@ -122,22 +111,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        Log.d(LOG_TAG, "onSaveInstanceState()");
-        super.onSaveInstanceState(outState);
-        outState.putBoolean("loader", loaderFlag);
-    }
-
-
     //===========================================================================================================
     //===============================================   Presenter actions    ====================================
     //===========================================================================================================
 
     @Override
     public void showProgress(boolean show) {
-        loader.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-        loaderFlag = show;
+        swipeRefreshLayout.setRefreshing(show);
     }
 
     @Override
@@ -150,24 +130,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void mealsItems(MealsDTO mealsDTO) {
         mainCardsAdapter.clear();
         mainCardsAdapter.addAll(mealsDTO.getMeals());
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     //===========================================================================================================
     //===============================================   Private methods    ======================================
     //===========================================================================================================
-
-    private void setUpToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle(getString(R.string.header_time_line));
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
 
     private void setUpNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -190,8 +157,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
-                showProgress(true);
                 mainPresenter.fetchMeals();
             }
         });

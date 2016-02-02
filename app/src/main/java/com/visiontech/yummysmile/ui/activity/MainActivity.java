@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.R;
+import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onResume();
 
         showProgress(true);
-        mainPresenter = new MainPresenter(this, MainActivity.this);
+        mainPresenter = new MainPresenter(this, (YummySmileApplication) getApplication());
         mainPresenter.fetchMeals();
     }
 

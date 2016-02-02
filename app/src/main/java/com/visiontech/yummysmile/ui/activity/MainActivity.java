@@ -21,13 +21,14 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.common.collect.Lists;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
 import com.visiontech.yummysmile.ui.presenter.MainPresenter;
 import com.visiontech.yummysmile.ui.presenter.MainView;
+
+import java.util.ArrayList;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -44,11 +45,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private MainPresenter mainPresenter;
 
     private DrawerLayout drawerLayout;
-    private RecyclerView recyclerView;
     private MainCardsAdapter mainCardsAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton fabButton;
-    private MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
+    private final MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
         @Override
         public void onMealCardClicked(MealDTO mealDTO) {
             //TODO go to next screen
@@ -114,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
             case R.id.action_settings:
                 showMessage("Settings");
                 return true;
+
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -127,7 +130,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
 
-    // ==============  Presenter actions ============
+    //===========================================================================================================
+    //===============================================   Presenter actions    ====================================
+    //===========================================================================================================
 
     @Override
     public void showProgress(boolean show) {
@@ -145,12 +150,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void mealsItems(MealsDTO mealsDTO) {
         mainCardsAdapter.clear();
         mainCardsAdapter.addAll(mealsDTO.getMeals());
-        showProgress(false);
         swipeRefreshLayout.setRefreshing(false);
     }
 
-
-    // ==============  Private methods ============
+    //===========================================================================================================
+    //===============================================   Private methods    ======================================
+    //===========================================================================================================
 
     private void setUpToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -199,8 +204,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void setUpCardView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mainCardsAdapter = new MainCardsAdapter(MainActivity.this, Lists.<MealDTO> newArrayList(), mealCardOnClickListener);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mainCardsAdapter = new MainCardsAdapter(MainActivity.this, new ArrayList<MealDTO>(), mealCardOnClickListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

@@ -63,6 +63,7 @@
     <rule ref="rulesets/java/coupling.xml">
         <exclude name="CouplingBetweenObjects"/>
         <exclude name="ExcessiveImports"/>
+        <exclude name="LawOfDemeter"/>
     </rule>
 
     <rule ref="rulesets/java/coupling.xml/CouplingBetweenObjects">
@@ -80,7 +81,9 @@
         <exclude name="EmptyMethodInAbstractClassShouldBeAbstract"/>
         <!-- doesn't work properly -->
         <exclude name="UncommentedEmptyConstructor"/>
+        <!--
         <exclude name="UseSingleton"/>
+        -->
         <exclude name="AbstractClassWithoutAbstractMethod"/>
     </rule>
 

@@ -2,22 +2,22 @@ package com.visiontech.yummysmile.ui.subscriber;
 
 import android.util.Log;
 
-import com.visiontech.yummysmile.ui.presenter.BasePresenter;
-
 import rx.Subscriber;
 
 /**
- * Class that is going to hanlde the response of Meals Request.
+ * Base class that is going to handle the events of Rx Android
  *
  * @author hector.torres
  */
-public class BaseSubscriber<T> extends Subscriber<T> {
+public abstract class BaseSubscriber<T> extends Subscriber<T> {
     private static final String LOG_TAG = BaseSubscriber.class.getName();
-    private BasePresenter presenter;
+    private final ResultListener result;
 
-    public BaseSubscriber(BasePresenter presenter) {
-        this.presenter = presenter;
+    public BaseSubscriber(ResultListener result) {
+        this.result = result;
     }
+
+    public abstract BaseResponse getBaseResponse();
 
     @Override
     public void onCompleted() {
@@ -27,12 +27,16 @@ public class BaseSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         Log.d(LOG_TAG, "onError()");
-        presenter.onError(e);
+        BaseResponse response = getBaseResponse();
+        response.setError(e);
+        result.onResult(response);
     }
 
     @Override
     public void onNext(T data) {
         Log.d(LOG_TAG, "onNext()");
-        presenter.onNext(data);
+        BaseResponse response = getBaseResponse();
+        response.setPayload(data);
+        result.onResult(response);
     }
 }

@@ -18,8 +18,8 @@ import rx.Observable;
  * @author hector.torres
  */
 public interface MealAPIService {
-    ///e.g. yummysmile/api/v1/meals
-    @GET(Constants.URI + Constants.API + Constants.VERSION_1 + Constants.MEALS)
+    //e.g. yummysmile/api/v1/meals
+    @GET(Constants.MEALS)
     Observable<MealsDTO> getMeals(
             @Header(Constants.TOKEN_FIELD) String token,
             @Header(Constants.USER_FIELD) String userId

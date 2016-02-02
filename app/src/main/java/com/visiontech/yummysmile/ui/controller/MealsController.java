@@ -1,6 +1,7 @@
 package com.visiontech.yummysmile.ui.controller;
 
 import com.google.gson.JsonObject;
+import com.visiontech.yummysmile.ui.subscriber.ResultListener;
 
 import java.io.File;
 
@@ -12,13 +13,16 @@ import java.io.File;
 public interface MealsController {
     /**
      * Method that gets meals.
+     * @param result listener to return the response.
      */
-    void getMeals();
+    void getMeals(ResultListener result);
 
     /**
      * Method that upload a new meal
-     * @param meal meal object that we want to create
+     *
+     * @param meal  meal object that we want to create
      * @param photo picture of the meal
      */
     void createMeal(JsonObject meal, File photo);
+
 }

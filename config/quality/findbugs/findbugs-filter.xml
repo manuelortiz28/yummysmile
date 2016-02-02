@@ -7,4 +7,8 @@
     <Match>
     <Class name="~.*\.Manifest\$.*"/>
     </Match>
+    <!-- FIXME. This error is generated when using annotation SerializedName. Try to solve instead of deactivate  -->
+    <Match>
+	   <Bug pattern="UWF_UNWRITTEN_FIELD" />
+	</Match>
 </FindBugsFilter>

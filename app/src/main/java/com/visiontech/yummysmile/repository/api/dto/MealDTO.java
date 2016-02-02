@@ -25,4 +25,16 @@ public class MealDTO {
     public String getFileName() {
         return fileName;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

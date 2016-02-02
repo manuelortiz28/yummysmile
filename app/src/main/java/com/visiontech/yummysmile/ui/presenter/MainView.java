@@ -7,10 +7,6 @@ import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
  *
  * @author hetorres
  */
-public interface MainView {
-    void showProgress(boolean show);
-
-    void showMessage(String message);
-
+public interface MainView extends BaseView {
     void mealsItems(MealsDTO mealsDTO);
 }

@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/save_meal"
+        android:title="@string/menu_save_meal"
+        android:icon="@drawable/ic_done_white_24dp"
+        app:showAsAction="always"/>
+</menu>

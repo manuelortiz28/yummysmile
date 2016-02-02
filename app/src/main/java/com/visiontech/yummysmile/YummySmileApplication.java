@@ -3,9 +3,9 @@ package com.visiontech.yummysmile;
 import android.app.Application;
 
 import com.visiontech.yummysmile.di.components.ApiClientComponent;
+import com.visiontech.yummysmile.di.components.CoreComponent;
 import com.visiontech.yummysmile.di.components.DaggerCoreComponent;
 import com.visiontech.yummysmile.di.modules.AppModule;
-import com.visiontech.yummysmile.di.components.CoreComponent;
 
 /**
  * @author hector.torres

@@ -26,9 +26,10 @@ public class YummySmileApplication extends Application {
      * Initializes dagger components
      */
     private void setupGraph() {
-        coreComponent = DaggerCoreComponent.builder()
-                            .appModule(new AppModule(this))
-                            .build();
+        coreComponent =
+                DaggerCoreComponent.builder()
+                        .appModule(new AppModule(this))
+                        .build();
         coreComponent.inject(this);
     }
 

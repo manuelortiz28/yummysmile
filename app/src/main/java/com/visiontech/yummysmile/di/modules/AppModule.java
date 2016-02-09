@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import com.visiontech.yummysmile.YummySmileApplication;
-import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
-import com.visiontech.yummysmile.repository.api.MealAPIService;
 
 import javax.inject.Singleton;
 
@@ -35,11 +33,5 @@ public class AppModule {
     @Singleton
     Context provideAppContext() {
         return application.getApplicationContext();
-    }
-
-    @Provides
-    @Singleton
-    public MealAPIService provideMealsAPI() {
-        return FactoryRestAdapter.createRetrofitService(MealAPIService.class);
     }
 }

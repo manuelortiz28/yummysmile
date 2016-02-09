@@ -1,7 +1,7 @@
 package com.visiontech.yummysmile.di.modules;
 
-import com.visiontech.yummysmile.ui.controller.MealsController;
-import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
+import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
+import com.visiontech.yummysmile.repository.api.MealAPIService;
 
 import javax.inject.Singleton;
 
@@ -10,15 +10,14 @@ import dagger.Provides;
 
 /**
  * @author manuel.ortiz
- *
- * Module providing API objects
- *
+ *         <p/>
+ *         Module providing API objects
  */
 @Module
 public class ApiModule {
     @Provides
     @Singleton
-    public MealsController provideMealsController() {
-        return new MealsControllerImpl();
+    public MealAPIService provideMealsAPI() {
+        return FactoryRestAdapter.createRetrofitService(MealAPIService.class);
     }
 }

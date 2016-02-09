@@ -4,17 +4,16 @@ import android.content.Context;
 
 import com.visiontech.yummysmile.YummySmileApplication;
 
+import javax.inject.Inject;
+
 /**
  * @author manuel.ortiz
  * Base class for the Presenter tier
  *
  */
 public class BasePresenter {
-    private final YummySmileApplication application;
-
-    public BasePresenter(YummySmileApplication application) {
-        this.application = application;
-    }
+    @Inject
+    YummySmileApplication application;
 
     protected Context getContext() {
         return application.getCoreComponent().getContext();

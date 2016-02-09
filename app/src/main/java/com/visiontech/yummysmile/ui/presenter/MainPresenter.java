@@ -1,11 +1,11 @@
 package com.visiontech.yummysmile.ui.presenter;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
-import com.visiontech.yummysmile.ui.controller.MealsController;
 import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 import com.visiontech.yummysmile.ui.subscriber.ResultListener;
+
+import javax.inject.Inject;
 
 /**
  * Class that is the intermediary between the view and model based on MVP Pattern.
@@ -13,14 +13,17 @@ import com.visiontech.yummysmile.ui.subscriber.ResultListener;
  * @author hetorres
  */
 public class MainPresenter extends BasePresenter {
-    private final MainView mainView;
-    private final MealsController mealsController;
 
-    public MainPresenter(MainView mainView, YummySmileApplication application) {
-        super(application);
+    @Inject
+    MealsControllerImpl mealsController;
+
+    private final MainView mainView;
+
+    @Inject
+    public MainPresenter(MainView mainView) {
+        super();
 
         this.mainView = mainView;
-        mealsController = application.getApiClientComponent().getMealsController();
     }
 
     public void fetchMeals() {

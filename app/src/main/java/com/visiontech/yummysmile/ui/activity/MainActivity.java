@@ -7,7 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
@@ -36,7 +34,7 @@ import io.fabric.sdk.android.Fabric;
  *
  * @author hector.torres
  */
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView {
 
     private static final String LOG_TAG = MainActivity.class.getName();
     private ProgressBar loader;
@@ -59,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Log.d(LOG_TAG, "onCreate()");
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
+
+        mainPresenter = application.getPresenterComponent(this).getMainPresenter();
+
         setContentView(R.layout.activity_main);
 
         setUpToolbar();
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onResume();
 
         showProgress(true);
-        mainPresenter = new MainPresenter(this, (YummySmileApplication) getApplication());
+
         mainPresenter.fetchMeals();
     }
 

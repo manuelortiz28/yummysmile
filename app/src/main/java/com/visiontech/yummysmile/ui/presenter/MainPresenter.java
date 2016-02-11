@@ -14,14 +14,13 @@ import javax.inject.Inject;
  */
 public class MainPresenter extends BasePresenter {
 
-    @Inject
-    MealsControllerImpl mealsController;
-
     private final MainView mainView;
+    private final MealsControllerImpl mealsController;
 
     @Inject
-    public MainPresenter(MainView mainView) {
+    public MainPresenter(MainView mainView, MealsControllerImpl mealsController) {
         this.mainView = mainView;
+        this.mealsController = mealsController;
     }
 
     public void fetchMeals() {

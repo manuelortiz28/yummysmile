@@ -21,8 +21,6 @@ public class MainPresenter extends BasePresenter {
 
     @Inject
     public MainPresenter(MainView mainView) {
-        super();
-
         this.mainView = mainView;
     }
 

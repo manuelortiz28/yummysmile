@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.visiontech.yummysmile"
-    android:versionCode="1"
-    android:versionName="0.1.0">
+    package="com.visiontech.yummysmile">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -11,6 +9,7 @@
         android:icon="@drawable/logo_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
+        android:name=".YummySmileApplication"
         >
         <activity
             android:name=".ui.activity.MainActivity"

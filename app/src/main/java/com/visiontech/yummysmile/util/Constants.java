@@ -5,9 +5,9 @@ package com.visiontech.yummysmile.util;
  */
 public final class Constants {
     public static final String TOKEN_FIELD = "TOKEN";
-    public static final String TOKEN_VALUE = "r:WsP1csnsfiOTRsskceR99N3Gn";
+    public static final String TOKEN_VALUE = "r:rSavQ4JfqkEf0h228VVc0AgTp";
     public static final String USER_FIELD = "userID";
-    public static final String USER_VALUE = "WnjYAwaX0r";
+    public static final String USER_VALUE = "XfFDAWIfZ4";
     public static final String HOST = "http://207.210.104.159/";
     public static final String URI = "yummysmile/";
     public static final String API = "api/";

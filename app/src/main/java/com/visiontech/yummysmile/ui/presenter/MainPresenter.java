@@ -1,26 +1,26 @@
 package com.visiontech.yummysmile.ui.presenter;
 
-import android.content.Context;
-
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 import com.visiontech.yummysmile.ui.subscriber.ResultListener;
+
+import javax.inject.Inject;
 
 /**
  * Class that is the intermediary between the view and model based on MVP Pattern.
  *
  * @author hetorres
  */
-public class MainPresenter {
+public class MainPresenter extends BasePresenter {
+
     private final MainView mainView;
     private final MealsControllerImpl mealsController;
-    private final Context context;
 
-    public MainPresenter(MainView mainView, Context context) {
+    @Inject
+    public MainPresenter(MainView mainView, MealsControllerImpl mealsController) {
         this.mainView = mainView;
-        this.context = context;
-        mealsController = new MealsControllerImpl();
+        this.mealsController = mealsController;
     }
 
     public void fetchMeals() {
@@ -40,7 +40,7 @@ public class MainPresenter {
                 } else {
                     //FIXME find the final copy.
                     //TODO Do we have to show other view? like some text on the layout?
-                    mainView.showMessage(context.getString(R.string.general_error));
+                    mainView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
                 }
             }
         });

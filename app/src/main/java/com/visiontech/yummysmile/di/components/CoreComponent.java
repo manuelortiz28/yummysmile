@@ -13,8 +13,14 @@ import dagger.Component;
 
 /**
  * @author manuel.ortiz
- *         <p/>
- *         Component for Core objects
+ *
+ * This is a dagger component containing references to dependencies classes related to
+ * the core functionalities in the whole app. This component contains some related modules,
+ * which exposes some dependencies.
+ *
+ * Components basically are injectors, let’s say a bridge between @Inject and @Module,
+ * which its main responsibility is to put both together.
+ *
  */
 @Singleton
 @Component(modules = {AppModule.class, ApiModule.class})

@@ -11,18 +11,17 @@ import com.visiontech.yummysmile.models.transformers.UserTransform;
 import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
 import com.visiontech.yummysmile.repository.api.UserAPIService;
 import com.visiontech.yummysmile.repository.api.dto.UserDTO;
-import com.visiontech.yummysmile.ui.activity.AuthenticatorActivity;
 import com.visiontech.yummysmile.repository.api.response.BaseResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.BaseSubscriber;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
+import com.visiontech.yummysmile.ui.activity.AuthenticatorActivity;
 
 import javax.inject.Inject;
 
 /**
  * @author manuel ortiz
- *
- * Controller that handles all the operations related to the authentication of the user
- *
+ *         <p/>
+ *         Controller that handles all the operations related to the authentication of the user
  */
 public class AuthenticationControllerImpl implements AuthenticationController {
 
@@ -62,12 +61,14 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     @Override
     public User getUserLoggedIn() {
 
+        //Get the accounts list for this app
         AccountManager accountManager = AccountManager.get(context);
-        Account []accounts = accountManager.getAccountsByType(AuthenticatorActivity.YUMMY_ACCOUNT_TYPE);
+        Account[] accounts = accountManager.getAccountsByType(AuthenticatorActivity.YUMMY_ACCOUNT_TYPE);
         if (accounts == null || accounts.length == 0) {
             return null;
         }
 
+        //Gets the token for the first accout
         Account userAccount = accounts[0];
         String token = accountManager.peekAuthToken(userAccount, AuthenticatorActivity.NORMAL_USER_TOKEN_TYPE);
 
@@ -75,6 +76,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
             return null;
         }
 
+        //Returns the user info stored in the account manager
         final User newUser = new User();
         newUser.setEmail(userAccount.name);
         newUser.setToken(token);
@@ -105,6 +107,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
                     @Override
                     protected void onSuccess(Object serviceResponse) {
                         //Nothing to do here
+                        removeAccount(userLoggedIn);
                     }
                 }
         );
@@ -112,9 +115,10 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
     /**
      * Method that saves an account into the android Authentication Manager
-     * @param user User model containing its related information
+     *
+     * @param user               User model containing its related information
      * @param isAddingNewAccount
-     * @param password Password of the account
+     * @param password           Password of the account
      */
     private void saveAccount(User user, boolean isAddingNewAccount, String password) {
         final Account account = new Account(user.getEmail(), AuthenticatorActivity.YUMMY_ACCOUNT_TYPE);
@@ -133,11 +137,32 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         }
     }
 
+    /**
+     * Invalidates the token of the user logged in
+     *
+     * @param user User to invalidate its token
+     */
     private void removeAccount(User user) {
-        final Account account = new Account(user.getEmail(), AuthenticatorActivity.YUMMY_ACCOUNT_TYPE);
+        //Get the accounts list for this app
         AccountManager accountManager = AccountManager.get(context);
+        Account[] accounts = accountManager.getAccountsByType(AuthenticatorActivity.YUMMY_ACCOUNT_TYPE);
+        if (accounts == null || accounts.length == 0) {
+            return;
+        }
 
-        accountManager.removeAccount(account, null, null);
+        //Gets the token for the user account
+        String token = null;
+        for (Account userAccount : accounts) {
+            if (userAccount.name.equals(user.getEmail())) {
+                token = accountManager.peekAuthToken(userAccount, AuthenticatorActivity.NORMAL_USER_TOKEN_TYPE);
+            }
+        }
+
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+
+        accountManager.invalidateAuthToken(AuthenticatorActivity.YUMMY_ACCOUNT_TYPE, token);
     }
 
     //===========================================================================================================

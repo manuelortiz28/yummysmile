@@ -14,6 +14,9 @@ import com.visiontech.yummysmile.ui.activity.AuthenticatorActivity;
 
 /**
  * @author manuel.ortiz
+ *
+ * Class to manage the login using the authentication manager
+ *
  */
 public class YummyAccountAuthenticator extends AbstractAccountAuthenticator {
 

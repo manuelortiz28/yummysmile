@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">YummySmile</string>
 
+    <!-- Login -->
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_text">Login</string>
+    <string name="logout_text">Logout</string>
+
     <!-- Menu -->
     <string name="menu_home">Home</string>
     <string name="menu_bookmarks">BookMarks</string>

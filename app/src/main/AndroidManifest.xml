@@ -3,23 +3,36 @@
     package="com.visiontech.yummysmile">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Account manager permissions -->
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNT"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@drawable/logo_app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:name=".YummySmileApplication"
         >
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:label="@string/app_name" >
+        <activity android:name=".ui.activity.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.AuthenticatorActivity"
+            android:label="@string/app_name"/>
+        <service android:name=".accounts.YummyAuthenticatorService" android:exported="false">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+            <meta-data android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="393b9846c0e0178f8f0768740bdc6fbe3227ef4e" />

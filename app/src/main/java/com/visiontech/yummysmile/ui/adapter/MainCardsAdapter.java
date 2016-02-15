@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.repository.api.dto.MealDTO;
+import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.util.Constants;
 
 import java.util.List;
@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.MainCardsViewHolder> {
 
-    private final List<MealDTO> meals;
+    private final List<Meal> meals;
     private final Context context;
     private final MealCardOnClickListener listener;
 
-    public MainCardsAdapter(Context context, List<MealDTO> meals, MealCardOnClickListener listener) {
+    public MainCardsAdapter(Context context, List<Meal> meals, MealCardOnClickListener listener) {
         this.context = context;
         this.meals = meals;
         this.listener = listener;
@@ -37,7 +37,7 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
 
     @Override
     public void onBindViewHolder(MainCardsViewHolder holder, int position) {
-        final MealDTO meal = meals.get(position);
+        final Meal meal = meals.get(position);
         holder.setData(meal);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
         notifyDataSetChanged();
     }
 
-    public void addAll(List<MealDTO> items) {
+    public void addAll(List<Meal> items) {
         meals.addAll(items);
         notifyDataSetChanged();
     }
@@ -70,7 +70,7 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
      * Interface that fires the Meal Card click event.
      */
     public interface MealCardOnClickListener {
-        void onMealCardClicked(MealDTO mealDTO);
+        void onMealCardClicked(Meal mealDTO);
     }
 
 
@@ -86,9 +86,9 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
             picture = (ImageView) itemView.findViewById(R.id.iv_picture);
         }
 
-        public void setData(MealDTO mealDTO) {
-            description.setText(mealDTO.getName());
-            String url = Constants.HOST + Constants.URI + mealDTO.getFileName();
+        public void setData(Meal meal) {
+            description.setText(meal.getName());
+            String url = Constants.HOST + Constants.URI + meal.getFileName();
             Glide.with(context).load(url).centerCrop().into(picture);
         }
     }

@@ -19,7 +19,7 @@
 
         <!-- Landing Cards Items -->
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/main_cards_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

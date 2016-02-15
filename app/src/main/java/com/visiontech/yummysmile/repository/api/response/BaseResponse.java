@@ -1,4 +1,4 @@
-package com.visiontech.yummysmile.ui.subscriber;
+package com.visiontech.yummysmile.repository.api.response;
 
 /**
  * Base class to handle the response of every request.
@@ -9,14 +9,14 @@ public class BaseResponse<T> {
 
     private boolean success;
     private T payload;
-    private Throwable error;
+    private ErrorResponse error;
 
     public void setPayload(T payload) {
         this.payload = payload;
         this.success = true;
     }
 
-    public void setError(Throwable error) {
+    public void setError(ErrorResponse error) {
         this.error = error;
         this.success = false;
     }
@@ -29,9 +29,7 @@ public class BaseResponse<T> {
         return payload;
     }
 
-    public Throwable getError() {
+    public ErrorResponse getError() {
         return error;
     }
-
-
 }

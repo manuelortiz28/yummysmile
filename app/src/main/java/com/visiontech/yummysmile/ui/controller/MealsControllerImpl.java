@@ -73,6 +73,5 @@ public class MealsControllerImpl implements MealsController {
     //===========================================================================================================
 
     public static class MealsResponse extends BaseResponse<List<Meal>> {
-        private String otroAttr;
     }
 }

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.common.base.Preconditions;
 import com.visiontech.yummysmile.repository.api.response.BaseResponse;
+import com.visiontech.yummysmile.util.ExceptionsUtil;
 
 import rx.Subscriber;
 
@@ -59,7 +60,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     public void onError(Throwable e) {
         Log.d(LOG_TAG, "onError()");
 
-        //baseResponse.setError(ExceptionsUtil.getSpecificException(e));
+        baseResponse.setError(ExceptionsUtil.getSpecificException(e));
         resultListener.onResult(baseResponse);
     }
 }

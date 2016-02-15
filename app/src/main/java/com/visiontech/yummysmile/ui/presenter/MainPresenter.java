@@ -63,7 +63,6 @@ public class MainPresenter extends BasePresenter {
     }
 
     //FIXME This method could be in a BasePresenter
-
     /**
      * Log outs the current user and handle the response
      */
@@ -75,6 +74,7 @@ public class MainPresenter extends BasePresenter {
                         if (result.isSuccess()) {
                             mainView.showLoginScreen();
                         } else {
+
                             //FIXME find the final copy.
                             mainView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
                         }

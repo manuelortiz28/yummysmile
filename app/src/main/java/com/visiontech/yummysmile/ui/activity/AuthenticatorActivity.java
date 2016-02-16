@@ -49,6 +49,7 @@ public class AuthenticatorActivity extends BaseActivity implements LoginView {
 
     @Override
     public void showError(String errorMessage) {
+        //FIXME show the snake bar generic error message
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
 
@@ -68,7 +69,7 @@ public class AuthenticatorActivity extends BaseActivity implements LoginView {
         if ("".equals(txtUsername.getText().toString().trim())
                 || "".equals(txtPassword.getText().toString().trim())) {
 
-            Toast.makeText(this, "Username and password fields should not be empty", Toast.LENGTH_LONG).show();
+            showError(getString(R.string.login_error_fields_empty));
 
             return false;
         }

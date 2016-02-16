@@ -60,6 +60,6 @@ public class User {
      * @return String representing the user full name, concatenating name and lastName
      */
     public String getFullName() {
-        return TextUtils.join(" ", new Object[]{name, lastName});
+        return TextUtils.join(" ", new String[]{name, lastName});
     }
 }

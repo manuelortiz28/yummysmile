@@ -1,5 +1,6 @@
 package com.visiontech.yummysmile.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,17 +16,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.repository.api.dto.MealDTO;
-import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
+import com.visiontech.yummysmile.models.Meal;
+import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
 import com.visiontech.yummysmile.ui.presenter.MainPresenter;
 import com.visiontech.yummysmile.ui.presenter.MainView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -46,9 +49,9 @@ public class MainActivity extends BaseActivity implements MainView {
     private SwipeRefreshLayout swipeRefreshLayout;
     private final MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {
         @Override
-        public void onMealCardClicked(MealDTO mealDTO) {
+        public void onMealCardClicked(Meal meal) {
             //TODO go to next screen
-            Toast.makeText(MainActivity.this, "item: " + mealDTO.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "item: " + meal.getName(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -74,6 +77,8 @@ public class MainActivity extends BaseActivity implements MainView {
             boolean flag = savedInstanceState.getBoolean("loader");
             loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
         }
+
+        mainPresenter.validateUserLoggedIn();
     }
 
     @Override
@@ -114,10 +119,8 @@ public class MainActivity extends BaseActivity implements MainView {
                 return true;
 
             default:
-                break;
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -145,10 +148,32 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public void mealsItems(MealsDTO mealsDTO) {
+    public void showMealsItems(List<Meal> mealList) {
         mainCardsAdapter.clear();
-        mainCardsAdapter.addAll(mealsDTO.getMeals());
+        mainCardsAdapter.addAll(mealList);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        swipeRefreshLayout.setRefreshing(refreshing);
+    }
+
+    @Override
+    public void showLoginScreen() {
+        startActivity(new Intent(this, AuthenticatorActivity.class));
+        finish();
+    }
+
+    @Override
+    public void showUserInfo(User user) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+
+        if (navigationView.getHeaderCount() > 0 && user != null) {
+            View headerView = navigationView.getHeaderView(0);
+            ((TextView) headerView.findViewById(R.id.tv_name)).setText(user.getFullName());
+            ((TextView) headerView.findViewById(R.id.tv_email)).setText(user.getEmail());
+        }
     }
 
     //===========================================================================================================
@@ -171,13 +196,20 @@ public class MainActivity extends BaseActivity implements MainView {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         NavigationView view = (NavigationView) findViewById(R.id.navigation_view);
+
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                //Fixme remove the toast
-                Toast.makeText(MainActivity.this, "Item: " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
+                menuItem.setChecked(true);
+
+                if (menuItem.getItemId() == R.id.nav_item_logout) {
+                    mainPresenter.logoutUser();
+                } else {
+                    //Fixme remove the toast
+                    Toast.makeText(MainActivity.this, "Item: " + menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+
+                }
                 return true;
             }
         });
@@ -202,8 +234,8 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void setUpCardView() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mainCardsAdapter = new MainCardsAdapter(MainActivity.this, new ArrayList<MealDTO>(), mealCardOnClickListener);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.main_cards_recycler_view);
+        mainCardsAdapter = new MainCardsAdapter(MainActivity.this, new ArrayList<Meal>(), mealCardOnClickListener);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

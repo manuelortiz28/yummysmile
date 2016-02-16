@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<account-authenticator
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accountType="com.visiontech.yummysmile.normalaccount"
+    android:icon="@drawable/logo_app"
+    android:smallIcon="@drawable/logo_app"
+    android:label="@string/app_name"/>

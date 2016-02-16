@@ -1,4 +1,4 @@
-package com.visiontech.yummysmile.ui.subscriber;
+package com.visiontech.yummysmile.repository.api.subscriber;
 
 /**
  * Listener to handle the result of a call on the Presenter.

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
-import com.visiontech.yummysmile.ui.presenter.LoginView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
 
 /**
  * @author manuel.ortiz
@@ -18,7 +18,7 @@ import com.visiontech.yummysmile.ui.presenter.LoginView;
  * Activity that shows the login screen
  *
  */
-public class AuthenticatorActivity extends BaseActivity implements LoginView {
+public class AuthenticatorActivity extends BaseActivity implements LoginActivityView {
     public static final String ARG_ACCOUNT_TYPE = "ARG_ACCOUNT_TYPE";
     public static final String ARG_AUTH_TYPE = "ARG_AUTH_TYPE";
     public static final String ARG_IS_ADDING_NEW_ACCOUNT = "ARG_IS_ADDING_NEW_ACCOUNT";
@@ -38,7 +38,7 @@ public class AuthenticatorActivity extends BaseActivity implements LoginView {
         txtUsername = (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
 
-        loginPresenter = application.getPresenterComponent(this).getLoginPresenter();
+        loginPresenter = application.getActivityPresenterComponent(this).getLoginPresenter();
     }
 
     public void onLoginClick(View view) {
@@ -60,7 +60,7 @@ public class AuthenticatorActivity extends BaseActivity implements LoginView {
         setResult(RESULT_OK, intentSaved);
 
         /* Create an Intent that will start the Menu-Activity. */
-        Intent mainIntent = new Intent(AuthenticatorActivity.this, MainActivity.class);
+        Intent mainIntent = new Intent(AuthenticatorActivity.this, HomeActivity.class);
         startActivity(mainIntent);
         finish();
     }

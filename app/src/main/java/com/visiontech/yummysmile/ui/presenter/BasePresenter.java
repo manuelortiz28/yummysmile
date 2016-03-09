@@ -12,8 +12,15 @@ import javax.inject.Inject;
  *
  */
 public class BasePresenter {
+    private YummySmileApplication application;
+
+    public BasePresenter(YummySmileApplication application) {
+        this.application = application;
+    }
+
     @Inject
-    YummySmileApplication application;
+    public BasePresenter() {
+    }
 
     protected Context getContext() {
         return application.getCoreComponent().getContext();

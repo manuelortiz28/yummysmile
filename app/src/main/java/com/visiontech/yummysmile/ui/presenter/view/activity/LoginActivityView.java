@@ -1,4 +1,4 @@
-package com.visiontech.yummysmile.ui.presenter;
+package com.visiontech.yummysmile.ui.presenter.view.activity;
 
 import com.visiontech.yummysmile.models.User;
 
@@ -8,7 +8,7 @@ import com.visiontech.yummysmile.models.User;
  * Class in the View tier from the MVP pattern, containing methods related to the user login
  *
  */
-public interface LoginView {
+public interface LoginActivityView {
     /**
      * Shows an error message indicating the reason for the log in could not be performed
      * @param errorMessage Error message to show

@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'checkstyle'
@@ -46,7 +55,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
@@ -54,7 +63,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
 
     apt 'com.google.dagger:dagger-compiler:2.0.2'
-    compile('com.google.dagger:dagger:2.0.2') {
+    compile('com.google.dagger:dagger:2.1-SNAPSHOT') {
         exclude module: 'guava'
     }
     provided 'javax.annotation:jsr250-api:1.0'

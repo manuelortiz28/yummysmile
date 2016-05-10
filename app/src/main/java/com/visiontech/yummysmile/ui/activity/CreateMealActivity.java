@@ -1,7 +1,6 @@
 package com.visiontech.yummysmile.ui.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,18 +13,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +28,8 @@ import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.CreateMealView;
+import com.visiontech.yummysmile.util.DateUtils;
+import com.visiontech.yummysmile.util.UIHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,23 +43,24 @@ import java.util.Date;
  *
  * @author hector.torres
  */
-public class CreateMealActivity extends AppCompatActivity implements CreateMealView {
+public class CreateMealActivity extends BaseActivity implements CreateMealView {
 
     private static final String LOG_TAG = CreateMealActivity.class.getName();
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
+
     private String currentPhotoPath;
     private CreateMealPresenter createMealPresenter;
 
     //UI
     private EditText mealName;
+    private EditText txtName;
+    private EditText txtDescription;
     private ImageView mealPicture;
     private File pictureToUpload;
     private ProgressBar progressBar;
     private TextInputLayout textWrappName;
     private TextInputLayout textWrappDescription;
-    private EditText txtName;
-    private EditText txtDescription;
     private TextView tvPictureLabel;
 
     @Override
@@ -73,7 +69,7 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_meal);
 
-        setUpToolbar();
+        setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
 
         mealName = (EditText) findViewById(R.id.et_name);
         mealPicture = (ImageView) findViewById(R.id.iv_meal_picture);
@@ -93,13 +89,14 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
                 requestPermissions();
             }
         });
+
+        createMealPresenter = new CreateMealPresenter(this, CreateMealActivity.this);
     }
 
     @Override
     protected void onResume() {
         Log.d(LOG_TAG, "onResume()");
         super.onResume();
-        createMealPresenter = new CreateMealPresenter(this, CreateMealActivity.this);
     }
 
     @Override
@@ -141,8 +138,7 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
                     tvPictureLabel.setError(tvPictureLabel.getText());
                 } else {
                     // we have enough information to create the meal.
-                    hideKeyboard();
-                    showProgress(true);
+                    UIHelper.hideKeyboard(this);
                     createMealPresenter.createMeal(mealName.getText().toString(), pictureToUpload);
                 }
                 return true;
@@ -153,18 +149,6 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
 
 
     // ==============  Private methods ============
-
-    private void setUpToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.tb_create_meal);
-        toolbar.setTitle(getString(R.string.header_create_meal));
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
 
     /**
      * Method that Ask for Runtime Permissions
@@ -255,7 +239,7 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
     private File createImageFile() throws IOException {
         Log.d(LOG_TAG, "4_createImageFile()_");
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat(DateUtils.PHOTO_TIME_FORMAT).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
@@ -297,7 +281,7 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
     private void setPicture() {
         Log.d(LOG_TAG, "6_setPicture()_");
         // Get the dimensions of the View
-//        int targetW = mealPicture.getWidth();
+        //        int targetW = mealPicture.getWidth();
         //Fixme figure out the best way to do it.
         int targetW = 400;
         int targetH = 400;
@@ -338,14 +322,6 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
         mealPicture.setTag(currentPhotoPath);
     }
 
-    private void hideKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager
-                    .HIDE_NOT_ALWAYS);
-        }
-    }
-
 
     // ==============  Presenter actions ============
 
@@ -356,13 +332,13 @@ public class CreateMealActivity extends AppCompatActivity implements CreateMealV
 
     @Override
     public void showMessage(String message) {
+        //TODO Remove the toast and show SnackBar / alert?
         Toast.makeText(CreateMealActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void createMealResponse(JsonObject jsonData) {
         Toast.makeText(CreateMealActivity.this, "Meal created successfully!", Toast.LENGTH_SHORT).show();
-        showProgress(false);
         onBackPressed();
     }
 }

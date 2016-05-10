@@ -16,9 +16,9 @@
             layout="@layout/tool_bar"/>
 
         <!-- content layout -->
-        <include
-            android:id="@+id/content"
-            layout="@layout/content_layout"
+        <FrameLayout
+            android:id="@+id/frame_content_layout"
+            layout="@layout/fragment_home_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/app_bar"

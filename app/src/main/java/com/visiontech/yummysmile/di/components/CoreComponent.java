@@ -5,7 +5,9 @@ import android.content.Context;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.di.modules.ApiModule;
 import com.visiontech.yummysmile.di.modules.AppModule;
-import com.visiontech.yummysmile.di.modules.PresenterModule;
+import com.visiontech.yummysmile.repository.api.MealAPIService;
+import com.visiontech.yummysmile.repository.api.UserAPIService;
+import com.visiontech.yummysmile.ui.controller.AuthenticationControllerImpl;
 
 import javax.inject.Singleton;
 
@@ -28,6 +30,8 @@ public interface CoreComponent {
     void inject(YummySmileApplication application);
 
     Context getContext();
-
-    PresenterComponent plus(PresenterModule presenterModule);
+    YummySmileApplication getApplication();
+    MealAPIService getMealAPIService();
+    UserAPIService getUserAPIService();
+    AuthenticationControllerImpl getAuthenticationController();
 }

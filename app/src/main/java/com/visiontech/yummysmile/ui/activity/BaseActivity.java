@@ -2,6 +2,7 @@ package com.visiontech.yummysmile.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.visiontech.yummysmile.YummySmileApplication;
 
@@ -18,5 +19,10 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(saveInstance);
 
         application = (YummySmileApplication) getApplication();
+    }
+
+    public void showMessage(String message) {
+        //TODO Remove the toast and show SnackBar / alert?
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

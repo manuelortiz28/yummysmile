@@ -25,8 +25,8 @@ import javax.inject.Inject;
 public class MealsControllerImpl implements MealsController {
     private static final String LOG_TAG = MealsControllerImpl.class.getName();
 
-    private final AuthenticationController authenticationController;
-    private final MealAPIService mealAPIService;
+    protected final AuthenticationController authenticationController;
+    protected final MealAPIService mealAPIService;
 
     @Inject
     public MealsControllerImpl(MealAPIService mealAPIService, AuthenticationControllerImpl authenticationController) {

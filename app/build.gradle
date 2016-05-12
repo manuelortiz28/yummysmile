@@ -63,7 +63,7 @@ dependencies {
     compile 'com.google.guava:guava:18.0'
 
     apt 'com.google.dagger:dagger-compiler:2.0.2'
-    compile('com.google.dagger:dagger:2.1-SNAPSHOT') {
+    compile('com.google.dagger:dagger:2.1') {
         exclude module: 'guava'
     }
     provided 'javax.annotation:jsr250-api:1.0'

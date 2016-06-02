@@ -52,7 +52,7 @@ public class DrawerActivity extends BaseActivity implements DrawerActivityView, 
         activityPresenterComponent = application.getActivityPresenterComponent(this);
         activityPresenterComponent.inject(this);
 
-        setUpToolbar();
+        setUpToolbar(R.string.header_time_line, R.id.app_bar, R.drawable.ic_menu_white_24dp);
         setUpNavDrawer();
     }
 
@@ -91,18 +91,6 @@ public class DrawerActivity extends BaseActivity implements DrawerActivityView, 
     //===========================================================================================================
     //===============================================   Private methods    ======================================
     //===========================================================================================================
-
-    private void setUpToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(getString(R.string.header_time_line));
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
 
     private void setUpNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

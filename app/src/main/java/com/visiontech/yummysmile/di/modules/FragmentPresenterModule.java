@@ -5,16 +5,16 @@ import android.support.annotation.Nullable;
 
 import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
 
 import dagger.Module;
 import dagger.Provides;
 
 /**
+ * Module containing Views dependencies in the MVP pattern, but only for PerFragment Scope.
+ *
  * @author manuel.ortiz
- *
- * Module containing Views dependencies in the MVP pattern, but only for PerFragment Scope
- *
  */
 @Module
 public class FragmentPresenterModule {
@@ -40,6 +40,16 @@ public class FragmentPresenterModule {
     BaseFragmentView provideBaseFragmentView() {
         if (baseFragment instanceof BaseFragmentView) {
             return (BaseFragmentView) baseFragment;
+        }
+        return null;
+    }
+
+    @Provides
+    @PerFragment
+    @Nullable
+    CreateMealFragmentView provideCreateMealFragmentView() {
+        if (baseFragment instanceof CreateMealFragmentView) {
+            return (CreateMealFragmentView) baseFragment;
         }
         return null;
     }

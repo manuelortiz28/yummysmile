@@ -27,7 +27,7 @@ public interface MealAPIService {
 
     @Multipart
     @POST(Constants.MEALS)
-        //Fixme probably create a proper model instead a json
+        //FIXME probably create a proper model instead a json
     Observable<JsonObject> createMeal(
             @Header(Constants.TOKEN_FIELD) String token,
             @Header(Constants.USER_FIELD) String userId,

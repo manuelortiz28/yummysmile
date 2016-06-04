@@ -31,13 +31,11 @@ import com.visiontech.yummysmile.util.UIHelper;
  * @author hetorres
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
-    private View viewParent;
     private EditText txtMealName;
     private ImageView mealPicture;
     private TextInputLayout textWrappName;
     private TextView tvPictureLabel;
-
-    protected CreateMealPresenter createMealPresenter;
+    private CreateMealPresenter createMealPresenter;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -48,7 +46,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewParent = inflater.inflate(R.layout.fragment_create_meal_layout, container, false);
+        View viewParent = inflater.inflate(R.layout.fragment_create_meal_layout, container, false);
 
         txtMealName = (EditText) viewParent.findViewById(R.id.et_name);
         mealPicture = (ImageView) viewParent.findViewById(R.id.iv_meal_picture);

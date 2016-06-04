@@ -47,7 +47,7 @@ public class CreateMealPresenter extends BasePresenter {
         Log.d(LOG_TAG, "createMealPresenter()");
         baseFragmentView.showProgress(true);
 
-        //fixme create in a better way?
+        //FIXME create in a better way?
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(JSON_NAME, mealName);
 

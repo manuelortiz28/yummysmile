@@ -3,6 +3,8 @@
     package="com.visiontech.yummysmile">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- Account manager permissions -->
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -23,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.CreateMealActivity"/>
         <activity android:name=".ui.activity.AuthenticatorActivity"
             android:label="@string/app_name"/>
         <service android:name=".accounts.YummyAuthenticatorService" android:exported="false">

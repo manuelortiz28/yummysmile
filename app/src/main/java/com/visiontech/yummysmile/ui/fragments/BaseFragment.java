@@ -30,7 +30,8 @@ public class BaseFragment extends Fragment implements BaseFragmentView {
             Log.d(LOG_TAG, "onCreate() - savedInstanceState");
             //FIXME Why are we using flag instead of loaderFlag??
             boolean flag = savedInstance.getBoolean("loader");
-            loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
+            //FIXME This line is crashing NPE
+            //loader.setVisibility(flag ? View.VISIBLE : View.INVISIBLE);
         }
     }
 

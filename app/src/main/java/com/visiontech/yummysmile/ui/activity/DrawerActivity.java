@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,7 +50,7 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
         activityPresenterComponent = application.getActivityPresenterComponent(this);
         activityPresenterComponent.inject(this);
 
-        setUpToolbar();
+        setUpToolbar(R.string.header_time_line, R.id.app_bar, R.drawable.ic_menu_white_24dp);
         setUpNavDrawer();
     }
 
@@ -91,18 +89,6 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
     //===========================================================================================================
     //===============================================   Private methods    ======================================
     //===========================================================================================================
-
-    private void setUpToolbar() {
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(getString(R.string.header_time_line));
-        setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
 
     private void setUpNavDrawer() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

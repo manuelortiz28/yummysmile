@@ -15,14 +15,26 @@
     <dimen name="font_size_12">12sp</dimen>
 
     <dimen name="zero_dp">0dp</dimen>
+
+    <!-- Toolbar -->
     <dimen name="toolbar_elevation">4dp</dimen>
     <dimen name="card_radius">6dp</dimen>
     <dimen name="card_elevation">7dp</dimen>
     <dimen name="card_height">200dp</dimen>
     <dimen name="default_padding_text">10dp</dimen>
+
+    <!-- Nav Drawer -->
     <dimen name="padding_drawer_top">15dp</dimen>
     <dimen name="margin_avatar">30dp</dimen>
     <dimen name="padding_width_avatar">80dp</dimen>
     <dimen name="padding_height_avatar">80dp</dimen>
+
+    <dimen name="margin_fab_button">15dp</dimen>
+
+    <!-- Create Meal -->
+    <dimen name="margin_width_picture">100dp</dimen>
+    <dimen name="margin_height_picture">100dp</dimen>
+    <dimen name="padding_right_picture">5dp</dimen>
+
 
 </resources>

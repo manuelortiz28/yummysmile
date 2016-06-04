@@ -7,6 +7,8 @@
     <string name="login_text">Login</string>
     <string name="logout_text">Logout</string>
     <string name="login_error_fields_empty">Username and password fields should not be empty</string>
+    <string name="invalid_email">The email has a incorrect format</string>
+    <string name="remember_username">Remember username</string>
 
     <!-- Menu -->
     <string name="menu_home">Home</string>

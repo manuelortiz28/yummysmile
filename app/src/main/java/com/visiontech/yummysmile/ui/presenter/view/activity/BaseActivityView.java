@@ -1,10 +1,9 @@
-package com.visiontech.yummysmile.ui.presenter.view.fragment;
+package com.visiontech.yummysmile.ui.presenter.view.activity;
 
 /**
  * @author manuel.ortiz on 02/03/16.
  */
-public interface BaseFragmentView {
-
+public interface BaseActivityView {
     /**
      * Show the progress dialog
      * @param show If the progress should be displayed or not

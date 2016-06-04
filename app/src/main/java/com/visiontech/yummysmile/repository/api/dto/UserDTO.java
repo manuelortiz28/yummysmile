@@ -14,7 +14,6 @@ public class UserDTO implements Serializable {
     @SerializedName("objectId")
     private String id;
     private String name;
-    @SerializedName("lastname")
     private String lastName;
     private String email;
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

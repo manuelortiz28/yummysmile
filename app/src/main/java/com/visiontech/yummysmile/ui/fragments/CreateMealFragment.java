@@ -1,14 +1,9 @@
 package com.visiontech.yummysmile.ui.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,17 +23,7 @@ import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
-import com.visiontech.yummysmile.util.Constants;
 import com.visiontech.yummysmile.util.UIHelper;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.inject.Inject;
 
 /**
  * Fragment to handle creation of a new meal.
@@ -47,19 +31,10 @@ import javax.inject.Inject;
  * @author hetorres
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
-    private static final String LOG_TAG = CreateMealFragment.class.getName();
-    private static final int REQUEST_IMAGE_CAPTURE = 100;
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
-
-    private String currentPhotoPath;
     private View viewParent;
     private EditText txtMealName;
-    private EditText txtDescription;
     private ImageView mealPicture;
-    private File pictureToUpload;
-    private ProgressBar progressBar;
     private TextInputLayout textWrappName;
-    private TextInputLayout textWrappDescription;
     private TextView tvPictureLabel;
 
     protected CreateMealPresenter createMealPresenter;
@@ -76,11 +51,8 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         viewParent = inflater.inflate(R.layout.fragment_create_meal_layout, container, false);
 
         txtMealName = (EditText) viewParent.findViewById(R.id.et_name);
-        txtDescription = (EditText) viewParent.findViewById(R.id.et_description);
         mealPicture = (ImageView) viewParent.findViewById(R.id.iv_meal_picture);
-        progressBar = (ProgressBar) viewParent.findViewById(R.id.progressBar);
         textWrappName = (TextInputLayout) viewParent.findViewById(R.id.ti_name_wrapper);
-        textWrappDescription = (TextInputLayout) viewParent.findViewById(R.id.ti_description_wrapper);
         tvPictureLabel = (TextView) viewParent.findViewById(R.id.tv_title_img_source);
 
         mealPicture.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +91,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
             case R.id.save_meal:
                 saveMeal();
                 return true;
+            default:
         }
         return super.onOptionsItemSelected(item);
     }
@@ -139,7 +112,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         } else {
             // we have enough information to create the meal.
             UIHelper.hideKeyboard(getActivity());
-            createMealPresenter.createMeal(txtMealName.getText().toString(), pictureToUpload);
+            //TODO put the create meal service call.
         }
     }
 }

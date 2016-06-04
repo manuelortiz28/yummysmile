@@ -3,7 +3,6 @@ package com.visiontech.yummysmile.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +19,6 @@ import com.visiontech.yummysmile.ui.fragments.HomeFragment;
 public class HomeActivity extends DrawerActivity {
 
     private static final String LOG_TAG = HomeActivity.class.getName();
-    private FloatingActionButton fabButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +53,7 @@ public class HomeActivity extends DrawerActivity {
     }
 
     private void setUpFabButton() {
-        fabButton = (FloatingActionButton) findViewById(R.id.fab_button);
-        fabButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.fab_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, CreateMealActivity.class);

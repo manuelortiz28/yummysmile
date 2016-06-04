@@ -18,10 +18,7 @@ import android.widget.Toast;
 import com.google.common.base.Strings;
 import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
-import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
-import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 import com.visiontech.yummysmile.util.UIHelper;
 
@@ -35,7 +32,6 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     private ImageView mealPicture;
     private TextInputLayout textWrappName;
     private TextView tvPictureLabel;
-    private CreateMealPresenter createMealPresenter;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -67,9 +63,6 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
         ((BaseActivity) getActivity()).setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
-        ActivityPresenterComponent activityPresenterComponent = application.getActivityPresenterComponent((BaseActivity) getActivity());
-        FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, activityPresenterComponent);
-        createMealPresenter = fragmentPresenterComponent.getCreateMealPresenter();
     }
 
     @Override

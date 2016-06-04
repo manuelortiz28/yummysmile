@@ -15,7 +15,7 @@ import android.view.View;
  */
 public class ScrollFABBehavior extends FloatingActionButton.Behavior {
 
-    public ScrollFABBehavior(Context context, AttributeSet attrs) {
+    public ScrollFABBehavior(Context context, AttributeSet attributeSet) {
         super();
     }
 

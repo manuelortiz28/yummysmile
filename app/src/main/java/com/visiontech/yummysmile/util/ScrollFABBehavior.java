@@ -8,7 +8,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Class to make a custom behavior to the fab button
+ * Class to make a custom behavior to the FAB button.
+ * We can decide what to do with the FAB button, like hide it when we are doing scroll down,
+ * or show it when we are doing scroll up for example.
  *
  * @author hector.torres
  */

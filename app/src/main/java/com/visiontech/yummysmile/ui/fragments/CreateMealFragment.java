@@ -1,9 +1,14 @@
 package com.visiontech.yummysmile.ui.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,9 +29,15 @@ import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
+import com.visiontech.yummysmile.util.Constants;
 import com.visiontech.yummysmile.util.UIHelper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -37,11 +48,10 @@ import javax.inject.Inject;
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
     private static final String LOG_TAG = CreateMealFragment.class.getName();
-
-    private String currentPhotoPath;
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
 
+    private String currentPhotoPath;
     private View viewParent;
     private EditText txtMealName;
     private EditText txtDescription;
@@ -52,7 +62,6 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     private TextInputLayout textWrappDescription;
     private TextView tvPictureLabel;
 
-    @Inject
     protected CreateMealPresenter createMealPresenter;
 
     @Override
@@ -88,15 +97,9 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
         ((BaseActivity) getActivity()).setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
-
         ActivityPresenterComponent activityPresenterComponent = application.getActivityPresenterComponent((BaseActivity) getActivity());
         FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, activityPresenterComponent);
         createMealPresenter = fragmentPresenterComponent.getCreateMealPresenter();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -114,17 +117,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
                 return true;
 
             case R.id.save_meal:
-                if (Strings.isNullOrEmpty(txtMealName.getText().toString())) {
-                    textWrappName.setError(getString(R.string.name_required_field));
-                } else if (mealPicture.getDrawable() == null
-                        || mealPicture.getTag().equals(getString(R.string.default_tag))) {
-                    tvPictureLabel.setVisibility(View.VISIBLE);
-                    tvPictureLabel.setError(tvPictureLabel.getText());
-                } else {
-                    // we have enough information to create the meal.
-                    UIHelper.hideKeyboard(getActivity());
-                    createMealPresenter.createMeal(txtMealName.getText().toString(), pictureToUpload);
-                }
+                saveMeal();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -134,5 +127,19 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     public void createMealResponse(JsonObject jsonObject) {
         Toast.makeText(getActivity(), "Meal created successfully!", Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
+    }
+
+    private void saveMeal() {
+        if (Strings.isNullOrEmpty(txtMealName.getText().toString())) {
+            textWrappName.setError(getString(R.string.name_required_field));
+        } else if (mealPicture.getDrawable() == null
+                || getString(R.string.default_tag).equals(mealPicture.getTag())) {
+            tvPictureLabel.setVisibility(View.VISIBLE);
+            tvPictureLabel.setError(tvPictureLabel.getText());
+        } else {
+            // we have enough information to create the meal.
+            UIHelper.hideKeyboard(getActivity());
+            createMealPresenter.createMeal(txtMealName.getText().toString(), pictureToUpload);
+        }
     }
 }

@@ -24,11 +24,10 @@ import javax.inject.Inject;
  */
 public class CreateMealPresenter extends BasePresenter {
     private static final String LOG_TAG = CreateMealPresenter.class.getName();
-
+    private static final String JSON_NAME = "name";
     private final MealsController mealsController;
     private final BaseFragmentView baseFragmentView;
     private final CreateMealFragmentView createMealFragmentView;
-    private static final String JSON_NAME = "name";
 
     @Inject
     public CreateMealPresenter(

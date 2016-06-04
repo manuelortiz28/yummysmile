@@ -1,6 +1,7 @@
 package com.visiontech.yummysmile.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void setUpToolbar(int title, int layout, int icon) {
+    public void setUpToolbar(@NonNull int title, @NonNull int layout, @NonNull int icon) {
         final Toolbar toolbar = (Toolbar) findViewById(layout);
         toolbar.setTitle(getString(title));
         setSupportActionBar(toolbar);

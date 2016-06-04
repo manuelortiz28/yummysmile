@@ -91,6 +91,7 @@ public class MealsControllerImpl implements MealsController {
                 });
     }
 
+    //Fixme find a better way to do it.
     private void obtainUserInfo() {
         final User userLoggedIn = authenticationController.getUserLoggedIn();
 

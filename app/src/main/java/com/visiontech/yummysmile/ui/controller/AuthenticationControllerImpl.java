@@ -125,12 +125,11 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         AccountManager accountManager = AccountManager.get(context);
 
         if (isAddingNewAccount) {
-            Bundle extraInformationBundle = new Bundle();
-            extraInformationBundle.putString(USER_ID, user.getId());
-            extraInformationBundle.putString(USER_NAME, user.getName());
-            extraInformationBundle.putString(USER_LAST_NAME, user.getLastName());
+            accountManager.addAccountExplicitly(account, password, new Bundle());
+            accountManager.setUserData(account, USER_ID, user.getId());
+            accountManager.setUserData(account, USER_NAME, user.getName());
+            accountManager.setUserData(account, USER_LAST_NAME, user.getLastName());
 
-            accountManager.addAccountExplicitly(account, password, extraInformationBundle);
             accountManager.setAuthToken(account, AuthenticatorActivity.NORMAL_USER_TOKEN_TYPE, user.getToken());
         } else {
             accountManager.setPassword(account, password);

@@ -11,7 +11,6 @@ public class MealDTO {
     @SerializedName("objectId")
     private String id;
     private String name;
-    @SerializedName("filename") //Fixme on service side.
     private String fileName;
 
     public String getId() {

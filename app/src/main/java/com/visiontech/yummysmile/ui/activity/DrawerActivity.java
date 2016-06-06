@@ -27,7 +27,7 @@ import io.fabric.sdk.android.Fabric;
 /**
  * @author manuel.ortiz
  */
-public class DrawerActivity extends BaseActivity implements DrawerActivityView, DrawerActivityMethods, LoginActivityView {
+public abstract class DrawerActivity extends BaseActivity implements DrawerActivityView, DrawerActivityMethods, LoginActivityView {
     private static final String LOG_TAG = HomeActivity.class.getName();
 
     private DrawerLayout drawerLayout;

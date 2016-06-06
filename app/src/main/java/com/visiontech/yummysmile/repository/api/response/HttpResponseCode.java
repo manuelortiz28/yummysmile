@@ -10,10 +10,20 @@ import com.google.gson.annotations.SerializedName;
 public enum HttpResponseCode {
     @SerializedName("0")
     UNKNOWN(0),
+    @SerializedName("400")
+    BAD_REQUEST(400),
     @SerializedName("401")
     UNAUTHORIZED(401),
+    @SerializedName("404")
+    NOT_FOUND(404),
     @SerializedName("405")
-    NOT_FOUND(405),
+    METHOD_NOT_ALLOWED(405),
+    @SerializedName("409")
+    CONFLICT(409),
+    @SerializedName("415")
+    UNSUPPORTED_MEDIA_TYPE(415),
+    @SerializedName("422")
+    UNPROCESSABLE_ENTITY(422),
     @SerializedName("500")
     INTERNAL_SERVER_ERROR(500);
 
@@ -29,8 +39,10 @@ public enum HttpResponseCode {
      * @return
      */
     public static HttpResponseCode fromValue(int errorCode) {
-        if (UNAUTHORIZED.getValue() == errorCode) {
-            return UNAUTHORIZED;
+        for (HttpResponseCode currentCode : values()) {
+            if (currentCode.value == errorCode) {
+                return currentCode;
+            }
         }
 
         return UNKNOWN;

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.models.User;
+import com.visiontech.yummysmile.models.YummySharedPreferences;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
@@ -25,17 +26,20 @@ public class LoginPresenter {
     private final AuthenticationController authenticationController;
     private final DrawerActivityView drawerView;
     private final LoginActivityView loginView;
+    private final YummySharedPreferences sharedPreferences;
 
     @Inject
     public LoginPresenter(
             Context context,
             AuthenticationControllerImpl authenticationController,
+            YummySharedPreferences yummySharedPreferences,
             @Nullable LoginActivityView loginView,
             @Nullable DrawerActivityView drawerView) {
 
-        this.loginView = loginView;
-        this.authenticationController = authenticationController;
         this.context = context;
+        this.authenticationController = authenticationController;
+        this.sharedPreferences = yummySharedPreferences;
+        this.loginView = loginView;
         this.drawerView = drawerView;
     }
 
@@ -53,7 +57,7 @@ public class LoginPresenter {
                     loginView.showSuccess(result.getPayload());
                 } else {
 
-                    if (HttpResponseCode.UNAUTHORIZED == result.getError().getCode()
+                    if (HttpResponseCode.UNPROCESSABLE_ENTITY == result.getError().getCode()
                             && !result.getError().getErrors().isEmpty()) {
                         loginView.showError(result.getError().getErrors().get(0).getMessage());
                     } else {
@@ -97,5 +101,22 @@ public class LoginPresenter {
         } else {
             drawerView.showUserInfo(user);
         }
+    }
+
+    /**
+     * Get the email that the user selected to be remembered
+     * @return The email stored
+     */
+    public String getEmailStored() {
+        return sharedPreferences.getEmail();
+    }
+
+    /**
+     * Set the email that the user selected to be remembered
+     * @param email Email to be stored
+     * @param store true If the user want to store the email, otherwise the email will be deleted
+     */
+    public void setEmailStored(String email, boolean store) {
+        sharedPreferences.setEmail(store ? email : "");
     }
 }

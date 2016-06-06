@@ -28,14 +28,12 @@ import javax.inject.Inject;
  * @author manuel.ortiz
  */
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
-    @Inject
+
     protected HomePresenter homePresenter;
-    @Inject
     protected LoginPresenter loginPresenter;
+
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private MainCardsAdapter mainCardsAdapter;
-
     private View viewParent;
 
     private final MainCardsAdapter.MealCardOnClickListener mealCardOnClickListener = new MainCardsAdapter.MealCardOnClickListener() {

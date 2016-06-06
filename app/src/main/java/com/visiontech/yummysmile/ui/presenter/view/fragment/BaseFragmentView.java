@@ -1,7 +1,7 @@
 package com.visiontech.yummysmile.ui.presenter.view.fragment;
 
 /**
- * Created by manuel on 02/03/16.
+ * @author manuel.ortiz on 02/03/16.
  */
 public interface BaseFragmentView {
 

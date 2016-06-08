@@ -9,7 +9,6 @@ import com.visiontech.yummysmile.models.YummySharedPreferences;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
-import com.visiontech.yummysmile.ui.controller.AuthenticationControllerImpl;
 import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
 
@@ -31,7 +30,7 @@ public class LoginPresenter {
     @Inject
     public LoginPresenter(
             Context context,
-            AuthenticationControllerImpl authenticationController,
+            AuthenticationController authenticationController,
             YummySharedPreferences yummySharedPreferences,
             @Nullable LoginActivityView loginView,
             @Nullable DrawerActivityView drawerView) {
@@ -49,10 +48,10 @@ public class LoginPresenter {
      * @param password
      */
     public void authenticate(String username, String password) {
-        authenticationController.login(username, password, new ResultListener<AuthenticationControllerImpl.LoggedInResponse>() {
+        authenticationController.login(username, password, new ResultListener<AuthenticationController.LoggedInResponse>() {
 
             @Override
-            public void onResult(AuthenticationControllerImpl.LoggedInResponse result) {
+            public void onResult(AuthenticationController.LoggedInResponse result) {
                 if (result.isSuccess()) {
                     loginView.showSuccess(result.getPayload());
                 } else {
@@ -76,9 +75,9 @@ public class LoginPresenter {
      */
     public void logoutUser() {
         authenticationController.logOutUser(
-                new ResultListener<AuthenticationControllerImpl.LoggedOutResponse>() {
+                new ResultListener<AuthenticationController.LoggedOutResponse>() {
                     @Override
-                    public void onResult(AuthenticationControllerImpl.LoggedOutResponse result) {
+                    public void onResult(AuthenticationController.LoggedOutResponse result) {
                         if (result.isSuccess()) {
                             drawerView.showLoginScreen();
                         } /*else {

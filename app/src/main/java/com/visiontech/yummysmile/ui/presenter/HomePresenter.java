@@ -8,7 +8,6 @@ import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.MealsController;
-import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
@@ -32,7 +31,7 @@ public class HomePresenter extends BasePresenter {
     @Inject
     public HomePresenter(
             YummySmileApplication application,
-            MealsControllerImpl mealsController,
+            MealsController mealsController,
             @Nullable BaseFragmentView baseFragmentView,
             @Nullable HomeFragmentView homeView,
             @Nullable DrawerActivityView drawerView) {
@@ -47,9 +46,9 @@ public class HomePresenter extends BasePresenter {
 
     public void fetchMeals() {
         baseFragmentView.showProgress(true);
-        mealsController.getMeals(new ResultListener<MealsControllerImpl.MealsResponse>() {
+        mealsController.getMeals(new ResultListener<MealsController.MealsResponse>() {
             @Override
-            public void onResult(MealsControllerImpl.MealsResponse result) {
+            public void onResult(MealsController.MealsResponse result) {
                 baseFragmentView.showProgress(false);
                 if (result.isSuccess()) {
 

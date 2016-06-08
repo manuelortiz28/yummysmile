@@ -1,6 +1,7 @@
 package com.visiontech.yummysmile.ui.controller;
 
 import com.visiontech.yummysmile.models.User;
+import com.visiontech.yummysmile.repository.api.response.BaseResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 
 /**
@@ -20,7 +21,7 @@ public interface AuthenticationController {
      * @param password Password of the account
      * @param result Listener used as a callback to pass the result, which contain an User model object
      */
-    void login(String username, String password, ResultListener<AuthenticationControllerImpl.LoggedInResponse> result);
+    void login(String username, String password, ResultListener<LoggedInResponse> result);
 
     /**
      * Gets the current user logged in, as an User object model
@@ -32,5 +33,19 @@ public interface AuthenticationController {
      * Log out the current user
      * @param resultListener Listener used as a callback to pass the result
      */
-    void logOutUser(ResultListener<AuthenticationControllerImpl.LoggedOutResponse> resultListener);
+    void logOutUser(ResultListener<LoggedOutResponse> resultListener);
+
+
+    //===========================================================================================================
+    //===============================================   Events    ===============================================
+    //===========================================================================================================
+
+    /**
+     * Response object containing an User object
+     */
+    class LoggedInResponse extends BaseResponse<User> {
+    }
+
+    class LoggedOutResponse extends BaseResponse {
+    }
 }

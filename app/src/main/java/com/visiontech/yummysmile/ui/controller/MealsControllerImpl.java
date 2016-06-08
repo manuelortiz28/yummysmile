@@ -12,7 +12,6 @@ import com.visiontech.yummysmile.models.transformers.MealTransform;
 import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
 import com.visiontech.yummysmile.repository.api.MealAPIService;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
-import com.visiontech.yummysmile.repository.api.response.BaseResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.BaseSubscriber;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.util.Constants;
@@ -37,13 +36,13 @@ public class MealsControllerImpl implements MealsController {
     protected final MealAPIService mealAPIService;
 
     @Inject
-    public MealsControllerImpl(MealAPIService mealAPIService, AuthenticationControllerImpl authenticationController) {
+    public MealsControllerImpl(MealAPIService mealAPIService, AuthenticationController authenticationController) {
         this.mealAPIService = mealAPIService;
         this.authenticationController = authenticationController;
     }
 
     @Override
-    public void getMeals(final ResultListener<MealsControllerImpl.MealsResponse> resultListener) {
+    public void getMeals(final ResultListener<MealsResponse> resultListener) {
         Log.d(LOG_TAG, "getMeals()");
 
         obtainUserInfo();
@@ -99,15 +98,5 @@ public class MealsControllerImpl implements MealsController {
             token = userLoggedIn.getToken();
             userId = userLoggedIn.getId();
         }
-    }
-
-    //===========================================================================================================
-    //===============================================   Events    ===============================================
-    //===========================================================================================================
-
-    public static class MealsResponse extends BaseResponse<List<Meal>> {
-    }
-
-    public static class CreateMealResponse extends BaseResponse<JsonObject> {
     }
 }

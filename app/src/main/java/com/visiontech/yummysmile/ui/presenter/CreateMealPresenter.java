@@ -9,7 +9,6 @@ import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.repository.api.response.ErrorResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.MealsController;
-import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 
@@ -32,7 +31,7 @@ public class CreateMealPresenter extends BasePresenter {
     @Inject
     public CreateMealPresenter(
             YummySmileApplication application,
-            MealsControllerImpl mealsController,
+            MealsController mealsController,
             @Nullable BaseFragmentView baseFragmentView,
             @Nullable CreateMealFragmentView createMealFragmentView) {
 
@@ -51,9 +50,9 @@ public class CreateMealPresenter extends BasePresenter {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(JSON_NAME, mealName);
 
-        mealsController.createMeal(jsonObject, photo, new ResultListener<MealsControllerImpl.CreateMealResponse>() {
+        mealsController.createMeal(jsonObject, photo, new ResultListener<MealsController.CreateMealResponse>() {
             @Override
-            public void onResult(MealsControllerImpl.CreateMealResponse result) {
+            public void onResult(MealsController.CreateMealResponse result) {
                 baseFragmentView.showProgress(false);
                 if (result.isSuccess()) {
                     JsonObject payload = result.getPayload();

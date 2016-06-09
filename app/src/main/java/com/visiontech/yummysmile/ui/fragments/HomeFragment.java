@@ -22,8 +22,6 @@ import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
  * @author manuel.ortiz
  */

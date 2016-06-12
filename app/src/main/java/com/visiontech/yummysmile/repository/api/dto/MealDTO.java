@@ -11,6 +11,7 @@ public class MealDTO {
     @SerializedName("objectId")
     private String id;
     private String name;
+    @SerializedName("filename")
     private String fileName;
 
     public String getId() {

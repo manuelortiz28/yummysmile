@@ -21,7 +21,7 @@ public interface AuthenticationController {
      * @param password Password of the account
      * @param result Listener used as a callback to pass the result, which contain an User model object
      */
-    void login(String username, String password, ResultListener<LoggedInResponse> result);
+    void login(String username, String password, ResultListener<LogInResponse> result);
 
     /**
      * Gets the current user logged in, as an User object model
@@ -33,7 +33,13 @@ public interface AuthenticationController {
      * Log out the current user
      * @param resultListener Listener used as a callback to pass the result
      */
-    void logOutUser(ResultListener<LoggedOutResponse> resultListener);
+    void logOutUser(ResultListener<LogOutResponse> resultListener);
+
+    /**
+     * Sends an email for re assigning a new password for the given email account
+     * @param email
+     */
+    void recoverPassword(String email, ResultListener<RecoverPasswordResponse> resultListener);
 
 
     //===========================================================================================================
@@ -43,9 +49,12 @@ public interface AuthenticationController {
     /**
      * Response object containing an User object
      */
-    class LoggedInResponse extends BaseResponse<User> {
+    class LogInResponse extends BaseResponse<User> {
     }
 
-    class LoggedOutResponse extends BaseResponse {
+    class LogOutResponse extends BaseResponse {
+    }
+
+    class RecoverPasswordResponse extends BaseResponse {
     }
 }

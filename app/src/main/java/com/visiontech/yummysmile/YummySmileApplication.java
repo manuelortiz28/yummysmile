@@ -34,10 +34,9 @@ public class YummySmileApplication extends Application {
      */
     private void setupGraph() {
 
-        coreComponent =
-                DaggerCoreComponent.builder()
-                        .appModule(new AppModule(this))
-                        .build();
+        coreComponent = DaggerCoreComponent.builder()
+                            .appModule(new AppModule(this))
+                            .build();
 
         coreComponent.inject(this);
     }
@@ -58,6 +57,7 @@ public class YummySmileApplication extends Application {
      * @return The Dagger presenter component
      */
     public ActivityPresenterComponent getActivityPresenterComponent(BaseActivity activity) {
+
         return DaggerActivityPresenterComponent
                 .builder()
                 .coreComponent(coreComponent)
@@ -74,9 +74,28 @@ public class YummySmileApplication extends Application {
     public FragmentPresenterComponent getFragmentPresenterComponent(
             BaseFragment fragment,
             ActivityPresenterComponent activityPresenterComponent) {
+
         return DaggerFragmentPresenterComponent
                 .builder()
                 .activityPresenterComponent(activityPresenterComponent)
+                .fragmentPresenterModule(new FragmentPresenterModule(fragment))
+                .build();
+    }
+
+    /**
+     * Gets the Presenter component
+     *
+     * @param fragment implementing any View interface from the MVP pattern
+     * @param activity  implementing any View interface from the MVP pattern
+     * @return The Dagger presenter component
+     */
+    public FragmentPresenterComponent getFragmentPresenterComponent(
+            BaseFragment fragment,
+            BaseActivity activity) {
+
+        return DaggerFragmentPresenterComponent
+                .builder()
+                .activityPresenterComponent(getActivityPresenterComponent(activity))
                 .fragmentPresenterModule(new FragmentPresenterModule(fragment))
                 .build();
     }

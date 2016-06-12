@@ -55,8 +55,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_text"
-            android:onClick="onLoginClick" />
+            android:id="@+id/btnLogin"
+            android:text="@string/login_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtForgotPassword"
+            android:text="@string/forgot_password"/>
     </LinearLayout>
 
 </RelativeLayout>

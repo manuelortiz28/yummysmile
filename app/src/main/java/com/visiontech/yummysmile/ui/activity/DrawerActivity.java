@@ -1,6 +1,5 @@
 package com.visiontech.yummysmile.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,8 +16,7 @@ import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
-import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
-import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.UserSessionView;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,7 @@ import io.fabric.sdk.android.Fabric;
 /**
  * @author manuel.ortiz
  */
-public abstract class DrawerActivity extends BaseActivity implements DrawerActivityView, DrawerActivityMethods, LoginActivityView {
+public abstract class DrawerActivity extends BaseActivity implements UserSessionView {
     private static final String LOG_TAG = HomeActivity.class.getName();
 
     private DrawerLayout drawerLayout;
@@ -70,12 +68,6 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
     //===============================================   Presenter actions    ====================================
     //===========================================================================================================
     @Override
-    public void showLoginScreen() {
-        startActivity(new Intent(this, AuthenticatorActivity.class));
-        finish();
-    }
-
-    @Override
     public void showUserInfo(User user) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
@@ -85,7 +77,6 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
             ((TextView) headerView.findViewById(R.id.tv_email)).setText(user.getEmail());
         }
     }
-
     //===========================================================================================================
     //===============================================   Private methods    ======================================
     //===========================================================================================================
@@ -102,7 +93,7 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
                 menuItem.setChecked(true);
 
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    loginPresenter.logoutUser();
+                    loginPresenter.logOutUser();
                 } else {
                     //Fixme remove the message
                     showMessage("Item: " + menuItem.getTitle());
@@ -110,22 +101,6 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
                 return true;
             }
         });
-    }
-
-    @Override
-    public ActivityPresenterComponent getActivityPresenterComponent() {
-        return activityPresenterComponent;
-    }
-
-    @Override
-    public void showError(String errorMessage) {
-        //FIXME show the snake bar generic error message
-        showMessage(errorMessage);
-    }
-
-    @Override
-    public void showSuccess(User user) {
-        showUserInfo(user);
     }
 
     @Override

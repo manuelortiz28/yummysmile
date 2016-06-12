@@ -7,6 +7,7 @@ import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.RecoverPasswordFragmentView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -50,6 +51,16 @@ public class FragmentPresenterModule {
     CreateMealFragmentView provideCreateMealFragmentView() {
         if (baseFragment instanceof CreateMealFragmentView) {
             return (CreateMealFragmentView) baseFragment;
+        }
+        return null;
+    }
+
+    @Provides
+    @PerFragment
+    @Nullable
+    RecoverPasswordFragmentView provideRecoverPasswordFragmentView() {
+        if (baseFragment instanceof RecoverPasswordFragmentView) {
+            return (RecoverPasswordFragmentView) baseFragment;
         }
         return null;
     }

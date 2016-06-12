@@ -46,7 +46,7 @@ public class CreateMealPresenter extends BasePresenter {
         Log.d(LOG_TAG, "createMealPresenter()");
         baseFragmentView.showProgress(true);
 
-        //FIXME create in a better way?
+        //FIXME Use a DTO instead of a JsonObject
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty(JSON_NAME, mealName);
 
@@ -67,6 +67,4 @@ public class CreateMealPresenter extends BasePresenter {
             }
         });
     }
-
-
 }

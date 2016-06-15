@@ -1,6 +1,5 @@
 package com.visiontech.yummysmile.ui.activity;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,30 +14,26 @@ import com.visiontech.yummysmile.util.PermissionsHelper;
 
 /**
  * Activity to handle the flow and logic for Permissions on Android M or above. Also handle permission declined contingency.
+ *
  * @author hetorres
  */
 public class PermissionsActivity extends BaseActivity {
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final String PACKAGE = "package:";
 
     public static final int PERMISSIONS_GRANTED = 0;
     public static final int PERMISSIONS_DENIED = 1;
-    private static final String PERMISSIONS_KEY = "PERMISSIONS";
-    private static final int PERMISSION_REQUEST_CODE = 200;
-    private static final String PACKAGE = "package:";
+    public static final String PERMISSIONS_KEY = "PERMISSIONS";
 
     private PermissionsHelper permissionsHelper;
     private boolean requiresCheck;
 
-    public static void startActivityForResult(Activity activity, int requestCode, String... permissions) {
-        Intent intent = new Intent(activity, PermissionsActivity.class);
-        intent.putExtra(PERMISSIONS_KEY, permissions);
-        ActivityCompat.startActivityForResult(activity, intent, requestCode, null);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getIntent() == null || !getIntent().hasExtra(PERMISSIONS_KEY)) {
-            throw new RuntimeException("This Activity needs to be launched using the static startActivityForResult() method.");
+            throw new RuntimeException("This Activity needs to have PERMISSIONS_KEY parameter");
         }
 
         setContentView(R.layout.activity_permissions);
@@ -51,13 +46,13 @@ public class PermissionsActivity extends BaseActivity {
         super.onResume();
         String[] permissions = getIntent().getStringArrayExtra(PERMISSIONS_KEY);
 
-        if(requiresCheck){
+        if (requiresCheck) {
             if (permissionsHelper.permissionsCheck(permissions)) {
                 ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
             } else {
                 allPermissionsGranted();
             }
-        }else{
+        } else {
             requiresCheck = true;
         }
     }
@@ -72,7 +67,6 @@ public class PermissionsActivity extends BaseActivity {
             requiresCheck = false;
         }
     }
-
 
     /**
      * ======== Private Methods ==========

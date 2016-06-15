@@ -2,5 +2,4 @@
 <resources>
     <integer name="max_length_meal_name">30</integer>
     <integer name="max_length_meal_description">30</integer>
-    <integer name="picture_target_size">400</integer>
 </resources>

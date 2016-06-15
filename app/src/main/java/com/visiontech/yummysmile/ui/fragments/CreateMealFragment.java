@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.common.base.Strings;
 import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
@@ -53,6 +54,7 @@ import java.util.Date;
  * @author hetorres
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
+    private static final int DESIRE_SIZE = 600;
     private static final String TAG = CreateMealFragment.class.getName();
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     private static final int REQUEST_CAMERA = 0;
@@ -291,9 +293,8 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW / R.integer.picture_target_size, photoH / R.integer.picture_target_size);
+        int scaleFactor = Math.min(photoW / DESIRE_SIZE, photoH / DESIRE_SIZE);
 
-        // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;

@@ -33,7 +33,7 @@ public class PermissionsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Preconditions.checkNotNull(getIntent());
-        Preconditions.checkArgument(!getIntent().hasExtra(PERMISSIONS_KEY), "This Activity needs to have PERMISSIONS_KEY parameter.");
+        Preconditions.checkArgument(getIntent().hasExtra(PERMISSIONS_KEY), "This Activity needs to have PERMISSIONS_KEY parameter.");
 
         setContentView(R.layout.activity_permissions);
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
@@ -90,16 +90,16 @@ public class PermissionsActivity extends BaseActivity {
      */
     private void showMissingPermissionDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(PermissionsActivity.this);
-        dialogBuilder.setTitle("Why do we ask?");
-        dialogBuilder.setMessage("We need your permission to access to your gallery and upload a photo, or take a photo from camera.");
-        dialogBuilder.setNegativeButton("Denied", new DialogInterface.OnClickListener() {
+        dialogBuilder.setTitle(R.string.permissions_title);
+        dialogBuilder.setMessage(R.string.permissions_message);
+        dialogBuilder.setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setResult(PERMISSIONS_DENIED);
                 finish();
             }
         });
-        dialogBuilder.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(R.string.menu_action_settings, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startAppSettings();

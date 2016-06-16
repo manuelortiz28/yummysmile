@@ -7,6 +7,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
+import retrofit.http.Query;
 import rx.Observable;
 
 /**
@@ -22,4 +23,7 @@ public interface UserAPIService {
     Observable<String> logout(
             @Header(Constants.TOKEN_FIELD) String token,
             @Header(Constants.USER_FIELD) String userId);
+
+    @POST("recoverpassword")
+    Observable<String> recoverPassword(@Query("email") String email);
 }

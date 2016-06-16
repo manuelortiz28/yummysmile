@@ -9,6 +9,13 @@
     <string name="login_error_fields_empty">Username and password fields should not be empty</string>
     <string name="invalid_email">The email has an incorrect format</string>
     <string name="remember_username">Remember me</string>
+    <string name="forgot_password">Forgot your password?</string>
+
+    <!-- Recover Password -->
+    <string name="recover_error_fields_empty">Username field should not be empty</string>
+    <string name="recover_submit_button_text">Recover Password</string>
+    <string name="recover_password_error">Recover Password could not be performed this time. Please try it later.</string>
+    <string name="recover_password_success">An email has been successfully sent to you! Please follow steps that are described in there.</string>
 
     <!-- Menu -->
     <string name="menu_home">Home</string>

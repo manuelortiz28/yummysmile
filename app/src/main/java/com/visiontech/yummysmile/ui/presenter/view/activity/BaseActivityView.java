@@ -27,4 +27,9 @@ public interface BaseActivityView {
      * @param icon Drawable resource to set to the toolbar as an icon
      */
     void setUpToolbar(@StringRes int title, @IdRes int toolbarViewId, @DrawableRes int icon);
+
+    /**
+     * Opens the login screen
+     */
+    void showLoginScreen();
 }

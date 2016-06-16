@@ -26,6 +26,7 @@ public interface MealsController {
      * @param photo  picture of the meal
      * @param result listener to return the response.
      */
+    //FIXME Use a DTO instead of JsonObject
     void createMeal(JsonObject meal, File photo, ResultListener result);
 
     //===========================================================================================================

@@ -1,5 +1,6 @@
 package com.visiontech.yummysmile.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
@@ -27,6 +28,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
         super.onCreate(saveInstance);
 
         application = (YummySmileApplication) getApplication();
+    }
+
+    @Override
+    public void showLoginScreen() {
+        startActivity(new Intent(this, AuthenticatorActivity.class));
+        finish();
     }
 
     @Override

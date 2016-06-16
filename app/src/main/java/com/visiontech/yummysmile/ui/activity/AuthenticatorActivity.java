@@ -3,17 +3,13 @@ package com.visiontech.yummysmile.ui.activity;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.models.User;
-import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
-import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
+import com.visiontech.yummysmile.ui.fragments.LoginFragment;
+import com.visiontech.yummysmile.ui.fragments.RecoverPasswordFragment;
+import com.visiontech.yummysmile.ui.presenter.view.activity.AuthenticatorActivityView;
 
 /**
  * @author manuel.ortiz
@@ -21,88 +17,66 @@ import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
  * Activity that shows the login screen
  *
  */
-public class AuthenticatorActivity extends BaseActivity implements LoginActivityView {
+public class AuthenticatorActivity extends BaseActivity implements AuthenticatorActivityView {
+    private static final String TAG_FRAGMENT_LOGIN = "LOGIN_FRAGMENT";
+    private static final String TAG_FRAGMENT_RECOVER_PASSWORD = "RECOVER_PASSWORD_FRAGMENT";
+
     public static final String ARG_ACCOUNT_TYPE = "ARG_ACCOUNT_TYPE";
     public static final String ARG_AUTH_TYPE = "ARG_AUTH_TYPE";
     public static final String ARG_IS_ADDING_NEW_ACCOUNT = "ARG_IS_ADDING_NEW_ACCOUNT";
     public static final String YUMMY_ACCOUNT_TYPE = "com.visiontech.yummysmile.normalaccount";
     public static final String NORMAL_USER_TOKEN_TYPE = "NORMAL_USER";
 
-    private EditText txtUsername;
-    private EditText txtPassword;
-    private Switch switchRememberUser;
-
-    private LoginPresenter loginPresenter;
+    private LoginFragment loginFragment;
+    private RecoverPasswordFragment recoverPasswordFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.login_screen);
+        setContentView(R.layout.activity_authenticator);
 
-        txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-        switchRememberUser = (Switch) findViewById(R.id.switch_remember_username);
+        if (savedInstanceState == null) {
+            loginFragment = LoginFragment.newInstance();
+            recoverPasswordFragment = RecoverPasswordFragment.newInstance();
 
-        loginPresenter = application.getActivityPresenterComponent(this).getLoginPresenter();
-
-        //Remember username functionality
-        final String userNameStored = loginPresenter.getEmailStored();
-        txtUsername.setText(userNameStored);
-        switchRememberUser.setChecked(!TextUtils.isEmpty(userNameStored));
-
-        switchRememberUser.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                loginPresenter.setEmailStored(txtUsername.getText().toString(), isChecked);
-            }
-        });
-    }
-
-    public void onLoginClick(View view) {
-        if (isDataValid()) {
-            showProgress(true);
-            loginPresenter.setEmailStored(txtUsername.getText().toString(), switchRememberUser.isChecked());
-            loginPresenter.authenticate(txtUsername.getText().toString(), txtPassword.getText().toString());
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.authenticator_content_frame, loginFragment, TAG_FRAGMENT_LOGIN)
+                    .commit();
+        } else {
+            loginFragment = (LoginFragment) getFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_LOGIN);
+            recoverPasswordFragment = (RecoverPasswordFragment) getFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_RECOVER_PASSWORD);
         }
     }
 
     @Override
-    public void showError(String errorMessage) {
-        showProgress(false);
+    public void showLoginError(String errorMessage) {
+        loginFragment.showProgress(false);
+
         //FIXME show the snake bar generic error message
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showSuccess(User user) {
-        showProgress(false);
+    public void showLoginSuccess(User user) {
+        //FIXME Clear from backstack the login fragment
+        loginFragment.showProgress(false);
 
         Intent intentSaved = saveAuthenticationData(user);
         setResult(RESULT_OK, intentSaved);
 
-        /* Create an Intent that will start the Menu-Activity. */
+        /* Create an Intent that will start the Home-Activity. */
         Intent mainIntent = new Intent(AuthenticatorActivity.this, HomeActivity.class);
         startActivity(mainIntent);
         finish();
     }
 
-    private boolean isDataValid() {
-        if (TextUtils.isEmpty(txtUsername.getText().toString().trim())
-                || TextUtils.isEmpty(txtPassword.getText().toString().trim())) {
-
-            showError(getString(R.string.login_error_fields_empty));
-
-            return false;
-        }
-
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(txtUsername.getText().toString().trim()).matches()) {
-            showError(getString(R.string.invalid_email));
-
-            return false;
-        }
-
-        return true;
+    @Override
+    public void navigateToRecoverPassword() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.authenticator_content_frame, recoverPasswordFragment, TAG_FRAGMENT_RECOVER_PASSWORD)
+                .addToBackStack(null)
+                .commit();
     }
 
     private Intent saveAuthenticationData(User user) {

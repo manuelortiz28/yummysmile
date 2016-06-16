@@ -9,8 +9,9 @@ import com.visiontech.yummysmile.models.YummySharedPreferences;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
-import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
-import com.visiontech.yummysmile.ui.presenter.view.activity.LoginActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.AuthenticatorActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.UserSessionView;
 
 import javax.inject.Inject;
 
@@ -23,23 +24,27 @@ import javax.inject.Inject;
 public class LoginPresenter {
     private final Context context;
     private final AuthenticationController authenticationController;
-    private final DrawerActivityView drawerView;
-    private final LoginActivityView loginView;
     private final YummySharedPreferences sharedPreferences;
+
+    private final BaseActivityView baseActivityView;
+    private final AuthenticatorActivityView loginView;
+    private final UserSessionView userSessionView;
 
     @Inject
     public LoginPresenter(
             Context context,
             AuthenticationController authenticationController,
             YummySharedPreferences yummySharedPreferences,
-            @Nullable LoginActivityView loginView,
-            @Nullable DrawerActivityView drawerView) {
+            @Nullable UserSessionView userSessionView,
+            @Nullable AuthenticatorActivityView loginView,
+            @Nullable BaseActivityView baseActivityView) {
 
         this.context = context;
         this.authenticationController = authenticationController;
         this.sharedPreferences = yummySharedPreferences;
+        this.userSessionView = userSessionView;
         this.loginView = loginView;
-        this.drawerView = drawerView;
+        this.baseActivityView = baseActivityView;
     }
 
     /**
@@ -48,19 +53,19 @@ public class LoginPresenter {
      * @param password
      */
     public void authenticate(String username, String password) {
-        authenticationController.login(username, password, new ResultListener<AuthenticationController.LoggedInResponse>() {
+        authenticationController.login(username, password, new ResultListener<AuthenticationController.LogInResponse>() {
 
             @Override
-            public void onResult(AuthenticationController.LoggedInResponse result) {
+            public void onResult(AuthenticationController.LogInResponse result) {
                 if (result.isSuccess()) {
-                    loginView.showSuccess(result.getPayload());
+                    loginView.showLoginSuccess(result.getPayload());
                 } else {
 
                     if (HttpResponseCode.UNPROCESSABLE_ENTITY == result.getError().getCode()
                             && !result.getError().getErrors().isEmpty()) {
-                        loginView.showError(result.getError().getErrors().get(0).getMessage());
+                        loginView.showLoginError(result.getError().getErrors().get(0).getMessage());
                     } else {
-                        loginView.showError(
+                        loginView.showLoginError(
                                 String.format(
                                         context.getString(R.string.general_error), result.getError().getMessage()));
                     }
@@ -69,36 +74,34 @@ public class LoginPresenter {
         });
     }
 
-    //FIXME This method could be in a BasePresenter
     /**
      * Log outs the current user and handle the response
      */
-    public void logoutUser() {
+    public void logOutUser() {
         authenticationController.logOutUser(
-                new ResultListener<AuthenticationController.LoggedOutResponse>() {
-                    @Override
-                    public void onResult(AuthenticationController.LoggedOutResponse result) {
-                        if (result.isSuccess()) {
-                            drawerView.showLoginScreen();
-                        } /*else {
-                            //FIXME find the final copy.
-                            commonView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
-                        }*/
-                    }
+            new ResultListener<AuthenticationController.LogOutResponse>() {
+                @Override
+                public void onResult(AuthenticationController.LogOutResponse result) {
+                    if (result.isSuccess()) {
+                        baseActivityView.showLoginScreen();
+                    } /*else {
+                        //FIXME find the final copy.
+                        commonView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
+                    }*/
                 }
+            }
         );
     }
 
-    //FIXME This method could be in a BasePresenter
     /**
      * Validate if the user is logged in, and call to the properly view methods
      */
     public void validateUserLoggedIn() {
         User user = authenticationController.getUserLoggedIn();
         if (user == null) {
-            drawerView.showLoginScreen();
+            baseActivityView.showLoginScreen();
         } else {
-            drawerView.showUserInfo(user);
+            userSessionView.showUserInfo(user);
         }
     }
 

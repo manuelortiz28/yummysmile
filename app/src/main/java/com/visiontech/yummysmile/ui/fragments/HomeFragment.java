@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.common.base.Preconditions;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.models.Meal;
-import com.visiontech.yummysmile.ui.activity.DrawerActivityMethods;
+import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
 import com.visiontech.yummysmile.ui.presenter.HomePresenter;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
@@ -55,18 +54,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
-        Preconditions.checkArgument(
-                getActivity() instanceof DrawerActivityMethods,
-                getActivity().getClass().getName() + " should implements DrawerActivityMethods interface");
 
-        DrawerActivityMethods drawerActivityMethods = (DrawerActivityMethods) getActivity();
+        FragmentPresenterComponent fragmentPresenterComponent =
+                application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
 
-        FragmentPresenterComponent component =
-                application.getFragmentPresenterComponent(
-                        this, drawerActivityMethods.getActivityPresenterComponent());
-
-        homePresenter = component.getMainPresenter();
-        loginPresenter = component.getLoginPresenter();
+        homePresenter = fragmentPresenterComponent.getMainPresenter();
+        loginPresenter = fragmentPresenterComponent.getLoginPresenter();
 
         loginPresenter.validateUserLoggedIn();
     }

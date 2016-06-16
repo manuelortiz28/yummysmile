@@ -15,7 +15,7 @@ import javax.inject.Singleton;
 @Singleton
 public final class PermissionsHelper {
 
-    private Context context;
+    private final Context context;
 
     @Inject
     public PermissionsHelper(Context context) {

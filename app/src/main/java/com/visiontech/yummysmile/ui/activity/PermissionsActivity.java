@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
+import com.google.common.base.Preconditions;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.util.PermissionsHelper;
 
@@ -31,10 +32,8 @@ public class PermissionsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getIntent() == null || !getIntent().hasExtra(PERMISSIONS_KEY)) {
-            throw new RuntimeException("This Activity needs to have PERMISSIONS_KEY parameter");
-        }
+        Preconditions.checkNotNull(getIntent());
+        Preconditions.checkArgument(!getIntent().hasExtra(PERMISSIONS_KEY), "This Activity needs to have PERMISSIONS_KEY parameter.");
 
         setContentView(R.layout.activity_permissions);
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
@@ -58,7 +57,7 @@ public class PermissionsActivity extends BaseActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int... grantResults) {
         if (requestCode == PERMISSION_REQUEST_CODE && hasAllPermissionsGranted(grantResults)) {
             allPermissionsGranted();
             requiresCheck = true;
@@ -77,7 +76,7 @@ public class PermissionsActivity extends BaseActivity {
         finish();
     }
 
-    private boolean hasAllPermissionsGranted(@NonNull int[] grantResults) {
+    private boolean hasAllPermissionsGranted(@NonNull int... grantResults) {
         for (int grantResult : grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
                 return false;

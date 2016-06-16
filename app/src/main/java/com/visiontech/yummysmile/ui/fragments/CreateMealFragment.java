@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.common.base.Strings;
 import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
@@ -47,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Fragment to handle creation of a new meal.
@@ -54,8 +54,9 @@ import java.util.Date;
  * @author hetorres
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
-    private static final int DESIRE_SIZE = 600;
     private static final String TAG = CreateMealFragment.class.getName();
+    private static final int DESIRE_SIZE = 600;
+    private static final int QUALITY_PICTURE = 100;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     private static final int REQUEST_CAMERA = 0;
     private static final int SELECT_PHOTO = 1;
@@ -153,10 +154,13 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
                 case REQUEST_CAMERA:
                     captureImageResult();
                     break;
+
                 case SELECT_PHOTO:
                     selectFromGalleryResult(data);
                     break;
-                default: break;
+
+                default:
+                    break;
             }
         }
     }
@@ -181,7 +185,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"Take Photo", "Choose from Library"};
+        final CharSequence[] items = {getString(R.string.take_photo), getString(R.string.choose_photo)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -213,10 +217,10 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
 
         // Continue only if the File was successfully created
         if (photoFile != null) {
-            if (optionSelected.equals("Take Photo")) {
+            if (optionSelected.equals(getString(R.string.take_photo))) {
                 Log.d(TAG, "<< TAKE PHOTO");
                 cameraIntent(photoFile);
-            } else if (optionSelected.equals("Choose from Library")) {
+            } else if (optionSelected.equals(getString(R.string.choose_photo))) {
                 Log.d(TAG, "<< FROM GALLERY");
                 galleryIntent(photoFile);
             }
@@ -265,7 +269,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
      * Method that create the file to save on disk.
      */
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat(Constants.PHOTO_TIME_FORMAT).format(new Date());
+        String timeStamp = new SimpleDateFormat(Constants.PHOTO_TIME_FORMAT, Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
@@ -303,7 +307,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         Bitmap bitmap = BitmapFactory.decodeFile(filePath, bmOptions);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_PICTURE, bos);
 
         try {
             pictureToUpload = new File(filePath);

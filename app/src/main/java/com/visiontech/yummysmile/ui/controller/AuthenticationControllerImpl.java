@@ -11,7 +11,6 @@ import com.visiontech.yummysmile.models.transformers.UserTransform;
 import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
 import com.visiontech.yummysmile.repository.api.UserAPIService;
 import com.visiontech.yummysmile.repository.api.dto.UserDTO;
-import com.visiontech.yummysmile.repository.api.response.BaseResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.BaseSubscriber;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.activity.AuthenticatorActivity;
@@ -38,7 +37,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     public void login(
             String username,
             final String password,
-            final ResultListener<AuthenticationControllerImpl.LoggedInResponse> resultListener) {
+            final ResultListener<LoggedInResponse> resultListener) {
 
         final UserDTO userDTO = new UserDTO();
         userDTO.setEmail(username);
@@ -162,18 +161,5 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         }
 
         accountManager.invalidateAuthToken(AuthenticatorActivity.YUMMY_ACCOUNT_TYPE, token);
-    }
-
-    //===========================================================================================================
-    //===============================================   Events    ===============================================
-    //===========================================================================================================
-
-    /**
-     * Response object containing an User object
-     */
-    public static class LoggedInResponse extends BaseResponse<User> {
-    }
-
-    public static class LoggedOutResponse extends BaseResponse {
     }
 }

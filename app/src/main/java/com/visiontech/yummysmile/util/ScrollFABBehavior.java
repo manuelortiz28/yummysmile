@@ -15,6 +15,7 @@ import android.view.View;
  */
 public class ScrollFABBehavior extends FloatingActionButton.Behavior {
 
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public ScrollFABBehavior(Context context, AttributeSet attributeSet) {
         super();
     }

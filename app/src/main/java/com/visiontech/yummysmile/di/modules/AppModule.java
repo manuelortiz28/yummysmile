@@ -4,6 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.visiontech.yummysmile.YummySmileApplication;
+import com.visiontech.yummysmile.ui.controller.AuthenticationController;
+import com.visiontech.yummysmile.ui.controller.AuthenticationControllerImpl;
+import com.visiontech.yummysmile.ui.controller.MealsController;
+import com.visiontech.yummysmile.ui.controller.MealsControllerImpl;
 
 import javax.inject.Singleton;
 
@@ -25,7 +29,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    YummySmileApplication providesYummySmileApplication() {
+    YummySmileApplication provideYummySmileApplication() {
         return (YummySmileApplication) application;
     }
 
@@ -33,5 +37,17 @@ public class AppModule {
     @Singleton
     Context provideAppContext() {
         return application.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    AuthenticationController provideAuthenticationController(AuthenticationControllerImpl authenticationController) {
+        return authenticationController;
+    }
+
+    @Provides
+    @Singleton
+    MealsController provideMealController(MealsControllerImpl mealsController) {
+        return mealsController;
     }
 }

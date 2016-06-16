@@ -120,7 +120,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
                 new BaseSubscriber(resultListener, recoverPasswordResponse) {
                     @Override
                     protected void onSuccess(Object serviceResponse) {
-                        //Nothing to do here
+                        //The service doesn't response any information
                     }
                 }
         );

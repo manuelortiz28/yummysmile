@@ -28,7 +28,7 @@ public class ActivityPresenterModule {
     @Provides
     @PerActivity
     @Nullable
-    BaseActivityView providesBaseActivityView() {
+    BaseActivityView provideBaseActivityView() {
         if (baseActivity instanceof BaseActivityView) {
             return (BaseActivityView) baseActivity;
         }
@@ -38,7 +38,7 @@ public class ActivityPresenterModule {
     @Provides
     @PerActivity
     @Nullable
-    UserSessionView providesDrawerView() {
+    UserSessionView provideDrawerView() {
         if (baseActivity instanceof UserSessionView) {
             return (UserSessionView) baseActivity;
         }
@@ -49,7 +49,7 @@ public class ActivityPresenterModule {
     @Provides
     @PerActivity
     @Nullable
-    AuthenticatorActivityView providesAuthenticatorActivityView() {
+    AuthenticatorActivityView provideAuthenticatorActivityView() {
         if (baseActivity instanceof AuthenticatorActivityView) {
             return (AuthenticatorActivityView) baseActivity;
         }

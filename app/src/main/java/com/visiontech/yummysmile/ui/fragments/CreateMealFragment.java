@@ -102,8 +102,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         super.onActivityCreated(savedInstance);
         ((BaseActivity) getActivity()).setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
 
-        ActivityPresenterComponent activityPresenterComponent = application.getActivityPresenterComponent((BaseActivity) getActivity());
-        FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, activityPresenterComponent);
+        FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
         createMealPresenter = fragmentPresenterComponent.getCreateMealPresenter();
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
         renderImageHelper = application.getCoreComponent().getRenderImageHelper();

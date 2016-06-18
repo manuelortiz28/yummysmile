@@ -9,6 +9,8 @@ import com.visiontech.yummysmile.repository.api.MealAPIService;
 import com.visiontech.yummysmile.repository.api.UserAPIService;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
 import com.visiontech.yummysmile.ui.controller.MealsController;
+import com.visiontech.yummysmile.util.PermissionsHelper;
+import com.visiontech.yummysmile.util.RenderImageHelper;
 
 import javax.inject.Singleton;
 
@@ -31,9 +33,18 @@ public interface CoreComponent {
     void inject(YummySmileApplication application);
 
     Context getContext();
+
     YummySmileApplication getApplication();
+
     MealAPIService getMealAPIService();
+
     UserAPIService getUserAPIService();
+
+    PermissionsHelper getPermissionsHelper();
+
     AuthenticationController getAuthenticationController();
+
     MealsController getMealsController();
+
+    RenderImageHelper getRenderImageHelper();
 }

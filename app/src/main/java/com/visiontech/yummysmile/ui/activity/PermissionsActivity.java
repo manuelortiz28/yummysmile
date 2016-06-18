@@ -27,7 +27,7 @@ public class PermissionsActivity extends BaseActivity {
     public static final String PERMISSIONS_KEY = "PERMISSIONS";
 
     private PermissionsHelper permissionsHelper;
-    private boolean requiresCheck;
+    private boolean requiresCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class PermissionsActivity extends BaseActivity {
 
         setContentView(R.layout.activity_permissions);
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
-        requiresCheck = true;
     }
 
     @Override

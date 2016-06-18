@@ -25,7 +25,7 @@ import dagger.Component;
  *
  * Components basically are injectors, let’s say a bridge between @Inject and @Module,
  * which its main responsibility is to put both together.
- * 
+ *
  */
 @Singleton
 @Component(modules = {AppModule.class, ApiModule.class})

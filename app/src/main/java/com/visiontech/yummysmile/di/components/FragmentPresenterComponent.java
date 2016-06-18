@@ -6,6 +6,7 @@ import com.visiontech.yummysmile.ui.fragments.HomeFragment;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.HomePresenter;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
+import com.visiontech.yummysmile.ui.presenter.RecoverPasswordPresenter;
 
 import dagger.Component;
 
@@ -25,5 +26,6 @@ public interface FragmentPresenterComponent {
 
     HomePresenter getMainPresenter();
     LoginPresenter getLoginPresenter();
+    RecoverPasswordPresenter getRecoverPasswordPresenter();
     CreateMealPresenter getCreateMealPresenter();
 }

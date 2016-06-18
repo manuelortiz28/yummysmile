@@ -25,7 +25,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    public UserAPIService providesUserAPI() {
+    public UserAPIService provideUserAPI() {
         return FactoryRestAdapter.createRetrofitService(UserAPIService.class);
     }
 }

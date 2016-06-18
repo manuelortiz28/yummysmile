@@ -37,13 +37,13 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     public void login(
             String username,
             final String password,
-            final ResultListener<LoggedInResponse> resultListener) {
+            final ResultListener<LogInResponse> resultListener) {
 
         final UserDTO userDTO = new UserDTO();
         userDTO.setEmail(username);
         userDTO.setPassword(password);
 
-        final LoggedInResponse loggedInResponse = new LoggedInResponse();
+        final LogInResponse loggedInResponse = new LogInResponse();
 
         FactoryRestAdapter.invokeService(
                 userAPIService.login(userDTO),
@@ -87,7 +87,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public void logOutUser(ResultListener<LoggedOutResponse> resultListener) {
+    public void logOutUser(ResultListener<LogOutResponse> resultListener) {
         final User userLoggedIn = getUserLoggedIn();
 
         String token = "";
@@ -98,15 +98,29 @@ public class AuthenticationControllerImpl implements AuthenticationController {
             userId = userLoggedIn.getId();
         }
 
-        final LoggedOutResponse loggedOutResponse = new LoggedOutResponse();
+        final LogOutResponse loggedOutResponse = new LogOutResponse();
 
         FactoryRestAdapter.invokeService(
                 userAPIService.logout(token, userId),
                 new BaseSubscriber(resultListener, loggedOutResponse) {
                     @Override
                     protected void onSuccess(Object serviceResponse) {
-                        //Nothing to do here
                         removeAccount(userLoggedIn);
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void recoverPassword(String email, ResultListener<RecoverPasswordResponse> resultListener) {
+        final RecoverPasswordResponse recoverPasswordResponse = new RecoverPasswordResponse();
+
+        FactoryRestAdapter.invokeService(
+                userAPIService.recoverPassword(email),
+                new BaseSubscriber(resultListener, recoverPasswordResponse) {
+                    @Override
+                    protected void onSuccess(Object serviceResponse) {
+                        //The service doesn't response any information
                     }
                 }
         );

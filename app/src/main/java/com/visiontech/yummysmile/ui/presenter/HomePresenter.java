@@ -8,7 +8,7 @@ import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.MealsController;
-import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
 
@@ -26,22 +26,22 @@ public class HomePresenter extends BasePresenter {
     private final MealsController mealsController;
     private final BaseFragmentView baseFragmentView;
     private final HomeFragmentView homeView;
-    private final DrawerActivityView drawerView;
+    private final BaseActivityView baseActivityView;
 
     @Inject
     public HomePresenter(
             YummySmileApplication application,
             MealsController mealsController,
+            @Nullable BaseActivityView baseActivityView,
             @Nullable BaseFragmentView baseFragmentView,
-            @Nullable HomeFragmentView homeView,
-            @Nullable DrawerActivityView drawerView) {
+            @Nullable HomeFragmentView homeView) {
 
         super(application);
 
         this.mealsController = mealsController;
+        this.baseActivityView = baseActivityView;
         this.baseFragmentView = baseFragmentView;
         this.homeView = homeView;
-        this.drawerView = drawerView;
     }
 
     public void fetchMeals() {
@@ -64,7 +64,7 @@ public class HomePresenter extends BasePresenter {
 
                     //FIXME We could create a better handling error, including a generic one
                     if (HttpResponseCode.UNAUTHORIZED == result.getError().getCode()) {
-                        drawerView.showLoginScreen();
+                        baseActivityView.showLoginScreen();
                     } else {
                         //FIXME find the final copy.
                         //TODO Do we have to show other view? like some text on the layout?

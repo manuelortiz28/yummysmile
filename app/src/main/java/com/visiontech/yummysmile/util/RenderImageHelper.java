@@ -1,7 +1,9 @@
 package com.visiontech.yummysmile.util;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -70,6 +72,7 @@ public class RenderImageHelper {
     /**
      * Method that resize the image before showing in preview.
      */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public boolean resizeFileBitMap(String filePath) {
         Log.d(TAG, "6_setPicture()_");
         // Get the dimensions of the bitmap
@@ -84,6 +87,7 @@ public class RenderImageHelper {
 
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
+        //FIXME This value is deprecated starting from Lollipop
         bmOptions.inPurgeable = true;
 
         Log.d(TAG, "_currentPhotoPath:_" + filePath);
@@ -92,16 +96,14 @@ public class RenderImageHelper {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         renderedBitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_PICTURE, bos);
 
-        try {
-            imageToUpload = new File(filePath);
-            FileOutputStream fo = new FileOutputStream(imageToUpload);
+        imageToUpload = new File(filePath);
+
+        try (FileOutputStream fo = new FileOutputStream(imageToUpload)) {
             fo.write(bos.toByteArray());
-            fo.close();
             return true;
         } catch (IOException e) {
             Log.d(TAG, "_IOException_Message" + e.getMessage());
             Log.d(TAG, "_IOException_Cause" + e.getCause());
-            e.printStackTrace();
             return false;
         }
     }

@@ -28,7 +28,6 @@ import android.widget.Toast;
 import com.google.common.base.Strings;
 import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.activity.PermissionsActivity;
@@ -252,10 +251,10 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
                     setFinalView(renderImageHelper.getRenderedBitmap());
                     pictureToUpload = renderImageHelper.getImageToUpload();
                 }
+                cursor.close();
             } else {
                 Log.e(TAG, "We could not get the path of the file.");
             }
-            cursor.close();
         }
     }
 

@@ -32,7 +32,7 @@ public class PermissionsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Preconditions.checkNotNull(getIntent());
+        Preconditions.checkNotNull(getIntent(), "This Activity needs to have PERMISSIONS_KEY parameter.");
         Preconditions.checkArgument(getIntent().hasExtra(PERMISSIONS_KEY), "This Activity needs to have PERMISSIONS_KEY parameter.");
 
         setContentView(R.layout.activity_permissions);

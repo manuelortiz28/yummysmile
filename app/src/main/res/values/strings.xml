@@ -23,7 +23,7 @@
     <string name="general_error">There is something wrong: %s</string>
     <string name="required_field">* Indicates required field</string>
     <string name="name_required_field">Name is a required</string>
-    <string name="default_tag">default</string>
+    <string name="default_tag_photo">default</string>
 
     <!-- Create Meal -->
     <string name="meal_title">Meal information</string>
@@ -31,8 +31,10 @@
     <string name="meal_description_hint">Description (optional)</string>
     <string name="meal_source_picture">* Picture: </string>
     <string name="menu_save_meal">Done</string>
+    <string name="alert_photo_title">Add Photo!</string>
     <string name="take_photo">Take Photo</string>
     <string name="choose_photo">Choose from Library</string>
+    <string name="select_file">Select File</string>
 
     <!-- Permissions Dialog -->
     <string name="permissions_title">Why do we ask?</string>

@@ -10,6 +10,7 @@ import com.visiontech.yummysmile.repository.api.UserAPIService;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
 import com.visiontech.yummysmile.ui.controller.MealsController;
 import com.visiontech.yummysmile.util.PermissionsHelper;
+import com.visiontech.yummysmile.util.RenderImageHelper;
 
 import javax.inject.Singleton;
 
@@ -24,7 +25,7 @@ import dagger.Component;
  *
  * Components basically are injectors, let’s say a bridge between @Inject and @Module,
  * which its main responsibility is to put both together.
- *
+ * 
  */
 @Singleton
 @Component(modules = {AppModule.class, ApiModule.class})
@@ -32,10 +33,18 @@ public interface CoreComponent {
     void inject(YummySmileApplication application);
 
     Context getContext();
+
     YummySmileApplication getApplication();
+
     MealAPIService getMealAPIService();
+
     UserAPIService getUserAPIService();
+
     PermissionsHelper getPermissionsHelper();
+
     AuthenticationController getAuthenticationController();
+
     MealsController getMealsController();
+
+    RenderImageHelper getRenderImageHelper();
 }

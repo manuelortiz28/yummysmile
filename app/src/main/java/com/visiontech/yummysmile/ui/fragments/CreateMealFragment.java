@@ -6,10 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,17 +34,12 @@ import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.activity.PermissionsActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
-import com.visiontech.yummysmile.util.Constants;
 import com.visiontech.yummysmile.util.PermissionsHelper;
+import com.visiontech.yummysmile.util.RenderImageHelper;
 import com.visiontech.yummysmile.util.UIHelper;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Fragment to handle creation of a new meal.
@@ -55,8 +48,7 @@ import java.util.Locale;
  */
 public class CreateMealFragment extends BaseFragment implements CreateMealFragmentView {
     private static final String TAG = CreateMealFragment.class.getName();
-    private static final int DESIRE_SIZE = 600;
-    private static final int QUALITY_PICTURE = 100;
+    private static final String IMAGE_TYPE = "image/*";
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     private static final int REQUEST_CAMERA = 0;
     private static final int SELECT_PHOTO = 1;
@@ -64,14 +56,21 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
 
     private EditText txtMealName;
     private ImageView mealPicture;
-    private TextInputLayout textWrappName;
+    private TextInputLayout textWrapName;
     private TextView tvPictureLabel;
-    private CreateMealPresenter createMealPresenter;
-    private File pictureToUpload;
 
-    private PermissionsHelper permissionsHelper;
-    private String optionSelected = "None";
+    private File pictureToUpload;
+    private PhotoPicker optionSelected;
     private String currentPhotoPath;
+
+    private CreateMealPresenter createMealPresenter;
+    private PermissionsHelper permissionsHelper;
+    private RenderImageHelper renderImageHelper;
+
+    private enum PhotoPicker {
+        TAKE_PHOTO,
+        PICK_PHOTO;
+    }
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -86,7 +85,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
 
         txtMealName = (EditText) viewParent.findViewById(R.id.et_name);
         mealPicture = (ImageView) viewParent.findViewById(R.id.iv_meal_picture);
-        textWrappName = (TextInputLayout) viewParent.findViewById(R.id.ti_name_wrapper);
+        textWrapName = (TextInputLayout) viewParent.findViewById(R.id.ti_name_wrapper);
         tvPictureLabel = (TextView) viewParent.findViewById(R.id.tv_title_img_source);
         mealPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +106,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, activityPresenterComponent);
         createMealPresenter = fragmentPresenterComponent.getCreateMealPresenter();
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
+        renderImageHelper = application.getCoreComponent().getRenderImageHelper();
     }
 
     @Override
@@ -146,10 +146,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
             getImageIntent(); // we should arrive here in most cases when we already have permission.
         } else if (resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
             getActivity().finish();
-        }
-
-        //  Response after get the picture (from amera or gallery)
-        if (resultCode == Activity.RESULT_OK) {
+        } else if (resultCode == Activity.RESULT_OK) { //  Response after get the picture (from camera or gallery)
             switch (requestCode) {
                 case REQUEST_CAMERA:
                     captureImageResult();
@@ -172,9 +169,9 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
 
     private void saveMeal() {
         if (Strings.isNullOrEmpty(txtMealName.getText().toString())) {
-            textWrappName.setError(getString(R.string.name_required_field));
+            textWrapName.setError(getString(R.string.name_required_field));
         } else if (mealPicture.getDrawable() == null
-                || getString(R.string.default_tag).equals(mealPicture.getTag()) || pictureToUpload == null) {
+                || getString(R.string.default_tag_photo).equals(mealPicture.getTag()) || pictureToUpload == null) {
             tvPictureLabel.setVisibility(View.VISIBLE);
             tvPictureLabel.setError(tvPictureLabel.getText());
         } else {
@@ -187,12 +184,12 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     private void selectImage() {
         final CharSequence[] items = {getString(R.string.take_photo), getString(R.string.choose_photo)};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Add Photo!");
+        builder.setTitle(R.string.alert_photo_title);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 Log.d(TAG, "1_requestPermissions()_");
-                optionSelected = items[item].toString();
+                optionSelected = PhotoPicker.values()[item];
                 if (permissionsHelper.permissionsCheck(PERMISSIONS)) {
                     Log.d(TAG, "2 PermissionsActivity");
                     callPermissionsActivity();
@@ -209,40 +206,38 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
         // Create the File where the photo should go
         File photoFile = null;
         try {
-            photoFile = createImageFile();
-        } catch (IOException ex) {
-            // Error occurred while creating the File
-            Log.d(TAG, "IOException(): " + ex.getMessage());
-        }
-
-        // Continue only if the File was successfully created
-        if (photoFile != null) {
-            if (optionSelected.equals(getString(R.string.take_photo))) {
+            photoFile = renderImageHelper.createImageFile();
+            currentPhotoPath = photoFile.getAbsolutePath();
+            if (optionSelected == PhotoPicker.TAKE_PHOTO) {
                 Log.d(TAG, "<< TAKE PHOTO");
-                cameraIntent(photoFile);
-            } else if (optionSelected.equals(getString(R.string.choose_photo))) {
+                launchCameraIntent(photoFile);
+            } else if (optionSelected == PhotoPicker.PICK_PHOTO) {
                 Log.d(TAG, "<< FROM GALLERY");
-                galleryIntent(photoFile);
+                launchGalleryIntent(photoFile);
             }
+        } catch (IOException ex) {
+            Log.d(TAG, "IOException(Error occurred while creating the File): " + ex.getMessage());
         }
     }
 
-    private void galleryIntent(File file) {
+    private void launchGalleryIntent(File file) {
         Intent pickGalleryIntent = new Intent(Intent.ACTION_PICK);
-        pickGalleryIntent.setType("image/*");
+        pickGalleryIntent.setType(IMAGE_TYPE);
         pickGalleryIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(Intent.createChooser(pickGalleryIntent, "Select File"), SELECT_PHOTO);
+        startActivityForResult(Intent.createChooser(pickGalleryIntent, getString(R.string.select_file)), SELECT_PHOTO);
     }
 
-    private void cameraIntent(File file) {
+    private void launchCameraIntent(File file) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(takePictureIntent, REQUEST_CAMERA);
     }
 
     private void captureImageResult() {
-        Bitmap finalBitmap = resizeFileBitMap(currentPhotoPath);
-        setFinalView(finalBitmap);
+        if (renderImageHelper.resizeFileBitMap(currentPhotoPath)) {
+            setFinalView(renderImageHelper.getRenderedBitmap());
+            pictureToUpload = renderImageHelper.getImageToUpload();
+        }
     }
 
     private void selectFromGalleryResult(Intent data) {
@@ -254,72 +249,15 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(filePath[0]);
                 String picturePath = cursor.getString(columnIndex);
-                if (picturePath != null) {
-                    Bitmap finalBitmap = resizeFileBitMap(picturePath);
-                    setFinalView(finalBitmap);
-                } else {
-                    Log.e(TAG, "We could not get the path of the file.");
+                if (picturePath != null && renderImageHelper.resizeFileBitMap(picturePath)) {
+                    setFinalView(renderImageHelper.getRenderedBitmap());
+                    pictureToUpload = renderImageHelper.getImageToUpload();
                 }
-                cursor.close();
+            } else {
+                Log.e(TAG, "We could not get the path of the file.");
             }
+            cursor.close();
         }
-    }
-
-    /**
-     * Method that create the file to save on disk.
-     */
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat(Constants.PHOTO_TIME_FORMAT, Locale.getDefault()).format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        Log.d(TAG, "createImageFile(): " + image.getAbsolutePath());
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
-    /**
-     * Method that resize the image before showing in preview.
-     */
-    private Bitmap resizeFileBitMap(String filePath) {
-        Log.d(TAG, "6_setPicture()_");
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filePath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW / DESIRE_SIZE, photoH / DESIRE_SIZE);
-
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Log.d(TAG, "_currentPhotoPath:_" + filePath);
-        Bitmap bitmap = BitmapFactory.decodeFile(filePath, bmOptions);
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_PICTURE, bos);
-
-        try {
-            pictureToUpload = new File(filePath);
-            FileOutputStream fo = new FileOutputStream(pictureToUpload);
-            fo.write(bos.toByteArray());
-            fo.close();
-        } catch (IOException e) {
-            Log.d(TAG, "_IOException_Message" + e.getMessage());
-            Log.d(TAG, "_IOException_Cause" + e.getCause());
-            e.printStackTrace();
-        }
-        return bitmap;
     }
 
     private void setFinalView(Bitmap finalBitMap) {

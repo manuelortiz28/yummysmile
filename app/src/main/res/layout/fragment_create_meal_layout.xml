@@ -93,7 +93,7 @@
                 android:cropToPadding="false"
                 android:foregroundGravity="center"
                 android:src="@drawable/ic_add_a_photo_black_48dp"
-                android:tag="@string/default_tag"/>
+                android:tag="@string/default_tag_photo"/>
 
         </LinearLayout>
 

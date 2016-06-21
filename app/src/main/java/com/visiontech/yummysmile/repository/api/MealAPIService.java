@@ -1,7 +1,7 @@
 package com.visiontech.yummysmile.repository.api;
 
-import com.google.gson.JsonObject;
 import com.squareup.okhttp.RequestBody;
+import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.util.Constants;
 
@@ -27,11 +27,10 @@ public interface MealAPIService {
 
     @Multipart
     @POST(Constants.MEALS)
-        //FIXME probably create a proper model instead a json
-    Observable<JsonObject> createMeal(
+    Observable<MealDTO> createMeal(
             @Header(Constants.TOKEN_FIELD) String token,
             @Header(Constants.USER_FIELD) String userId,
             @Part("file\"; filename=\"temp.png ") RequestBody file,
-            @Part("meal") JsonObject meal);
+            @Part("meal") MealDTO meal);
 
 }

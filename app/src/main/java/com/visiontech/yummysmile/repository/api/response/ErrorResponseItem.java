@@ -13,7 +13,10 @@ public class ErrorResponseItem {
      */
     public enum ReasonType {
         UNKNOWN,
-        INVALID_CREDENTIALS
+        FIELDS_REQUIRED,
+        NEW_PASSWORD_INVALID,
+        INVALID_CREDENTIALS,
+        EMAIL_NOT_CONFIRMED
     };
 
     private final ReasonType reason;

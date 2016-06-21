@@ -3,6 +3,7 @@ package com.visiontech.yummysmile.di.components;
 import com.visiontech.yummysmile.di.modules.FragmentPresenterModule;
 import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.fragments.HomeFragment;
+import com.visiontech.yummysmile.ui.presenter.CreateAccountPresenter;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.HomePresenter;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
@@ -28,4 +29,5 @@ public interface FragmentPresenterComponent {
     LoginPresenter getLoginPresenter();
     RecoverPasswordPresenter getRecoverPasswordPresenter();
     CreateMealPresenter getCreateMealPresenter();
+    CreateAccountPresenter getCreateAccountPresenter();
 }

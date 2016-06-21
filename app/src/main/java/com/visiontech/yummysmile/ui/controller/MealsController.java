@@ -1,6 +1,5 @@
 package com.visiontech.yummysmile.ui.controller;
 
-import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.repository.api.response.BaseResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
@@ -26,8 +25,7 @@ public interface MealsController {
      * @param photo  picture of the meal
      * @param result listener to return the response.
      */
-    //FIXME Use a DTO instead of JsonObject
-    void createMeal(JsonObject meal, File photo, ResultListener result);
+    void createMeal(Meal meal, File photo, ResultListener<CreateMealResponse> result);
 
     //===========================================================================================================
     //===============================================   Events    ===============================================
@@ -36,6 +34,6 @@ public interface MealsController {
     class MealsResponse extends BaseResponse<List<Meal>> {
     }
 
-    class CreateMealResponse extends BaseResponse<JsonObject> {
+    class CreateMealResponse extends BaseResponse<Meal> {
     }
 }

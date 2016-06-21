@@ -65,6 +65,13 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
+        viewParent.findViewById(R.id.txtCreateAccount).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                authenticatorActivityView.navigateToCreateAccount();
+            }
+        });
+
         return viewParent;
     }
 

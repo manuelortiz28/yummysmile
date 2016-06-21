@@ -1,9 +1,7 @@
 package com.visiontech.yummysmile.util;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -72,7 +70,6 @@ public class RenderImageHelper {
     /**
      * Method that resize the image before showing in preview.
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public boolean resizeFileBitMap(String filePath) {
         Log.d(TAG, "6_setPicture()_");
         // Get the dimensions of the bitmap
@@ -98,13 +95,28 @@ public class RenderImageHelper {
 
         imageToUpload = new File(filePath);
 
-        try (FileOutputStream fo = new FileOutputStream(imageToUpload)) {
-            fo.write(bos.toByteArray());
-            return true;
+        FileOutputStream outputStream = null;
+
+        boolean success = false;
+
+        try {
+            outputStream = new FileOutputStream(imageToUpload);
+            outputStream.write(bos.toByteArray());
+
+            success = true;
         } catch (IOException e) {
-            Log.d(TAG, "_IOException_Message" + e.getMessage());
-            Log.d(TAG, "_IOException_Cause" + e.getCause());
-            return false;
+            Log.d(TAG, "Exception on writing stream. " + e.getCause());
+            success = false;
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e1) {
+                    Log.d(TAG, "Exception on closing stream. " + e1.getCause());
+                }
+            }
         }
+
+        return success;
     }
 }

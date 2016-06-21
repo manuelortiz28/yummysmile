@@ -84,6 +84,7 @@ public class RenderImageHelper {
 
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
+        //FIXME This value is deprecated starting from Lollipop
         bmOptions.inPurgeable = true;
 
         Log.d(TAG, "_currentPhotoPath:_" + filePath);
@@ -92,17 +93,30 @@ public class RenderImageHelper {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         renderedBitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY_PICTURE, bos);
 
+        imageToUpload = new File(filePath);
+
+        FileOutputStream outputStream = null;
+
+        boolean success = false;
+
         try {
-            imageToUpload = new File(filePath);
-            FileOutputStream fo = new FileOutputStream(imageToUpload);
-            fo.write(bos.toByteArray());
-            fo.close();
-            return true;
+            outputStream = new FileOutputStream(imageToUpload);
+            outputStream.write(bos.toByteArray());
+
+            success = true;
         } catch (IOException e) {
-            Log.d(TAG, "_IOException_Message" + e.getMessage());
-            Log.d(TAG, "_IOException_Cause" + e.getCause());
-            e.printStackTrace();
-            return false;
+            Log.d(TAG, "Exception on writing stream. " + e.getCause());
+            success = false;
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e1) {
+                    Log.d(TAG, "Exception on closing stream. " + e1.getCause());
+                }
+            }
         }
+
+        return success;
     }
 }

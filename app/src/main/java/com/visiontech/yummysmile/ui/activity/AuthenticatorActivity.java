@@ -44,13 +44,14 @@ public class AuthenticatorActivity extends BaseActivity implements Authenticator
             recoverPasswordFragment = RecoverPasswordFragment.newInstance();
             createAccountFragment = CreateAccountFragment.newInstance();
 
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.authenticator_content_frame, loginFragment, TAG_FRAGMENT_LOGIN)
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.authenticator_content_frame, loginFragment, TAG_FRAGMENT_LOGIN)
+                    .addToBackStack(null)
                     .commit();
         } else {
-            loginFragment = (LoginFragment) getFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_LOGIN);
-            recoverPasswordFragment = (RecoverPasswordFragment) getFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_RECOVER_PASSWORD);
-            createAccountFragment = (CreateAccountFragment) getFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_CREATE_ACCOUNT);
+            loginFragment = (LoginFragment) getSupportFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_LOGIN);
+            recoverPasswordFragment = (RecoverPasswordFragment) getSupportFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_RECOVER_PASSWORD);
+            createAccountFragment = (CreateAccountFragment) getSupportFragmentManager().getFragment(savedInstanceState, TAG_FRAGMENT_CREATE_ACCOUNT);
         }
     }
 
@@ -78,7 +79,7 @@ public class AuthenticatorActivity extends BaseActivity implements Authenticator
 
     @Override
     public void navigateToRecoverPassword() {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.authenticator_content_frame, recoverPasswordFragment, TAG_FRAGMENT_RECOVER_PASSWORD)
                 .addToBackStack(null)
                 .commit();
@@ -86,7 +87,7 @@ public class AuthenticatorActivity extends BaseActivity implements Authenticator
 
     @Override
     public void navigateToCreateAccount() {
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.authenticator_content_frame, createAccountFragment, TAG_FRAGMENT_RECOVER_PASSWORD)
                 .addToBackStack(null)
                 .commit();

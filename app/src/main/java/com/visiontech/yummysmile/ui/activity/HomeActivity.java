@@ -28,7 +28,7 @@ public class HomeActivity extends DrawerActivity {
         setUpFabButton();
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(R.id.frame_content_layout, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.frame_content_layout, new HomeFragment()).commit();
         }
     }
 

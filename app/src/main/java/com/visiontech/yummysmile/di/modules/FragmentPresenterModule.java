@@ -1,7 +1,7 @@
 package com.visiontech.yummysmile.di.modules;
 
-import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;

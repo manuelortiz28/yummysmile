@@ -251,10 +251,10 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
                     setFinalView(renderImageHelper.getRenderedBitmap());
                     pictureToUpload = renderImageHelper.getImageToUpload();
                 }
+                cursor.close();
             } else {
                 Log.e(TAG, "We could not get the path of the file.");
             }
-            cursor.close();
         }
     }
 

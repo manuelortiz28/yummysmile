@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#26000000"
+        android:background="@color/background_buttons_section"
         android:padding="@dimen/default_padding_text">
 
         <TextView

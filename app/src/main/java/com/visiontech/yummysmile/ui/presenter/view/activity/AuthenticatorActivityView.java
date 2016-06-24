@@ -26,4 +26,14 @@ public interface AuthenticatorActivityView {
      * Navigates to the recover password screen
      */
     void navigateToRecoverPassword();
+
+    /**
+     * Navigates to create account screen.
+     */
+    void navigateToCreateAccount();
+
+    /**
+     * Navigates to Login screen
+     */
+    void navigateToLogin();
 }

@@ -10,6 +10,17 @@
     <string name="invalid_email">The email has an incorrect format</string>
     <string name="remember_username">Remember me</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="create_new_account">Create new account</string>
+
+    <!-- Create account -->
+    <string name="first_name">Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+    <string name="create_account">Create account</string>
+    <string name="create_account_empty_fields">All fields are mandatory, please fill out all fields.</string>
+    <string name="create_account_user_existing">Username already exists</string>
+    <string name="create_account_error">Create account could not be performed this time. Please try it later.</string>
+    <string name="create_account_success">You are created a new account successfuly!! Just review your inbox to activate your account.</string>
 
     <!-- Recover Password -->
     <string name="recover_error_fields_empty">Username field should not be empty</string>

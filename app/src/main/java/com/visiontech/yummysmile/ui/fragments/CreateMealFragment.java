@@ -26,9 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.base.Strings;
-import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
+import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.activity.PermissionsActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
@@ -130,7 +130,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     }
 
     @Override
-    public void createMealResponse(JsonObject jsonObject) {
+    public void createMealResponse(Meal meal) {
         Toast.makeText(getActivity(), "Meal created successfully!", Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }

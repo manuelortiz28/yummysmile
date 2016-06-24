@@ -34,6 +34,25 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
+    public void createAccount(User user, String password, final ResultListener<CreateAccountResponse> resultListener) {
+        final UserDTO userDTO = UserTransform.getTransformUserToUserDTO().apply(user);
+        userDTO.setPassword(password);
+
+        final CreateAccountResponse createAccountResponse = new CreateAccountResponse();
+
+        FactoryRestAdapter.invokeService(
+                userAPIService.createAccount(userDTO),
+                new BaseSubscriber<UserDTO>(resultListener, createAccountResponse) {
+                    @Override
+                    protected void onSuccess(UserDTO serviceResponse) {
+                        createAccountResponse.setPayload(
+                                UserTransform.getTransformUserDtoToUser().apply(serviceResponse));
+                    }
+                }
+        );
+    }
+
+    @Override
     public void login(
             String username,
             final String password,
@@ -51,7 +70,8 @@ public class AuthenticationControllerImpl implements AuthenticationController {
                     @Override
                     protected void onSuccess(UserDTO serviceResponse) {
 
-                        loggedInResponse.setPayload(UserTransform.getTransformUserDtoToUser().apply(serviceResponse));
+                        loggedInResponse.setPayload(
+                                UserTransform.getTransformUserDtoToUser().apply(serviceResponse));
                         saveAccount(loggedInResponse.getPayload(), true, password);
                     }
                 });

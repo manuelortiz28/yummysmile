@@ -65,5 +65,22 @@
             android:text="@string/forgot_password"/>
     </LinearLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_buttons_section"
+        android:padding="@dimen/default_padding_text">
+
+        <TextView
+            android:id="@+id/txtCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/create_new_account"
+            />
+
+    </FrameLayout>
+
 </RelativeLayout>
 

@@ -63,6 +63,7 @@ public class LoginPresenter {
 
                     if (HttpResponseCode.UNPROCESSABLE_ENTITY == result.getError().getCode()
                             && !result.getError().getErrors().isEmpty()) {
+
                         loginView.showLoginError(result.getError().getErrors().get(0).getMessage());
                     } else {
                         loginView.showLoginError(

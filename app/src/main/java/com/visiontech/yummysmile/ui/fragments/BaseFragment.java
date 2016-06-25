@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.di.scopes.PerFragment;
+import com.visiontech.yummysmile.ui.activity.BaseActivity;
+import com.visiontech.yummysmile.ui.presenter.BaseFragmentPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 
 /**
@@ -20,6 +22,7 @@ public class BaseFragment extends Fragment implements BaseFragmentView {
     private static final String LOG_TAG = BaseFragment.class.getName();
 
     protected YummySmileApplication application;
+    protected BaseFragmentPresenter basePresenter;
     private ProgressBar loader;
     private boolean loaderFlag;
 
@@ -38,9 +41,10 @@ public class BaseFragment extends Fragment implements BaseFragmentView {
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
 
-        application = (YummySmileApplication) getActivity().getApplication();
-
         loader = (ProgressBar) getView().findViewById(R.id.progressBar);
+
+        application = (YummySmileApplication) getActivity().getApplication();
+        basePresenter = application.getFragmentPresenterComponent(this, (BaseActivity) getActivity()).getBaseFragmentPresenter();
     }
 
     @Override

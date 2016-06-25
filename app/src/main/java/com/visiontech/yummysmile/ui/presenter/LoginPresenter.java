@@ -4,14 +4,11 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.models.YummySharedPreferences;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
-import com.visiontech.yummysmile.ui.presenter.view.activity.AuthenticatorActivityView;
-import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
-import com.visiontech.yummysmile.ui.presenter.view.activity.UserSessionView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.LoginView;
 
 import javax.inject.Inject;
 
@@ -26,25 +23,19 @@ public class LoginPresenter {
     private final AuthenticationController authenticationController;
     private final YummySharedPreferences sharedPreferences;
 
-    private final BaseActivityView baseActivityView;
-    private final AuthenticatorActivityView loginView;
-    private final UserSessionView userSessionView;
+    private final LoginView loginView;
 
     @Inject
     public LoginPresenter(
             Context context,
             AuthenticationController authenticationController,
             YummySharedPreferences yummySharedPreferences,
-            @Nullable UserSessionView userSessionView,
-            @Nullable AuthenticatorActivityView loginView,
-            @Nullable BaseActivityView baseActivityView) {
+            @Nullable LoginView loginView) {
 
         this.context = context;
         this.authenticationController = authenticationController;
         this.sharedPreferences = yummySharedPreferences;
-        this.userSessionView = userSessionView;
         this.loginView = loginView;
-        this.baseActivityView = baseActivityView;
     }
 
     /**
@@ -73,37 +64,6 @@ public class LoginPresenter {
                 }
             }
         });
-    }
-
-    /**
-     * Log outs the current user and handle the response
-     */
-    public void logOutUser() {
-        authenticationController.logOutUser(
-            new ResultListener<AuthenticationController.LogOutResponse>() {
-                @Override
-                public void onResult(AuthenticationController.LogOutResponse result) {
-                    if (result.isSuccess()) {
-                        baseActivityView.showLoginScreen();
-                    } /*else {
-                        //FIXME find the final copy.
-                        commonView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
-                    }*/
-                }
-            }
-        );
-    }
-
-    /**
-     * Validate if the user is logged in, and call to the properly view methods
-     */
-    public void validateUserLoggedIn() {
-        User user = authenticationController.getUserLoggedIn();
-        if (user == null) {
-            baseActivityView.showLoginScreen();
-        } else {
-            userSessionView.showUserInfo(user);
-        }
     }
 
     /**

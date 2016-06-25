@@ -15,7 +15,6 @@ import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
 import com.visiontech.yummysmile.ui.presenter.HomePresenter;
-import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
 
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.List;
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
     protected HomePresenter homePresenter;
-    protected LoginPresenter loginPresenter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private MainCardsAdapter mainCardsAdapter;
@@ -59,9 +57,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
                 application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
 
         homePresenter = fragmentPresenterComponent.getMainPresenter();
-        loginPresenter = fragmentPresenterComponent.getLoginPresenter();
 
-        loginPresenter.validateUserLoggedIn();
+        basePresenter.validateUserLoggedIn();
     }
 
     @Override

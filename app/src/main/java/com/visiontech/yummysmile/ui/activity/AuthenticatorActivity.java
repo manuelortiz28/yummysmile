@@ -3,7 +3,6 @@ package com.visiontech.yummysmile.ui.activity;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.models.User;
@@ -56,18 +55,7 @@ public class AuthenticatorActivity extends BaseActivity implements Authenticator
     }
 
     @Override
-    public void showLoginError(String errorMessage) {
-        loginFragment.showProgress(false);
-
-        //FIXME show the snake bar generic error message
-        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showLoginSuccess(User user) {
-        //FIXME Clear from backstack the login fragment
-        loginFragment.showProgress(false);
-
+    public void navigateToHome(User user) {
         Intent intentSaved = saveAuthenticationData(user);
         setResult(RESULT_OK, intentSaved);
 
@@ -91,12 +79,6 @@ public class AuthenticatorActivity extends BaseActivity implements Authenticator
                 .replace(R.id.authenticator_content_frame, createAccountFragment, TAG_FRAGMENT_RECOVER_PASSWORD)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    @Override
-    public void navigateToLogin() {
-        //FIXME Implements this method correctly
-        showMessage("Navigating to log in screen");
     }
 
     private Intent saveAuthenticationData(User user) {

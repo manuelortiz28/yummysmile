@@ -15,8 +15,8 @@ import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.models.User;
-import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
-import com.visiontech.yummysmile.ui.presenter.view.activity.UserSessionView;
+import com.visiontech.yummysmile.ui.presenter.view.DrawerPresenter;
+import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,7 @@ import io.fabric.sdk.android.Fabric;
 /**
  * @author manuel.ortiz
  */
-public abstract class DrawerActivity extends BaseActivity implements UserSessionView {
+public abstract class DrawerActivity extends BaseActivity implements DrawerActivityView {
     private static final String LOG_TAG = HomeActivity.class.getName();
 
     private DrawerLayout drawerLayout;
@@ -33,7 +33,7 @@ public abstract class DrawerActivity extends BaseActivity implements UserSession
     @Inject
     protected YummySmileApplication yummySmileApplication;
     @Inject
-    protected LoginPresenter loginPresenter;
+    protected DrawerPresenter drawerPresenter;
 
     protected ActivityPresenterComponent activityPresenterComponent;
 
@@ -56,6 +56,8 @@ public abstract class DrawerActivity extends BaseActivity implements UserSession
     protected void onResume() {
         Log.d(LOG_TAG, "onResume()");
         super.onResume();
+
+        drawerPresenter.retrieveUserInformation();
     }
 
     @Override
@@ -93,7 +95,7 @@ public abstract class DrawerActivity extends BaseActivity implements UserSession
                 menuItem.setChecked(true);
 
                 if (menuItem.getItemId() == R.id.nav_item_logout) {
-                    loginPresenter.logOutUser();
+                    drawerPresenter.logOutUser();
                 } else {
                     //Fixme remove the message
                     showMessage("Item: " + menuItem.getTitle());

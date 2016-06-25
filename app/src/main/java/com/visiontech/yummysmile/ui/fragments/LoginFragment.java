@@ -12,14 +12,16 @@ import android.widget.Switch;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
+import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.LoginPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.activity.AuthenticatorActivityView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.LoginView;
 
 /**
  * @author manuel.ortiz on 08/06/16.
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment implements LoginView {
 
     private EditText txtUsername;
     private EditText txtPassword;
@@ -111,5 +113,17 @@ public class LoginFragment extends BaseFragment {
         }
 
         return true;
+    }
+
+    @Override
+    public void showLoginSuccess(User user) {
+        showProgress(false);
+        authenticatorActivityView.navigateToHome(user);
+    }
+
+    @Override
+    public void showLoginError(String errorMessage) {
+        showProgress(false);
+        showMessage(errorMessage);
     }
 }

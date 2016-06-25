@@ -8,6 +8,7 @@ import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateAccountView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.LoginView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.RecoverPasswordFragmentView;
 
 import dagger.Module;
@@ -71,6 +72,15 @@ public class FragmentPresenterModule {
     CreateAccountView provideCreateAccountFragmentView() {
         if (baseFragment instanceof CreateAccountView) {
             return (CreateAccountView) baseFragment;
+        }
+        return null;
+    }
+
+    @Provides
+    @PerFragment
+    LoginView provideLoginFragmentView() {
+        if (baseFragment instanceof LoginView) {
+            return (LoginView) baseFragment;
         }
         return null;
     }

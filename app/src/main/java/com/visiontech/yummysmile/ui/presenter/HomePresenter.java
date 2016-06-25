@@ -1,9 +1,9 @@
 package com.visiontech.yummysmile.ui.presenter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
@@ -21,23 +21,23 @@ import javax.inject.Inject;
  *
  * @author hetorres
  */
-public class HomePresenter extends BasePresenter {
+public class HomePresenter {
 
     private final MealsController mealsController;
     private final BaseFragmentView baseFragmentView;
     private final HomeFragmentView homeView;
     private final BaseActivityView baseActivityView;
+    private final Context context;
 
     @Inject
     public HomePresenter(
-            YummySmileApplication application,
+            Context context,
             MealsController mealsController,
             @Nullable BaseActivityView baseActivityView,
             @Nullable BaseFragmentView baseFragmentView,
             @Nullable HomeFragmentView homeView) {
 
-        super(application);
-
+        this.context = context;
         this.mealsController = mealsController;
         this.baseActivityView = baseActivityView;
         this.baseFragmentView = baseFragmentView;
@@ -68,7 +68,7 @@ public class HomePresenter extends BasePresenter {
                     } else {
                         //FIXME find the final copy.
                         //TODO Do we have to show other view? like some text on the layout?
-                        baseFragmentView.showMessage(getContext().getString(R.string.general_error, result.getError().getMessage()));
+                        baseFragmentView.showMessage(context.getString(R.string.general_error, result.getError().getMessage()));
                     }
                 }
             }

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">YummySmile</string>
 
     <!-- Login -->
     <string name="username_hint">Username</string>

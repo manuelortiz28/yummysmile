@@ -33,13 +33,33 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            //FIXME Change to release signing config
+            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            ext.betaDistributionReleaseNotes=writeReleaseNotes("release")
+            resValue("string", "app_name", "Yummy Smile")
+            buildConfigField("String", "RS_API_URL", "\"http://207.210.66.71/\"")
+            buildConfigField("String", "RS_API_APP_NAME", "\"yummysmile/\"")
+            ext.betaDistributionReleaseNotes=writeReleaseNotes("Release")
             ext.betaDistributionGroupAliases="Devs,QA"
         }
         debug {
-            ext.betaDistributionReleaseNotes=writeReleaseNotes("debug")
+            applicationIdSuffix ".dev"
+            resValue("string", "app_name", "Yummy Dev")
+            buildConfigField("String", "RS_API_URL", "\"http://207.210.66.71/\"")
+            buildConfigField("String", "RS_API_APP_NAME", "\"yummysmile/\"")
+            ext.betaDistributionReleaseNotes=writeReleaseNotes("Debug")
+            ext.betaDistributionGroupAliases="Devs"
+        }
+        qa {
+            applicationIdSuffix ".qa"
+            debuggable true
+            signingConfig signingConfigs.debug
+            resValue("string", "app_name", "Yummy QA")
+            buildConfigField("String", "RS_API_URL", "\"http://207.210.66.71/\"")
+            buildConfigField("String", "RS_API_APP_NAME", "\"yummysmile/\"")
+            ext.betaDistributionReleaseNotes=writeReleaseNotes("QA")
             ext.betaDistributionGroupAliases="Devs,QA"
         }
     }

@@ -88,7 +88,7 @@ public class MainCardsAdapter extends RecyclerView.Adapter<MainCardsAdapter.Main
 
         public void setData(Meal meal) {
             description.setText(meal.getName());
-            String url = Constants.HOST + Constants.URI + meal.getFileName();
+            String url = Constants.HOST + meal.getFileName();
             Glide.with(context).load(url).centerCrop().into(picture);
         }
     }

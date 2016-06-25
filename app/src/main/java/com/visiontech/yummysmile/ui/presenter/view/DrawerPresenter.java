@@ -13,6 +13,9 @@ import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 import javax.inject.Inject;
 
 /**
+ *
+ *  Class in the Presenter tier from the MVP pattern, containing methods related to the drawer activity.
+ *
  * @author manuel.ortiz on 23/06/16.
  */
 public class DrawerPresenter {

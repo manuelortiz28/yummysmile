@@ -28,7 +28,7 @@ public final class FactoryRestAdapter {
      */
     public static <T> T createRetrofitService(final Class<T> clazz) {
         final Retrofit restAdapter = new Retrofit.Builder()
-                .baseUrl(Constants.HOST + Constants.URI + Constants.API + Constants.API_VERSION)
+                .baseUrl(Constants.HOST + Constants.API + Constants.API_VERSION)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //Rx java adapter
                 .build();

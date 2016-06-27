@@ -8,10 +8,8 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
-import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
 
@@ -34,15 +32,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
     public void showLoginScreen() {
         startActivity(new Intent(this, AuthenticatorActivity.class));
         finish();
-    }
-
-    @Override
-    public void showProgress(boolean show) {
-        View loader = findViewById(R.id.progressBar);
-
-        if (loader != null) {
-            loader.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-        }
     }
 
     @Override

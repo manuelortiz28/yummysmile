@@ -1,11 +1,11 @@
 package com.visiontech.yummysmile.ui.presenter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.YummySmileApplication;
+import com.visiontech.yummysmile.models.Meal;
 import com.visiontech.yummysmile.repository.api.response.ErrorResponse;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
 import com.visiontech.yummysmile.ui.controller.MealsController;
@@ -21,22 +21,21 @@ import javax.inject.Inject;
  *
  * @author hetorres
  */
-public class CreateMealPresenter extends BasePresenter {
+public class CreateMealPresenter {
     private static final String LOG_TAG = CreateMealPresenter.class.getName();
-    private static final String JSON_NAME = "name";
     private final MealsController mealsController;
     private final BaseFragmentView baseFragmentView;
     private final CreateMealFragmentView createMealFragmentView;
+    private final Context context;
 
     @Inject
     public CreateMealPresenter(
-            YummySmileApplication application,
+            Context context,
             MealsController mealsController,
             @Nullable BaseFragmentView baseFragmentView,
             @Nullable CreateMealFragmentView createMealFragmentView) {
 
-        super(application);
-
+        this.context = context;
         this.mealsController = mealsController;
         this.baseFragmentView = baseFragmentView;
         this.createMealFragmentView = createMealFragmentView;
@@ -46,21 +45,19 @@ public class CreateMealPresenter extends BasePresenter {
         Log.d(LOG_TAG, "createMealPresenter()");
         baseFragmentView.showProgress(true);
 
-        //FIXME Use a DTO instead of a JsonObject
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty(JSON_NAME, mealName);
+        Meal meal = new Meal();
+        meal.setName(mealName);
 
-        mealsController.createMeal(jsonObject, photo, new ResultListener<MealsController.CreateMealResponse>() {
+        mealsController.createMeal(meal, photo, new ResultListener<MealsController.CreateMealResponse>() {
             @Override
             public void onResult(MealsController.CreateMealResponse result) {
                 baseFragmentView.showProgress(false);
                 if (result.isSuccess()) {
-                    JsonObject payload = result.getPayload();
-                    createMealFragmentView.createMealResponse(payload);
+                    createMealFragmentView.createMealResponse(result.getPayload());
                 } else {
                     //TODO Do we have to show other view? like some text on the layout?
                     ErrorResponse error = result.getError();
-                    baseFragmentView.showMessage(String.format(getContext().getString(R.string.general_error), error.getMessage()));
+                    baseFragmentView.showMessage(String.format(context.getString(R.string.general_error), error.getMessage()));
                     Log.e(LOG_TAG, "Message: " + error.getMessage());
                     Log.e(LOG_TAG, "Code: " + error.getCode());
                 }

@@ -11,19 +11,17 @@ import com.visiontech.yummysmile.models.User;
 public interface AuthenticatorActivityView {
 
     /**
-     * This method is called when the log in was successful
-     * @param user The user who logged in
-     */
-    void showLoginSuccess(User user);
-
-    /**
-     * Shows an error message indicating the reason for the log in could not be performed
-     * @param errorMessage Error message to show
-     */
-    void showLoginError(String errorMessage);
-
-    /**
      * Navigates to the recover password screen
      */
     void navigateToRecoverPassword();
+
+    /**
+     * Navigates to create account screen.
+     */
+    void navigateToCreateAccount();
+
+    /**
+     * Navigates to home screen
+     */
+    void navigateToHome(User user);
 }

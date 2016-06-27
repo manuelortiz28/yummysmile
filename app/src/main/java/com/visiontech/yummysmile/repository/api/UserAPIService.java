@@ -16,6 +16,9 @@ import rx.Observable;
  * @author hector.torres
  */
 public interface UserAPIService {
+    @POST("signup")
+    Observable<UserDTO> createAccount(@Body UserDTO user);
+
     @POST("login")
     Observable<UserDTO> login(@Body UserDTO user);
 

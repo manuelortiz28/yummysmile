@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import com.visiontech.yummysmile.di.scopes.PerActivity;
 import com.visiontech.yummysmile.ui.presenter.view.activity.AuthenticatorActivityView;
 import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
-import com.visiontech.yummysmile.ui.presenter.view.activity.UserSessionView;
+import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -38,9 +38,9 @@ public class ActivityPresenterModule {
     @Provides
     @PerActivity
     @Nullable
-    UserSessionView provideDrawerView() {
-        if (baseActivity instanceof UserSessionView) {
-            return (UserSessionView) baseActivity;
+    AuthenticatorActivityView provideAuthenticatorActivityView() {
+        if (baseActivity instanceof AuthenticatorActivityView) {
+            return (AuthenticatorActivityView) baseActivity;
         }
 
         return null;
@@ -49,11 +49,10 @@ public class ActivityPresenterModule {
     @Provides
     @PerActivity
     @Nullable
-    AuthenticatorActivityView provideAuthenticatorActivityView() {
-        if (baseActivity instanceof AuthenticatorActivityView) {
-            return (AuthenticatorActivityView) baseActivity;
+    DrawerActivityView provideDrawerActivityView() {
+        if (baseActivity instanceof DrawerActivityView) {
+            return (DrawerActivityView) baseActivity;
         }
-
         return null;
     }
 }

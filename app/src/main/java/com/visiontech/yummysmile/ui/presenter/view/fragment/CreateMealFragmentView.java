@@ -1,6 +1,6 @@
 package com.visiontech.yummysmile.ui.presenter.view.fragment;
 
-import com.google.gson.JsonObject;
+import com.visiontech.yummysmile.models.Meal;
 
 /**
  * Interface to declare the methods to manipulate the create meal view.
@@ -9,5 +9,5 @@ import com.google.gson.JsonObject;
  */
 public interface CreateMealFragmentView {
 
-    void createMealResponse(JsonObject jsonObject);
+    void createMealResponse(Meal meal);
 }

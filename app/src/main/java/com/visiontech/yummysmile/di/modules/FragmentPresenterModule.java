@@ -1,12 +1,14 @@
 package com.visiontech.yummysmile.di.modules;
 
-import android.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.BaseFragmentView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateAccountView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
+import com.visiontech.yummysmile.ui.presenter.view.fragment.LoginView;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.RecoverPasswordFragmentView;
 
 import dagger.Module;
@@ -61,6 +63,24 @@ public class FragmentPresenterModule {
     RecoverPasswordFragmentView provideRecoverPasswordFragmentView() {
         if (baseFragment instanceof RecoverPasswordFragmentView) {
             return (RecoverPasswordFragmentView) baseFragment;
+        }
+        return null;
+    }
+
+    @Provides
+    @PerFragment
+    CreateAccountView provideCreateAccountFragmentView() {
+        if (baseFragment instanceof CreateAccountView) {
+            return (CreateAccountView) baseFragment;
+        }
+        return null;
+    }
+
+    @Provides
+    @PerFragment
+    LoginView provideLoginFragmentView() {
+        if (baseFragment instanceof LoginView) {
+            return (LoginView) baseFragment;
         }
         return null;
     }

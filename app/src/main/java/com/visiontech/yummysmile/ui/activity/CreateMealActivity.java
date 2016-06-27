@@ -22,7 +22,7 @@ public class CreateMealActivity extends BaseActivity {
         setContentView(R.layout.create_meal_activity);
 
         if (saveInstance == null) {
-            getFragmentManager().beginTransaction().replace(R.id.frame_content_create_meal, new CreateMealFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_content_create_meal, new CreateMealFragment()).commit();
         }
     }
 }

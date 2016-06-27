@@ -16,6 +16,14 @@ public interface AuthenticationController {
     String USER_LAST_NAME = "USER_LAST_NAME_DATA";
 
     /**
+     * Creates a new user account.
+     * @param user Object containing all the user information
+     * @param password Password to set to this account
+     * @param resultListener Listener used as a callback to pass the result, which contain an User model object
+     */
+    void createAccount(User user, String password, ResultListener<CreateAccountResponse> resultListener);
+
+    /**
      * Invoke the login api method, in order of trying to log in to the user
      * @param username Username
      * @param password Password of the account
@@ -45,6 +53,9 @@ public interface AuthenticationController {
     //===========================================================================================================
     //===============================================   Events    ===============================================
     //===========================================================================================================
+
+    class CreateAccountResponse extends BaseResponse<User> {
+    }
 
     /**
      * Response object containing an User object

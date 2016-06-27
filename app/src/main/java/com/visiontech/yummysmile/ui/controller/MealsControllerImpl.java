@@ -3,7 +3,6 @@ package com.visiontech.yummysmile.ui.controller;
 import android.util.Log;
 
 import com.google.common.collect.FluentIterable;
-import com.google.gson.JsonObject;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.RequestBody;
 import com.visiontech.yummysmile.models.Meal;
@@ -11,6 +10,7 @@ import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.models.transformers.MealTransform;
 import com.visiontech.yummysmile.repository.api.FactoryRestAdapter;
 import com.visiontech.yummysmile.repository.api.MealAPIService;
+import com.visiontech.yummysmile.repository.api.dto.MealDTO;
 import com.visiontech.yummysmile.repository.api.dto.MealsDTO;
 import com.visiontech.yummysmile.repository.api.subscriber.BaseSubscriber;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
@@ -67,7 +67,7 @@ public class MealsControllerImpl implements MealsController {
     }
 
     @Override
-    public void createMeal(JsonObject meal, File photo, ResultListener result) {
+    public void createMeal(Meal meal, File photo, ResultListener<CreateMealResponse> result) {
         Log.d(LOG_TAG, "createMeal()");
 
         obtainUserInfo();
@@ -75,17 +75,17 @@ public class MealsControllerImpl implements MealsController {
 
         // Creating the request body base on the file
         RequestBody requestBody = RequestBody.create(MediaType.parse(Constants.API_MULTIPART_DATA), photo);
+        MealDTO mealDTO = MealTransform.getTransformMealToMealDto().apply(meal);
 
         FactoryRestAdapter.invokeService(
-                mealAPIService.createMeal(token, userId, requestBody, meal),
-                new BaseSubscriber<JsonObject>(result, createMealResponse) {
+                mealAPIService.createMeal(token, userId, requestBody, mealDTO),
+                new BaseSubscriber<MealDTO>(result, createMealResponse) {
 
                     @Override
-                    protected void onSuccess(JsonObject serviceResponse) {
-                        if (serviceResponse.has("objectId")) {
-                            Log.d(LOG_TAG, "Success!");
-                            createMealResponse.setPayload(serviceResponse);
-                        }
+                    protected void onSuccess(MealDTO mealDTO) {
+                        Log.d(LOG_TAG, "Success!");
+                        Meal meal = MealTransform.getTransformMealDtoToMeal().apply(mealDTO);
+                        createMealResponse.setPayload(meal);
                     }
                 });
     }

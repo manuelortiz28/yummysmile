@@ -9,12 +9,6 @@ import android.support.annotation.StringRes;
  */
 public interface BaseActivityView {
     /**
-     * Show the progress dialog
-     * @param show If the progress should be displayed or not
-     */
-    void showProgress(boolean show);
-
-    /**
      * Shows a message to the user
      * @param message
      */

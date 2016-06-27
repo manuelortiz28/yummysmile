@@ -39,5 +39,8 @@
     <dimen name="margin_height_picture">100dp</dimen>
     <dimen name="padding_right_picture">5dp</dimen>
 
+    <!-- Login -->
+    <dimen name="margin_">100dp</dimen>
+
 
 </resources>

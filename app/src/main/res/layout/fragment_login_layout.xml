@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -14,10 +15,19 @@
         android:layout_centerVertical="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/margin_width_picture"
+        android:text="Yummi Smile"/>
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="@dimen/default_padding_text">
 
         <android.support.design.widget.TextInputLayout
@@ -25,11 +35,11 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/txtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtUsername"
-                android:inputType="textEmailAddress"
-                android:hint="@string/username_hint"/>
+                android:hint="@string/username_hint"
+                android:inputType="textEmailAddress"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -38,30 +48,35 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:id="@+id/txtPassword"
-                android:hint="@string/password_hint"/>
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <Switch
+            android:id="@+id/switch_remember_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/remember_username"
-            android:id="@+id/switch_remember_username" />
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/remember_username"/>
 
         <Button
+            android:id="@+id/btnLogin"
+            style="@style/Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btnLogin"
-            android:text="@string/login_text" />
+            android:text="@string/login_text"/>
 
         <TextView
+            android:id="@+id/txtForgotPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtForgotPassword"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="@string/forgot_password"/>
     </LinearLayout>
 

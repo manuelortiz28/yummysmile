@@ -2,16 +2,17 @@ package com.visiontech.yummysmile;
 
 import android.app.Application;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.di.components.CoreComponent;
 import com.visiontech.yummysmile.di.components.DaggerActivityPresenterComponent;
 import com.visiontech.yummysmile.di.components.DaggerCoreComponent;
 import com.visiontech.yummysmile.di.components.DaggerFragmentPresenterComponent;
 import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
-import com.visiontech.yummysmile.di.scopes.PerApplication;
 import com.visiontech.yummysmile.di.modules.ActivityPresenterModule;
 import com.visiontech.yummysmile.di.modules.AppModule;
 import com.visiontech.yummysmile.di.modules.FragmentPresenterModule;
+import com.visiontech.yummysmile.di.scopes.PerApplication;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.fragments.BaseFragment;
 
@@ -25,6 +26,7 @@ public class YummySmileApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LeakCanary.install(this);
 
         setupGraph();
     }

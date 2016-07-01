@@ -10,23 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.YummySmileApplication;
-import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.ui.presenter.view.DrawerPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.activity.DrawerActivityView;
 
 import javax.inject.Inject;
 
-import io.fabric.sdk.android.Fabric;
-
 /**
  * @author manuel.ortiz
  */
 public abstract class DrawerActivity extends BaseActivity implements DrawerActivityView {
-    private static final String LOG_TAG = HomeActivity.class.getName();
+    private static final String LOG_TAG = DrawerActivity.class.getName();
 
     private DrawerLayout drawerLayout;
 
@@ -35,17 +31,13 @@ public abstract class DrawerActivity extends BaseActivity implements DrawerActiv
     @Inject
     protected DrawerPresenter drawerPresenter;
 
-    protected ActivityPresenterComponent activityPresenterComponent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(LOG_TAG, "onCreate()");
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
 
         setContentView(R.layout.activity_main);
 
-        activityPresenterComponent = application.getActivityPresenterComponent(this);
         activityPresenterComponent.inject(this);
 
         setUpToolbar(R.string.header_time_line, R.id.app_bar, R.drawable.ic_menu_white_24dp);

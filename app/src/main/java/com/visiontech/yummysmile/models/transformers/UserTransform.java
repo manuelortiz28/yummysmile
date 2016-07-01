@@ -28,6 +28,8 @@ public final class UserTransform {
             newUser.setLastName(userDTO.getLastName());
             newUser.setEmail(userDTO.getEmail());
             newUser.setToken(userDTO.getToken());
+            newUser.setSocialNetworkType(userDTO.getSocialNetworkType());
+            newUser.setSocialNetworkUserId(userDTO.getSocialNetworkUserId());
 
             return newUser;
         }
@@ -46,6 +48,8 @@ public final class UserTransform {
             newUserDTO.setLastName(user.getLastName());
             newUserDTO.setEmail(user.getEmail());
             newUserDTO.setToken(user.getToken());
+            newUserDTO.setSocialNetworkType(user.getSocialNetworkType());
+            newUserDTO.setSocialNetworkUserId(user.getSocialNetworkUserId());
 
             return newUserDTO;
         }

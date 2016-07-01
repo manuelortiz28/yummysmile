@@ -14,6 +14,8 @@ public class User {
     private String lastName;
     private String email;
     private String token;
+    private String socialNetworkType;
+    private String socialNetworkUserId;
 
     public String getId() {
         return id;
@@ -61,5 +63,21 @@ public class User {
      */
     public String getFullName() {
         return TextUtils.join(" ", new String[]{name, lastName});
+    }
+
+    public void setSocialNetworkType(String socialNetwork) {
+        this.socialNetworkType = socialNetwork;
+    }
+
+    public void setSocialNetworkUserId(String socialNetworkUserId) {
+        this.socialNetworkUserId = socialNetworkUserId;
+    }
+
+    public String getSocialNetworkType() {
+        return socialNetworkType;
+    }
+
+    public String getSocialNetworkUserId() {
+        return socialNetworkUserId;
     }
 }

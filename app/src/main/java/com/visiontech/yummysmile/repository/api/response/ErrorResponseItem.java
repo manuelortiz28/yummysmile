@@ -16,8 +16,11 @@ public class ErrorResponseItem {
         FIELDS_REQUIRED,
         NEW_PASSWORD_INVALID,
         INVALID_CREDENTIALS,
-        EMAIL_NOT_CONFIRMED
-    };
+        EMAIL_NOT_CONFIRMED,
+        INVALID_SOCIAL_NETWORK_TYPE,
+        TOKEN_INVALID,
+        ACCOUNT_EXISTS_WITH_DIFFERENT_TYPE
+    }
 
     private final ReasonType reason;
     private final String message;

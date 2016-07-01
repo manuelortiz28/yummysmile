@@ -27,9 +27,7 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.models.Meal;
-import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.activity.PermissionsActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateMealPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateMealFragmentView;
@@ -68,7 +66,7 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
 
     private enum PhotoPicker {
         TAKE_PHOTO,
-        PICK_PHOTO;
+        PICK_PHOTO
     }
 
     @Override
@@ -99,9 +97,8 @@ public class CreateMealFragment extends BaseFragment implements CreateMealFragme
     @Override
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
-        ((BaseActivity) getActivity()).setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
+        baseActivity.setUpToolbar(R.string.header_create_meal, R.id.tb_create_meal, R.drawable.ic_arrow_back_white_24dp);
 
-        FragmentPresenterComponent fragmentPresenterComponent = application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
         createMealPresenter = fragmentPresenterComponent.getCreateMealPresenter();
         permissionsHelper = application.getCoreComponent().getPermissionsHelper();
         renderImageHelper = application.getCoreComponent().getRenderImageHelper();

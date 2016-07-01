@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.visiontech.yummysmile.R;
+import com.visiontech.yummysmile.models.User;
 import com.visiontech.yummysmile.models.YummySharedPreferences;
 import com.visiontech.yummysmile.repository.api.response.HttpResponseCode;
 import com.visiontech.yummysmile.repository.api.subscriber.ResultListener;
@@ -45,6 +46,33 @@ public class LoginPresenter {
      */
     public void authenticate(String username, String password) {
         authenticationController.login(username, password, new ResultListener<AuthenticationController.LogInResponse>() {
+
+            @Override
+            public void onResult(AuthenticationController.LogInResponse result) {
+                if (result.isSuccess()) {
+                    loginView.showLoginSuccess(result.getPayload());
+                } else {
+
+                    if (HttpResponseCode.UNPROCESSABLE_ENTITY == result.getError().getCode()
+                            && !result.getError().getErrors().isEmpty()) {
+
+                        loginView.showLoginError(result.getError().getErrors().get(0).getMessage());
+                    } else {
+                        loginView.showLoginError(
+                                String.format(
+                                        context.getString(R.string.general_error), result.getError().getMessage()));
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Perform the authentication of the user, and handle the success response, or handle any error related
+     * @param user User model containing its information.
+     */
+    public void authenticateWithSocialNetwork(User user) {
+        authenticationController.loginWithSocialNetwork(user, new ResultListener<AuthenticationController.LogInResponse>() {
 
             @Override
             public void onResult(AuthenticationController.LogInResponse result) {

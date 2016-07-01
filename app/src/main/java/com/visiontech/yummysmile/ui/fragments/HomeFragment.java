@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.models.Meal;
-import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.adapter.MainCardsAdapter;
 import com.visiontech.yummysmile.ui.presenter.HomePresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.HomeFragmentView;
@@ -52,9 +50,6 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
-
-        FragmentPresenterComponent fragmentPresenterComponent =
-                application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
 
         homePresenter = fragmentPresenterComponent.getMainPresenter();
 

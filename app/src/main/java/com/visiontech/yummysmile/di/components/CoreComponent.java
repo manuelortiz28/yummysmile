@@ -2,6 +2,7 @@ package com.visiontech.yummysmile.di.components;
 
 import android.content.Context;
 
+import com.facebook.CallbackManager;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.di.modules.ApiModule;
 import com.visiontech.yummysmile.di.modules.AppModule;
@@ -47,4 +48,6 @@ public interface CoreComponent {
     MealsController getMealsController();
 
     RenderImageHelper getRenderImageHelper();
+
+    CallbackManager getCallBackManager();
 }

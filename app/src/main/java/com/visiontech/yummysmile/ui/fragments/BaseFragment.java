@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.common.base.Preconditions;
 import com.visiontech.yummysmile.R;
 import com.visiontech.yummysmile.YummySmileApplication;
+import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
+import com.visiontech.yummysmile.di.components.CoreComponent;
+import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
 import com.visiontech.yummysmile.di.scopes.PerFragment;
 import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.BaseFragmentPresenter;
@@ -23,6 +27,11 @@ public class BaseFragment extends Fragment implements BaseFragmentView {
 
     protected YummySmileApplication application;
     protected BaseFragmentPresenter basePresenter;
+    protected CoreComponent coreComponent;
+    protected ActivityPresenterComponent activityPresenterComponent;
+    protected FragmentPresenterComponent fragmentPresenterComponent;
+    protected BaseActivity baseActivity;
+
     private ProgressBar loader;
     private boolean loaderFlag;
 
@@ -40,11 +49,16 @@ public class BaseFragment extends Fragment implements BaseFragmentView {
 
     public void onActivityCreated(Bundle savedInstance) {
         super.onActivityCreated(savedInstance);
+        Preconditions.checkState(getActivity() instanceof BaseActivity, "The activity should inherits from BaseActivity");
+
+        baseActivity = (BaseActivity) getActivity();
+        application = (YummySmileApplication) getActivity().getApplication();
+        coreComponent = application.getCoreComponent();
+        activityPresenterComponent = application.getActivityPresenterComponent(baseActivity);
+        fragmentPresenterComponent = application.getFragmentPresenterComponent(this, activityPresenterComponent);
+        basePresenter = fragmentPresenterComponent.getBaseFragmentPresenter();
 
         loader = (ProgressBar) getView().findViewById(R.id.progressBar);
-
-        application = (YummySmileApplication) getActivity().getApplication();
-        basePresenter = application.getFragmentPresenterComponent(this, (BaseActivity) getActivity()).getBaseFragmentPresenter();
     }
 
     @Override

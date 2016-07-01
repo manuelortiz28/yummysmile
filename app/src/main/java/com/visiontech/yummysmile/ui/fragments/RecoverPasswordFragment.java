@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
-import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.RecoverPasswordPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.RecoverPasswordFragmentView;
 import com.visiontech.yummysmile.util.UIHelper;
@@ -58,9 +56,6 @@ public class RecoverPasswordFragment extends BaseFragment implements RecoverPass
 
         viewForm = getView().findViewById(R.id.recover_password_form);
         viewSuccess = getView().findViewById(R.id.recover_password_success);
-
-        FragmentPresenterComponent fragmentPresenterComponent =
-                application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
 
         recoveryPasswordPresenter = fragmentPresenterComponent.getRecoverPasswordPresenter();
 

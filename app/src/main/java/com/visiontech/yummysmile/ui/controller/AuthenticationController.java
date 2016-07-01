@@ -32,6 +32,13 @@ public interface AuthenticationController {
     void login(String username, String password, ResultListener<LogInResponse> result);
 
     /**
+     * Invoke the login api method, in order of trying to log in to the user using a social network
+     * @param user User model containing all its information
+     * @param result Listener used as a callback to pass the result, which contain an User model object
+     */
+    void loginWithSocialNetwork(User user, ResultListener<LogInResponse> result);
+
+    /**
      * Gets the current user logged in, as an User object model
      * @return The user logged in if there is one, otherwise null
      */

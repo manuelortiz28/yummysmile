@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="fabric_api_key">393b9846c0e0178f8f0768740bdc6fbe3227ef4e</string>
+    <string name="facebook_app_id">1750759625204363</string>
+
     <!-- Login -->
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>

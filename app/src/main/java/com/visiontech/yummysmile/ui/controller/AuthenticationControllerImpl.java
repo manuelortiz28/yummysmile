@@ -78,6 +78,27 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
+    public void loginWithSocialNetwork(User user,
+            final ResultListener<LogInResponse> resultListener) {
+
+        final UserDTO userDTO = UserTransform.getTransformUserToUserDTO().apply(user);
+
+        final LogInResponse loggedInResponse = new LogInResponse();
+
+        FactoryRestAdapter.invokeService(
+                userAPIService.loginWithSocialNetwork(userDTO),
+                new BaseSubscriber<UserDTO>(resultListener, loggedInResponse) {
+                    @Override
+                    protected void onSuccess(UserDTO serviceResponse) {
+
+                        loggedInResponse.setPayload(
+                                UserTransform.getTransformUserDtoToUser().apply(serviceResponse));
+                        saveAccount(loggedInResponse.getPayload(), true, "12345");
+                    }
+                });
+    }
+
+    @Override
     public User getUserLoggedIn() {
 
         //Get the accounts list for this app

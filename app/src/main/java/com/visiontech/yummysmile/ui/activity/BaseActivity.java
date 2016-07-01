@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.visiontech.yummysmile.YummySmileApplication;
+import com.visiontech.yummysmile.di.components.ActivityPresenterComponent;
 import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * @author manuel.ortiz
@@ -21,11 +25,15 @@ import com.visiontech.yummysmile.ui.presenter.view.activity.BaseActivityView;
 public abstract class BaseActivity extends AppCompatActivity implements BaseActivityView {
 
     protected YummySmileApplication application;
+    protected ActivityPresenterComponent activityPresenterComponent;
 
     protected void onCreate(Bundle saveInstance) {
         super.onCreate(saveInstance);
 
+        Fabric.with(this, new Crashlytics());
+
         application = (YummySmileApplication) getApplication();
+        activityPresenterComponent = application.getActivityPresenterComponent(this);
     }
 
     @Override

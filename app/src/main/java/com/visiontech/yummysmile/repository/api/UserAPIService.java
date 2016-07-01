@@ -29,4 +29,7 @@ public interface UserAPIService {
 
     @POST("recoverpassword")
     Observable<String> recoverPassword(@Query("email") String email);
+
+    @POST("loginsocialnetwork")
+    Observable<UserDTO> loginWithSocialNetwork(@Body UserDTO user);
 }

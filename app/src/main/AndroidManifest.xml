@@ -19,6 +19,8 @@
         android:theme="@style/AppTheme"
         android:name=".YummySmileApplication"
         >
+
+        <!-- Activities -->
         <activity android:name=".ui.activity.HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -31,6 +33,13 @@
         <activity android:name=".ui.activity.AuthenticatorActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
+
+        <!-- Services -->
         <service android:name=".accounts.YummyAuthenticatorService" android:exported="false">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
@@ -38,9 +47,15 @@
             <meta-data android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+
+        <!-- Meta data -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="393b9846c0e0178f8f0768740bdc6fbe3227ef4e" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
     </application>
 
 </manifest>

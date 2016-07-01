@@ -5,9 +5,10 @@ package com.visiontech.yummysmile.di.scopes;
  */
 
 import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.CLASS;
 
 import javax.inject.Scope;
+
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 /**
  * @author manuel.ortiz

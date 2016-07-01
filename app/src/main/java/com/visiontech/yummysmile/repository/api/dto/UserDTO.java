@@ -19,6 +19,8 @@ public class UserDTO implements Serializable {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private String password;
     private String token;
+    private String socialNetworkType;
+    private String socialNetworkUserId;
 
     public String getId() {
         return id;
@@ -62,5 +64,21 @@ public class UserDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getSocialNetworkType() {
+        return socialNetworkType;
+    }
+
+    public void setSocialNetworkType(String socialNetwork) {
+        this.socialNetworkType = socialNetwork;
+    }
+
+    public String getSocialNetworkUserId() {
+        return socialNetworkUserId;
+    }
+
+    public void setSocialNetworkUserId(String socialNetworkUserId) {
+        this.socialNetworkUserId = socialNetworkUserId;
     }
 }

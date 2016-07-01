@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.visiontech.yummysmile.R;
-import com.visiontech.yummysmile.di.components.FragmentPresenterComponent;
-import com.visiontech.yummysmile.ui.activity.BaseActivity;
 import com.visiontech.yummysmile.ui.presenter.CreateAccountPresenter;
 import com.visiontech.yummysmile.ui.presenter.view.fragment.CreateAccountView;
 import com.visiontech.yummysmile.util.UIHelper;
@@ -73,9 +71,6 @@ public class CreateAccountFragment extends BaseFragment implements CreateAccount
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
-
-        FragmentPresenterComponent fragmentPresenterComponent =
-                application.getFragmentPresenterComponent(this, (BaseActivity) getActivity());
 
         createAccountPresenter = fragmentPresenterComponent.getCreateAccountPresenter();
 

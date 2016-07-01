@@ -3,6 +3,7 @@ package com.visiontech.yummysmile.di.modules;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.CallbackManager;
 import com.visiontech.yummysmile.YummySmileApplication;
 import com.visiontech.yummysmile.ui.controller.AuthenticationController;
 import com.visiontech.yummysmile.ui.controller.AuthenticationControllerImpl;
@@ -49,5 +50,11 @@ public class AppModule {
     @Singleton
     MealsController provideMealController(MealsControllerImpl mealsController) {
         return mealsController;
+    }
+
+    @Provides
+    @Singleton
+    CallbackManager provideCallBackManager() {
+        return CallbackManager.Factory.create();
     }
 }
